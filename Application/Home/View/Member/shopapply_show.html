@@ -1,0 +1,51 @@
+<style>
+.cinfo_l{width:50%;float:left;}
+</style>
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>商户名称：</label>
+				<span class="show">
+					{$info.APPLY_SHOPNAME}
+				</span>
+			</p>
+			<p>
+				<label>会员名称：</label>
+				<span class="show">
+					{$info.APPLY_NAME}
+				</span>
+			</p>
+			<p>
+				<label>手机号：</label>
+				<span class="show">{$info.APPLY_MOBILE}</span>
+			</p>
+			<p>
+				<label>所在城市：</label>
+				<span class="show">{$info.CITY_NO|getcity_name=###}</span>
+			</p>
+			<p>
+				<label>组织名称：</label>
+				<span class="show">{$info.BRANCH_MAP_ID|get_branch_name=###,$info['PARTNER_MAP_ID']}</span>
+			</p>
+			<p>
+				<label>申请时间：</label>
+				<span class="show">{$info.CITY_NO|getcity_name=###}</span>
+			</p>
+			<p>
+				<label>联系状态：</label>
+				<span class="show">{$apply_status[$info[APPLY_STATUS]]}</span>
+			</p>
+			<p>
+				<label>联系结果：</label>
+				<span class="show">{$info.RES}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,30 @@
+<div class="pageContent">	
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<input type="hidden" name="post[HBILL_ID]" value="{$info.HBILL_ID}">
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="jfbmake" style="padding:10px 20px;">
+				<div class="title"><font color="red">{$info.HOST_NAME}</font>　结算单　{$info.CHECK_TITLE}</div>
+				<div class="content100">
+					<p>结算单位：{$info.HOST_NAME}<span class="show" style="float:right;">结算日期：{$info.SETTLE_DATE}</span></p>
+					<div class="clear"></div>
+				</div>
+				<include file="Settle/settle_common_top" />
+				<div class="content100">
+					<p>
+						<label>备注：</label>
+						<textarea class="textInput" maxlength="200px" style="width:577px;height:60px;" name="post[ACCT_DESC]"></textarea>
+					</p>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	</div>
+</div>

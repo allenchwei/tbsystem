@@ -1,0 +1,115 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<input type="hidden" name="post[USER_LEVEL]" value="{$home['USER_LEVEL']}">
+		<gt name="info.USER_ID" value="0">
+			<input type="hidden" name="post[USER_ID]" value="{$info.USER_ID}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<if condition="$home['CHANNEL_MAP_ID'] eq 0">
+				<p>
+					<label>用户级别：</label>
+					<span class="show">{:C('USER_LEVEL')[$home['USER_LEVEL']]}</span>
+					<input type="hidden" name="post[USER_LEVEL]" value="{$home['USER_LEVEL']}">
+				</p>
+				<p class="maxcombox5">
+					<label>用户归属：</label>
+					<span class="show">{$home.PARTNER_MAP_ID|get_level_name=###,$home['BRANCH_MAP_ID']}</span>
+					<input type="hidden" name="post[BRANCH_MAP_ID]"  value="{$home['BRANCH_MAP_ID']}">
+					<input type="hidden" name="post[PARTNER_MAP_ID]" value="{$home['PARTNER_MAP_ID']}">
+				</p>
+				</if>
+				<p>
+					<label>角色渠道：</label>
+					<select class="combox" name="post[CHANNEL_MAP_ID]">
+						<option value="0">请选择</option>
+						<volist name="channel_list" id="vo">			
+							<option value="{$vo.CHANNEL_MAP_ID}" <if condition="$info['CHANNEL_MAP_ID'] eq $vo['CHANNEL_MAP_ID']">selected</if>>{$vo.CHANNEL_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>角色名称：</label><!-- 
+					<span class="show">{$home['ROLE_NAME']}</span>
+					<input type="hidden" name="post[ROLE_ID]" value="{$home['ROLE_ID']}">
+ -->
+					<select class="combox" name="post[ROLE_ID]">
+						<option value="">请选择</option>
+						<volist name="role_list" id="vo">			
+							<option value="{$vo.ROLE_ID}" <if condition="$info['ROLE_ID'] eq $vo['ROLE_ID']">selected</if>>{$vo.ROLE_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<if condition="((__ACTNAME__ eq user_edit) OR (__ACTNAME__ eq user_add)) && $home['CHANNEL_MAP_ID'] neq 0 && $home['ROLE_NAME'] eq OEM">
+				<p>
+					<label>用户工号：</label>
+					<input type="text" readonly="true" value="{$info.USER_NO}" class="digits required" name="post[USER_NO]" maxlength="3"/>
+				</p>
+				<else />
+				<p>
+					<label>用户工号：</label>
+					<input type="text" value="{$info.USER_NO}" class="digits required" name="post[USER_NO]" maxlength="3"/>
+					<span class="message">（3位数，登录工号为：<font color="red">用户归属ID号</font> + <font color="red">输入的三位数字</font>）</span>
+				</p>
+				</if>
+				<p>
+					<label>用户名称：</label>
+					<input type="text" value="{$info.USER_NAME}" class="required" name="post[USER_NAME]" maxlength="8"/>
+					<if condition="((__ACTNAME__ eq user_edit) OR (__ACTNAME__ eq user_add)) && $home['CHANNEL_MAP_ID'] neq 0 && $home['ROLE_NAME'] eq OEM">
+					<span class="message"><font color="red"></font></span>
+					</if>
+				</p>
+				<p>
+					<label>用户状态：</label>
+					<select class="combox" name="post[USER_STATUS]">
+						<option value="">请选择</option>
+						<volist name="user_status" id="vo">
+							<option value="{$key}" <if condition="$info['USER_STATUS'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>用户手机：</label>
+					<input type="text" value="{$info.USER_MOBILE}" class="required digits" name="post[USER_MOBILE]" title="请规范输入用户手机" maxlength="11"/>
+				</p>
+				<p>
+					<label>用户邮箱：</label>
+					<input type="text" value="{$info.EMAIL}" name="post[EMAIL]" class="email_auto ws23"/>
+				</p>
+				<p>
+					<label>　</label>
+					<font color="red">注：初始密码为 手机号的后6位</font>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		//通过级别返回下拉级别
+		$('select[node-type="partnerlv"]').on('change',function(){
+			var val = $(this).val();
+			if(val == 0){
+				$('span[note-type="guishu"]').hide();
+			}else{
+				$('span[note-type="guishu"]').show();
+				$('select[name="plv[]"]').attr('maxlv', val-1);
+				$('select.sellv').trigger("change");
+			}
+		});
+		$(".email_auto").mailAutoComplete({
+			boxClass: "out_box", //外部box样式
+			listClass: "list_box", //默认的列表样式
+			focusClass: "focus_box", //列表选样式中
+			markCalss: "mark_box", //高亮样式
+			autoClass: false,
+			textHint: true //提示文字自动隐藏
+		});
+	</script>
+</div>

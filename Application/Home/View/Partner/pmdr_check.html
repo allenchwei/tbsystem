@@ -1,0 +1,193 @@
+<style>
+.tabs .tabsContent{padding:5px;border-bottom:1px solid #b8d0d6;}
+.tabs .tabsContent .pageFormContent{border-top:none;}
+</style>
+
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="amdr_info.AMDR_ID" value="0">
+			<input type="hidden" name="post[AMDR_ID]" value="{$amdr_info.AMDR_ID}">
+			<input type="hidden" name="post[PARTNER_MAP_ID]" value="{$partner_info.PARTNER_MAP_ID}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="kuai host">
+				<div class="new_01">
+					<div class="m">
+						<p><label style="font-size:16px;font-weight:bold;">| 基本信息<label></p>
+						<p class="host_p3">
+							<label>中文名称：</label>
+							<span class="show">{$partner_info.PARTNER_NAME}</span>
+						</p>
+						<p class="host_p4">
+							<label>级别：</label>
+							{:C('PLEVEL_NAME')[$partner_info['PARTNER_LEVEL']]}
+						</p>
+						<p class="host_p4">
+							<label>协议到期：</label>
+							{$partner_info.END_TIME}	
+						</p>
+						<p class="host_p3">
+							<label>隶属分支：</label>
+							{$partner_info.BRANCH_NAME}
+						</p>
+						<p class="host_p4">
+							<label>实收加盟费：</label>
+							{$partner_info.JOIN_FEE|default='0.00'} 万
+						</p>
+						<p class="host_p4">
+							<label>实收保证金：</label>
+							{$partner_info.FUND_AMT|default='0.00'} 万
+						</p>
+						<p class="host_p1">
+							<label>收货地址：</label>
+							{$partner_info.ADDRESS}
+						</p>
+						<p class="host_p4">
+							<label>邮编：</label>
+							{$partner_info.ZIP}
+						</p>
+						<p class="host_p2">
+							<label>联系人：</label>
+							{$partner_info.MANAGER}
+						</p>
+						<p class="host_p2">
+							<label>联系电话：</label>
+							{$partner_info.TEL}
+						</p>
+						<p class="host_p6">
+							<label style="width:50px">手机：</label>
+							{$partner_info.MOBILE}
+						</p>
+						<p class="host_p4">
+							<label>邮件：</label>
+							{$partner_info.EMAIL}
+						</p>
+						<p class="host_p2">
+							<label>销售人员：</label>
+							{$partner_info.SALER_NAME}	
+						</p>
+						<p class="host_p2">
+							<label>创建销售员：</label>
+							{$partner_info.CREATE_USERNAME}
+						</p>
+						<p class="host_p5">
+							<label style="width:50px">状态：</label>
+							待审核
+							{:C(CHECK_POINT.all)[$partner_info.PARTNER_STATUS]}
+						</p>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="new_02">
+					<div class="tabs">
+						<div class="tabsHeader">
+							<div class="tabsHeaderContent">
+								<ul>
+									<li><a href="javascript:;"><span>扣率</span></a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="tabsContent">
+							<div class="pageFormContent">
+								<div class="tb1">
+									<table width="100%">
+										<tr>
+											<th>行业类别</th>
+											<th>扣率（万分比）</th>
+											<th>是否封顶</th>
+										</tr>
+										<tr>
+											<td>{$mcc_type[$amdr_info['MCC_TYPE']]}</td>
+											<td>{$amdr_info.PER_FEE}　&#8241;</td>
+											<td><gt name="amdr_info['FIX_FEE']" value="0">封顶　{$amdr_info.FIX_FEE}　元<else />不封顶　</gt></td>
+										</tr>
+									</table>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<if condition="__ACTNAME__ eq 'amdr_check'">
+				<div class="vett">
+					<div class="vetts">
+						<div class="tt1">
+							<p>
+								<label>变更审核：</label>
+								<span class="show">
+									<input type="radio" name="post[CHECK_POINT]" value="4" checked>通过 &nbsp;
+									<input type="radio" name="post[CHECK_POINT]" value="5">不通过
+								</span>
+							</p>
+							<p>
+								<label>初审人：</label>
+								<span class="show">{$Think.session.HOME.USER_NAME}</span>
+							</p>
+							<p>
+								<label>初审日期：</label>
+								<span class="show">{:date('Y-m-d H:i')}</span>
+							</p>
+							<div class="clear"></div>
+						</div>
+						<div class="tt1">
+							<span><label>初审意见：</label></span>
+							<textarea style="width:300px;height:95px;" name="post[CHECK_DESC]">初审通过</textarea>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			<else />
+				<div class="vett">
+					<div class="vetts">
+						<p>
+							<label>审核：</label><span class="show">通过</span>
+							<label>审核人：</label><span class="show">{$check_info.USER_NAME}</span>
+							<label>审核日期：</label><span class="show">{$check_info.CHECK_TIME}</span>
+						</p>
+						<p>
+							<label>审核意见：</label>
+							<span class="show">{$check_info.CHECK_DESC}</span>
+						</p>
+						<div class="clear"></div>
+					</div>
+				</div>
+		
+				<div class="vett">
+					<div class="vetts">
+						<div class="tt1">
+							<p>
+								<label>变更复审：</label>
+								<span class="show">
+									<input type="radio" name="post[CHECK_POINT]" value="0" checked>通过 &nbsp;
+									<input type="radio" name="post[CHECK_POINT]" value="3">不通过
+								</span>
+							</p>
+							<p>
+								<label>复审人：</label>
+								<span class="show">{$Think.session.HOME.USER_NAME}</span>
+							</p>
+							<p>
+								<label>复审日期：</label>
+								<span class="show">{:date('Y-m-d H:i')}</span>
+							</p>
+							<div class="clear"></div>
+						</div>
+						<div class="tt1">
+							<span><label>复审意见：</label></span>
+							<textarea style="width:300px;height:95px;" name="post[CHECK_DESC]">复审通过</textarea>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</if>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

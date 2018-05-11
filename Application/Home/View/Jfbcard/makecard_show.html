@@ -1,0 +1,40 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="jfbmake">
+			<div class="title"><font color="red" node-type="company_name">{$makecard_data.BRANCH_MAP_ID|get_branch_name=###}</font>　制卡申请单</div>
+			<div class="jname">
+				<a>申请日期：{$makecard_data.OUT_DATE}</a>
+				<a class="f_r">制卡批次：{$makecard_data.CARD_BATCH}</a>
+				<div class="clear"></div>
+			</div>
+			<div class="jfbkuai">
+				<div class="content50">
+					<p class="jfb_sel">
+						<label>申请公司</label>
+						<span class="show">{$makecard_data.BRANCH_MAP_ID|get_branch_name=###}</span>
+					</p>
+					<p>
+						
+					</p>
+					<p class="jfb_input" style="width:100%;">
+						<label>制卡数量</label>
+						<span class="show">{$makecard_data.CARD_NUM} 张</span>
+					</p>
+					<p class="jfb_line"></p>
+					<p>起始卡号：{$makecard_data.CARD_BEGIN}</p>
+					<p>结束卡号：{$makecard_data.CARD_END}</p>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="bzhu">
+				备注<input type="text" name="makecard[RES]" value="{$makecard_data.RES}" disabled="disabled" maxlength="30"/>
+				操作人：{$makecard_data.CREATE_USERNAME}
+			</div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

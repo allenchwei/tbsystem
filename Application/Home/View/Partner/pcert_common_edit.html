@@ -1,0 +1,459 @@
+<div class="pageFormContent err_offset_2 shop_scert">
+	<div class="content100">
+		<p style="width:100%;color: red">
+			<label>提示：</label>
+			如使用中出现点击上传按钮无效的情况, 建议升级当前浏览器,推荐使用火狐, 360等浏览器
+		</p>
+		<p>
+			<label>合同编号：</label>
+			<input type="text" name="pcert[AGREEMENT_NO]" class="required" value="{$pcert_info.AGREEMENT_NO}" maxlength="20"/>
+		</p>
+		<empty name="partner_info['PARTNER_MAP_ID']">
+			<p class="err_offset_4_4">
+				<label>注册地址：</label>
+					{$pcert_info[CITY_NO]|getcity_select=###,'pcert[CITY_NO]'}
+				<input type="text" class="required" name="pcert[REG_ADDR]" value="{$pcert_info.REG_ADDR}" style="width:250px;" maxlength="30"/>
+			</p>
+		<else />
+			<p>
+				<label>注册地址：</label>
+				<input type="text" class="required" name="pcert[REG_ADDR]" value="{$pcert_info.REG_ADDR}" style="width:250px;" maxlength="30"/>
+			</p>
+		</empty>
+		<div class="clear"></div>
+	</div>
+	<div class="content50">
+		<div class="p_img_2">
+			<label>营业执照号码：</label>
+			<input type="text" name="pcert[REG_ID]" value="{$pcert_info.REG_ID}" class="required" maxlength="32">
+			<span class="error" for="pcert[REG_ID]" style="top: 30px;display: none;">必填字段</span>
+			<input type="hidden" name="pcert[REGID_PHOTO]" value="{$pcert_info.REGID_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='REGID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$pcert_info[REGID_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="pcert_info[REGID_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="pcert[REGID_PHOTO]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>组织机构代码：</label>
+			<input type="text" name="pcert[ORG_ID]" value="{$pcert_info.ORG_ID}" maxlength="32">
+			<span class="error" for="pcert[ORG_ID]" style="top: 30px;display: none;">必填字段</span>
+			<input type="hidden" name="pcert[ORGID_PHOTO]" value="{$pcert_info.ORGID_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='ORGID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$pcert_info[ORGID_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="pcert_info[ORGID_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="pcert[ORGID_PHOTO]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>税务登记证：</label>
+			<input type="text" name="pcert[TAX_ID]" value="{$pcert_info.TAX_ID}" maxlength="32">
+			<span class="error" for="pcert[TAX_ID]" style="top: 30px;display: none;">必填字段</span>
+			<input type="hidden" name="pcert[TAXID_PHOTO]" value="{$pcert_info.TAXID_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='TAXID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$pcert_info[TAXID_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="pcert_info[TAXID_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="pcert[TAXID_PHOTO]"></a>
+			</div>
+		</div>
+		<div class="p_img_2" style="height:55px;">
+			<label>法人姓名：</label>
+			<input type="text" name="pcert[LP_NAME]" value="{$pcert_info.LP_NAME}" class="required" maxlength="10">
+			<span class="error" for="pcert[LP_NAME]" style="top: 30px;display: none;">必填字段</span>
+		</div>
+		<div class="p_img_2">
+			<label>身份证号码：</label>
+			<input type="text" name="pcert[LP_ID]" value="{$pcert_info.LP_ID}" class="required idcard" maxlength="18">
+			<input type="hidden" name="pcert[LP_D_PHOTO]" value="{$pcert_info.LP_D_PHOTO}">
+			<input type="hidden" name="pcert[LP_R_PHOTO]" value="{$pcert_info.LP_R_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='LP_ID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb" node-type="LP_1">
+				<img src="{$pcert_info[LP_D_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" flag="1" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="pcert_info[LP_D_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="pcert[LP_D_PHOTO]"></a>
+			</div>
+			<div class="tp_gb" node-type="LP_2">
+				<img src="{$pcert_info[LP_R_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" flag="1" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="pcert_info[LP_R_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="pcert[LP_R_PHOTO]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>开户许可证：</label>
+			<input type="hidden" name="pcert[BANK_PHOTO]" value="{$pcert_info.BANK_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='BANK_PHOTO' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$pcert_info[BANK_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="pcert_info[BANK_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="pcert[BANK_PHOTO]"></a>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="p_img_2" style="width:100%;">
+			<label>其他：</label>
+			<input type="hidden" name="pcert[OTHER_PHOTOS]" value="{$pcert_info.OTHER_PHOTOS}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='OTHER' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb" node-type="OTHER_1">
+				<img src="{$pcert_info['OTHER'][0]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="pcert_info['OTHER'][0]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="del_other_pic" target_name="pcert[OTHER1]"></a>
+			</div>
+			<div class="tp_gb" node-type="OTHER_2">
+				<img src="{$pcert_info['OTHER'][1]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="pcert_info['OTHER'][1]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="del_other_pic" target_name="pcert[OTHER2]"></a>
+			</div>
+			<div class="tp_gb" node-type="OTHER_3">
+				<img src="{$pcert_info['OTHER'][2]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="pcert_info['OTHER'][2]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="del_other_pic" target_name="pcert[OTHER3]"></a>
+			</div>
+			<div class="tp_gb" node-type="OTHER_4">
+				<img src="{$pcert_info['OTHER'][3]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="pcert_info['OTHER'][3]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="del_other_pic" target_name="pcert[OTHER4]"></a>
+			</div>
+			<div class="tp_gb" node-type="OTHER_5">
+				<img src="{$pcert_info['OTHER'][4]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="pcert_info['OTHER'][4]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="del_other_pic" target_name="pcert[OTHER5]"></a>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<script>
+		//删除图片
+		$('img[node-type="delpic"]').on('click',function(){
+			var param1 = $(this).closest('div.p_img_2'),
+				param2 = $(this).closest('div.tp_gb'),
+				target_name = $(this).attr('target_name');
+			param1.find('input[name="'+target_name+'"]').val('');
+			param2.find('img[node-type="pic"]').attr('src','../../../Public/home/images/gszp.png');
+			$(this).closest('a').hide();
+		})
+		//删除其他图片
+		$('img[node-type="del_other_pic"]').on('click',function(){
+			var param1 = $(this).closest('div.p_img_2'),
+				param2 = $(this).closest('div.tp_gb'),
+				target_name = $(this).attr('target_name');
+				param2.find('img[node-type="pic"]').attr('src','../../../Public/home/images/gszp.png');
+				$(this).closest('a').hide();
+			//param1.find('input[name="'+target_name+'"]').val('');
+		 	var img_arr = param1.find('img[node-type="pic"]');
+			//拼装图片路径字串
+ 			var img_url = '';
+ 			$.each(img_arr, function(i) {
+			     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+			     if(flag == '../../../Public/home/images/gszp.png'){
+			     	img_url+=',';
+			     }else{
+			     	img_url+=','+flag;
+			     }
+			});
+			console.log(img_url);
+			var img_path = img_url.substring(1);
+			param1.find('input[name="pcert[OTHER_PHOTOS]"]').val(img_path);
+		})
+		var uploadify_onSelectError = function(file, errorCode, errorMsg) {
+	        var msgText = "上传失败\n";
+	        switch (errorCode) {
+	            case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
+	                //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+	                msgText += "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+	                msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+	                msgText += "文件大小为0";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+	                msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
+	                break;
+	            default:
+	                msgText += "错误代码：" + errorCode + "\n" + errorMsg;
+	        }
+	        alert(msgText);
+	    };
+		 
+		var uploadify_onUploadError = function(file, errorCode, errorMsg, errorString) {
+	        // 手工取消不弹出提示
+	        if (errorCode == SWFUpload.UPLOAD_ERROR.FILE_CANCELLED
+	                || errorCode == SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED) {
+	            return;
+	        }
+	        var msgText = "上传失败\n";
+	        switch (errorCode) {
+	            case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
+	                msgText += "HTTP 错误\n" + errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.MISSING_UPLOAD_URL:
+	                msgText += "上传文件丢失，请重新上传";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.IO_ERROR:
+	                msgText += "IO错误";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
+	                msgText += "安全性错误\n" + errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
+	                msgText += "每次最多上传 " + this.settings.uploadLimit + "个";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
+	                msgText += errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.SPECIFIED_FILE_ID_NOT_FOUND:
+	                msgText += "找不到指定文件，请重新操作";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
+	                msgText += "参数错误";
+	                break;
+	            default:
+	                msgText += "文件:" + file.name + "\n错误码:" + errorCode + "\n"
+	                        + errorMsg + "\n" + errorString;
+	        }
+	        alert(msgText);
+	    }
+		//图片上传
+		$('#REGID').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#REGID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#REGID').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('flag',"1");
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="pcert[REGID_PHOTO]"]').val(resjson.result);
+	        }
+        });
+		$('#ORGID').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#ORGID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#ORGID').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="pcert[ORGID_PHOTO]"]').val(resjson.result);
+	        }
+        });
+        $('#TAXID').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#TAXID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#TAXID').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="pcert[TAXID_PHOTO]"]').val(resjson.result);
+	        }
+        });
+        $('#LP_ID').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'hideButton' 	: true,
+            'auto'	   		: true,
+            'multi'       	: true,
+            'queueSizeLimit': 2,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'overrideEvents' : [ 'onDialogClose', 'onUploadError', 'onSelectError' ],
+            'onInit': function () {                        //隐藏进度条
+               $("#LP_ID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#LP_ID').closest('div.p_img_2');
+		 		var img_arr = param.find('img[node-type="pic"]'),
+		 			file_index = 0;
+				$.each(img_arr, function(i) {
+				     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+				     if(flag == '../../../Public/home/images/gszp.png'){
+				     	file_index = i;
+				     	return false; 					//跳出循环
+				     }
+				});
+		 		//file_index = file.index%2;
+		 		switch (file_index) {
+		 			case 0:
+			 			param.find('div[node-type="LP_1"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="LP_1"] a').show();
+		 				param.find('input[name="pcert[LP_D_PHOTO]"]').val(resjson.result);
+		 			break;
+		 			case 1:
+			 			param.find('div[node-type="LP_2"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="LP_2"] a').show();
+			 			param.find('input[name="pcert[LP_R_PHOTO]"]').val(resjson.result);
+		 			break;
+		 		};
+	        },
+	        'onUploadError' : uploadify_onUploadError,
+	        'onSelectError' : uploadify_onSelectError
+        });
+        $('#BANK_PHOTO').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#BANK_PHOTO-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#BANK_PHOTO').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="pcert[BANK_PHOTO]"]').val(resjson.result);
+	        }
+        });
+
+		//其他
+  		$('#OTHER').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'hideButton' 	: true,
+            'auto'	   		: true,
+            'multi'       	: true,
+            'queueSizeLimit': 5,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'overrideEvents' : [ 'onDialogClose', 'onUploadError', 'onSelectError' ],
+            'onInit': function () {                        //隐藏进度条
+               $("#OTHER-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#OTHER').closest('div.p_img_2');
+		 		var img_arr = param.find('img[node-type="pic"]'),
+		 			file_index = 0;
+				$.each(img_arr, function(i) {
+				     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+				     if(flag == '../../../Public/home/images/gszp.png'){
+				     	file_index = i;
+				     	return false; 					//跳出循环
+				     }
+				});
+		 		//file_index = file.index%2;
+		 		switch (file_index) {
+		 			case 0:
+			 			param.find('div[node-type="OTHER_1"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="OTHER_1"] a').show();
+		 			break;
+		 			case 1:
+		 				param.find('div[node-type="OTHER_2"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="OTHER_2"] a').show();
+		 			break;
+		 			case 2:
+			 			param.find('div[node-type="OTHER_3"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="OTHER_3"] a').show();
+		 			break;
+		 			case 3:
+			 			param.find('div[node-type="OTHER_4"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="OTHER_4"] a').show();
+		 			break;
+		 			case 4:
+			 			param.find('div[node-type="OTHER_5"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="OTHER_5"] a').show();
+		 				
+		 			break;
+		 		};
+		 		//拼装图片路径字串
+	 			var img_url = '';
+	 			$.each(img_arr, function(i) {
+				     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+				     if(flag == '../../../Public/home/images/gszp.png'){
+				     	img_url+=',';
+				     }else{
+				     	img_url+=','+flag;
+				     }
+				});
+				var img_path = img_url.substring(1);
+				param.find('input[name="pcert[OTHER_PHOTOS]"]').val(img_path);
+	        },
+	        'onUploadError' : uploadify_onUploadError,
+	        'onSelectError' : uploadify_onSelectError
+        });
+	</script>
+</div>

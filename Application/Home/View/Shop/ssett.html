@@ -1,0 +1,88 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="ssett"/>
+	<input type="hidden" name="post[bid]" value="{$postdata.bid}"/>
+	<input type="hidden" name="post[pid]" value="{$postdata.pid}"/>
+	<input type="hidden" name="post[SHOP_STATUS]" value="{$postdata.SHOP_STATUS}"/>
+	<input type="hidden" name="post[MCC_TYPE]" value="{$postdata.MCC_TYPE}"/>
+	<input type="hidden" name="post[MCC_CODE]" value="{$postdata.MCC_CODE}"/>
+	<input type="hidden" name="post[POS_STATUS]" value="{$postdata.POS_STATUS}"/>
+	<input type="hidden" name="post[SHOP_NO]" value="{$postdata.SHOP_NO}"/>
+	<input type="hidden" name="post[SHOP_NAME]" value="{$postdata.SHOP_NAME}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="{:U('/Home/Shop/ssett')}" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="ssett">
+		<div class="searchBar">
+			<div class="header">
+				<p class="maxcombox">
+					<label>商户名称：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.SHOP_NAME}" name="post[SHOP_NAME]">
+				</p>
+				<p class="maxcombox">
+					<label>&nbsp;商户号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.SHOP_NO}" name="post[SHOP_NO]">
+				</p>
+				<p class="maxcombox3">
+					<label>商户状态：</label>
+					<select class="combox" name="post[SHOP_STATUS]">
+						<option value="">请选择</option>
+						<volist name="shop_status_check" id="vo">
+							<option value="{$key}" <if condition="($postdata.SHOP_STATUS eq $key) and ($postdata.SHOP_STATUS neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+				<p class="maxcombox">
+					<label style="width: 60px;">MCC类：</label>
+					{:getmcc_select($postdata['MCC_TYPE'],$postdata['MCC_CODE'],'post[MCC_TYPE]','post[MCC_CODE]')}
+				</p>
+				<div class="clear"></div>
+				<p class="maxcombox">
+					<label style="width: 60px;">归属：</label>
+					{:get_level_sel($postdata['bid'],'-1','soplv[]',$postdata['pid'],2)}
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="209">
+		<thead>
+			<tr>
+				<th width="11%" align="center">商户号</th>
+				<th width="16%">商户名称</th>
+				<th width="16%" >所在城市</th>
+				<th width="12%" align='center'>变更日期</th>
+				<th width="5%" align="center">状态</th>
+				<th width="16%">归属</th>
+				<th width="16%" >归属集团商户</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.SHOP_MAP_ID}_<gt name='vo.TMP_ID' value='0'>1<else/>0</gt>" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.SHOP_NO}</td>
+					<td>{$vo.SHOP_NAME}</td>
+					<td>{$vo.CITY_NO|getcity_name=###}</td>
+					<td>{$vo.CREATE_TIME}</td>
+					<td><gt name='vo.TMP_ID' value='0'>有更新【{$shop_status_check[$vo['TMP_STATUS']]}】<else/> {$shop_status[$vo['SHOP_STATUS']]} </gt></td>
+					<td>{$vo.PARTNER_NAME|default="暂无"}</td>
+					<td>{$vo.SHOP_MAP_ID_P|get_shopp_name=###}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

@@ -1,0 +1,136 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.DKCO_MAP_ID" value="0">
+			<input type="hidden" name="post[DKCO_MAP_ID]" value="{$info.DKCO_MAP_ID}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>代扣公司名称：</label>
+					<input type="text" value="{$info.DKCO_NAME}" name="post[DKCO_NAME]" class="required ws416" maxlength="40"/>
+				</p>
+				<p>
+					<label>代扣公司地址：</label>
+					{$info.CITY_NO|getcity_select=###,'post[CITY_NO]'}
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content30">
+				<p style="width:66.66%;">
+					<label>　</label>
+					<input type="text" value="{$info.ADDRESS}" name="post[ADDRESS]" class="required ws416" maxlength="40"/>
+				</p>
+				<p>
+					<label>邮政编码：</label>
+					<input type="text" value="{$info.ZIP}" name="post[ZIP]" class="required digits" maxlength="6"/>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content100">
+				<p>
+					<label>状态：</label>
+					<select class="combox" name="post[DKCO_STATUS]">
+						<volist name="dkco_status" id="vo">
+							<option value="{$key}" <if condition="$info['DKCO_STATUS'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>联系人：</label>
+					<input type="text" value="{$info.MANAGER}" name="post[MANAGER]" class="required" maxlength="10"/>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content30">
+				<p>
+					<label>联系手机：</label>
+					<input type="text" value="{$info.MOBILE}" name="post[MOBILE]" class="required digits" maxlength="11"/>
+				</p>
+				<p>
+					<label>联系电话：</label>
+					<input type="text" value="{$info.TEL}" name="post[TEL]" class="digits" maxlength="15"/>
+				</p>
+				<p>
+					<label>联系传真：</label>
+					<input type="text" value="{$info.FAX}" name="post[FAX]" class="digits" maxlength="15"/>
+				</p>
+				<p class="ic_line"></p>
+				<div class="clear"></div>
+			</div>
+			<div class="content100">
+				<p>
+					<label>收费标准：</label>
+					<select class="combox" name="post[DKCO_FEE_FLAG]">
+						<volist name="dkco_fee_flag" id="vo">
+							<option value="{$key}" <if condition="$info['DKCO_FEE_FLAG'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p class="biaozhun_0">
+					<label>　</label>
+					<input type="text" value="<gt name='info[DKCO_FEE_FIX]' value='0'>{$info.DKCO_FEE_FIX|setMoney=###,2,2}</gt>" name="post[DKCO_FEE_FIX]" class="number" maxlength="6"/>　元
+				</p>
+				<p class="biaozhun_1" style="display:none;">
+					<label>　</label>
+					<input type="text" value="<gt name='info[DKCO_FEE_PER]' value='0'>{$info.DKCO_FEE_PER}</gt>" name="post[DKCO_FEE_PER]" class="number" max="100" maxlength="3"/>　%
+				</p>
+				<p>
+					<label>代扣周期：</label>
+					<input type="text" value="{$info.DKCO_DK_T|default='2'}" name="post[DKCO_DK_T]" class="required" maxlength="6"/>
+					<select class="combox" name="post[DKCO_DK_WD]">
+						<volist name="dkco_dk_wd" id="vo">
+							<option value="{$key}" <if condition="$info['DKCO_DK_WD'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>起扣金额：</label>
+					<input type="text" value="<gt name='info[DKCO_DK_LOWAMT]' value='0'>{$info.DKCO_DK_LOWAMT|setMoney=###,2,2}<else/>15</gt>" name="post[DKCO_DK_LOWAMT]" class="number required" maxlength="8"/>　元
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		//初始化
+		$(function($) {
+			var value = '{$info["DKCO_FEE_FLAG"]}' ? '{$info["DKCO_FEE_FLAG"]}' : 0;
+			checkRequired(value);
+		});	
+		$('select[name="post[DKCO_FEE_FLAG]"]').on('change', function(){
+			var value = $(this).val();
+			checkRequired(value);
+		});
+		function checkRequired(value){
+			var number = value==0 ? 1 : 0;
+			$('.biaozhun_'+number).hide();
+			$('.biaozhun_0, .biaozhun_1').find('.required').removeClass('required');
+			$('.biaozhun_'+value).find('input').addClass('required');
+			$('.biaozhun_'+value).show();
+		}
+		
+		//获取邮政编码
+		$('select[name="post[CITY_NO]').on('change',function(){
+			var city_code = $(this).val();
+			if(!!city_code) {
+				$.ajax({
+					type: "POST",
+					url : "/index.php/Home/Public/ajaxgetcode",
+					data: "city_no="+ city_code,
+					success: function(data){
+						if(data.CITY_ZIP_CODE){
+							$('input[name="post[ZIP]"]').val(data.CITY_ZIP_CODE);
+						}
+					}
+				});
+			}			
+		})
+	</script>
+</div> 

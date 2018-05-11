@@ -1,0 +1,47 @@
+<div class="pageFormContent">
+	<div class="content100">
+		<p>
+			<label>风险级别：</label>
+			<select class="combox" name="srisk[SHOP_GRADE]">
+				<volist name="shop_grade" id="vo">
+					<option value="{$key}" <if condition="($srisk_info['SHOP_GRADE'] eq $key)">selected</if>>{$vo}</option>
+				</volist>
+			</select>
+		</p>
+		<p>
+			<label>风险积数：</label>
+			<input type="text" class="required digits" name="srisk[SHOP_RISKBOUND]" value="{$srisk_info.SHOP_RISKBOUND}" maxlength='3'>
+		</p>
+	</div>
+	<div class="content50 err_offset_1_1">
+		<p>
+			<label>手输比例：</label>	
+			<input type="text" value="{$srisk_info.POSMODE_PER}" date-type="POSMODE_PER" name="srisk[POSMODE_PER]" class="required digits ws10" min='0' max='100' maxlength='3'>　%
+		</p>
+		<p class="p_fxjb err_offset_5_1">
+			<label>调单比例：</label>	
+			<input type="text" value="{$srisk_info.CBREQ_PER}" name="srisk[CBREQ_PER]" class="required digits ws10" min='0' max='100' maxlength='3'>　%
+		</p>
+		<p>
+			<label>退货比例：</label>	
+			<input type="text" value="{$srisk_info.REFUND_PER}" name="srisk[REFUND_PER]" class="required digits ws10" min='0' max='100' maxlength='3'>　%
+		</p>
+		<p class="p_fxjb err_offset_5_1">
+			<label>非营业时间比例：</label>	
+			<input type="text" value="{$srisk_info.BUSITIME_ABS}" name="srisk[BUSITIME_ABS]" class="required digits ws10" min='0' max='100' maxlength='3'>　%
+		</p>
+		<p>
+			<label>退单比例：</label>	
+			<input type="text" value="{$srisk_info.CBBACK_PER}" name="srisk[CBBACK_PER]" class="required digits ws10" min='0' max='100' maxlength='3'>　%
+		</p>
+		<p class="p_fxjb err_offset_5_1">
+			<label>查询交易比例：</label>	
+			<input type="text" value="{$srisk_info.BALANCE_PER}" name="srisk[BALANCE_PER]" class="required digitsws10" min='0' max='100' maxlength='3'>　%
+		</p>
+		<p style="width:100%;">
+			<label>备注信息：</label>
+			<textarea style="width:600px;height:60px;" name="srisk[RES]" maxlength="30">{$srisk_info.RES}</textarea>
+		</p>
+		<div class="clear"></div>
+	</div>
+</div>

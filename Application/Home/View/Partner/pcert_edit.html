@@ -1,0 +1,48 @@
+<style>
+.err_offset_1 .error{left:115px;}
+.err_offset_2 .error{left:125px;}
+.err_offset_3 .error{left:255px;}
+.err_offset_3_1 .error{left:14px;}
+.err_offset_4 .error{left:100px;}
+.err_offset_4_1 .error{left:135px;}
+.err_offset_4_2 .error{left:523px;}
+.err_offset_4_3 .error{left:120px;}
+.err_offset_4_4 .error{left:548px;}
+.pageFormContent .label_100 label{width:100px;}
+.pageFormContent .label_30 label{width:100px;}
+div.upimgbtndiv{width:100px;float:left; margin: 0 10px;}
+.uploadify-button{background-image: none;background-color: #324e75;}
+.uploadify:hover .uploadify-button{background-image: none;background-color: #324e75;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="pcert[submit]" value="__ACTNAME__">
+		<gt name="partner_info.PARTNER_MAP_ID" value="0">
+			<input type="hidden" name="pcert[PARTNER_MAP_ID]" value="{$pcert_info.PARTNER_MAP_ID}">
+			<input type="hidden" name="pcert[flag]" value="{$pcert_info.flag}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<!-- 导入基本信息内容 -->
+			<include file="partner_common_show" />	
+			<div class="tabs">
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>证照</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">
+					<!-- 导入证照信息内容 -->
+					<include file="pcert_common_edit"/>
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>

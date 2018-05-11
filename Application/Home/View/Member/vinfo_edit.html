@@ -1,0 +1,278 @@
+<style>
+.cinfo_l{width:50%;float:left;}
+.pageFormContent label.lable_card{width:120px;}
+/* 图片上传中的样式 */
+div.upimgbtndiv{width:120px;float:left; margin: 0 10px;}
+.uploadify-button{background-image: none;}
+.uploadify:hover .uploadify-button{background-image: none;background-color: #324e75;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.VIP_ID" value="0">
+			<input type="hidden" name="post[VIP_ID]" value="{$info.VIP_ID}">
+			<input type="hidden" name="post[CARD_NO]" value="{$info.CARD_NO}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p class="maxcombox4">
+					<label>归属机构：</label>
+					{$info.PARTNER_MAP_ID|get_level_name=###,$info['BRANCH_MAP_ID']}
+				</p>
+				<p class="ic_line"></p>
+				<div class="clear"></div>
+			</div>
+			<div class="cinfo_l">
+				<div class="content100">					
+					<p>
+						<label>会员姓名：</label>
+						<input type="text" value="{$info.VIP_NAME}" class="required" name="post[VIP_NAME]" maxlength="10"/>
+					</p>
+					<p>
+						<label>证件类型：</label>
+						<select class="combox" name="post[VIP_IDNOTYPE]">
+							<volist name="vip_idnotype" id="vo">
+								<option value="{$key}" <if condition="($info['VIP_IDNOTYPE'] eq $key) and ($info['VIP_IDNOTYPE'] neq '')">selected</if>>{$vo}</option>
+							</volist>
+						</select>
+					</p>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="cinfo_l">
+				<div class="content100">
+					<div class="f_l" style="height:68px">
+						<label>实名认证：</label>
+						<input type="hidden" name="post[ID_PHOTO_A]" value="{$info[ID_PHOTO][0]}">
+						<input type="hidden" name="post[ID_PHOTO_B]" value="{$info[ID_PHOTO][1]}">
+						<div class="upimgbtndiv">
+							<a href="javascript:;" id='LP_ID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+						</div>
+						<img id="ID_PHOTO_A" src="{$info[ID_PHOTO][0]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+						<img id="ID_PHOTO_B" src="{$info[ID_PHOTO][1]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+			<div class="content50">				
+				<p>
+					<label>证件号码：</label>
+					<input type="text" value="{$info.VIP_IDNO}" class="ws18" name="post[VIP_IDNO]" maxlength="20"/>
+				</p>
+				<p>
+					<label>会员生日：</label>
+					<input type="text" value="{$info.VIP_BIRTHDAY}" class="required date" name="post[VIP_BIRTHDAY]" readonly="true">
+					<!-- <a class="inputDateButton f_l" href="#">选择</a> -->
+				</p>
+				<p>
+					<label>手机号码：</label>
+					<input type="text" value="{$info.VIP_MOBILE}" class="digits required" name="post[VIP_MOBILE]" maxlength="11"/>
+				</p>
+				<p>
+					<label>会员性别：</label>
+					<select class="combox" name="post[VIP_SEX]">
+						<volist name="vip_sex" id="vo">
+							<option value="{$key}" <if condition="($info['VIP_SEX'] eq $key) and ($info['VIP_SEX'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:100%">
+					<label>所在城市：</label>
+					{$info['VIP_CITY']|getcity_select=###,'post[VIP_CITY]'}
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content100">
+				<p>
+					<label>户口地址：</label>
+					<input type="text" value="{$info.VIP_ADDRESS}" class="ws416" name="post[VIP_ADDRESS]" maxlength="33"/>
+				</p>
+				<p>
+					<label>会员邮箱：</label>
+					<input type="text" value="{$info.VIP_EMAIL}" class="ws18 email_auto" name="post[VIP_EMAIL]" maxlength="30"/>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		//证件号码 初始化
+		$(function($) {
+			var idno = '{$info["VIP_IDNOTYPE"]}' ? '{$info["VIP_IDNOTYPE"]}' : 0;
+			if(idno == 0){
+				$('input[name="post[VIP_IDNO]"]').addClass('idcard');
+			}
+			$('input[name="post[VIP_IDNO]"]').addClass('required');
+		});
+			
+		//证件类型
+		$('select[name="post[VIP_IDNOTYPE]"]').on('change', function(){
+			var num = $(this).val();
+			if(num == 0){
+				$('input[name="post[VIP_IDNO]"]').addClass('idcard');
+			}else{
+				$('input[name="post[VIP_IDNO]"]').removeClass('idcard');
+			}	
+		});
+		
+		//输入证件号的时候，同时输入 其它信息
+		$('input[name="post[VIP_IDNO]"]').on('blur', function() {
+			var type = $('select[name="post[VIP_IDNOTYPE]"]').val(),
+				idno = $(this).val();
+			if(type == 0){
+				var city_no	= idno.substr(0, 6);				
+				var Y 		= idno.substr(6, 4);
+				var m 		= idno.substr(10, 2);
+				var d 		= idno.substr(12, 2);
+				var sex		= idno.substr(16, 1)%2==0 ? '0' : '1';
+				$('input[name="post[VIP_BIRTHDAY]"]').val(Y+'-'+m+'-'+d);				
+				var id = $('select[name="post[VIP_SEX]"]').parent().attr('id');
+				$('a[name="post[VIP_SEX]"]').attr('value', sex).html(sex==1?'男':'女');
+				$('select[name="post[VIP_SEX]"]').find('option').attr('selected', false);
+				$('select[name="post[VIP_SEX]"]').find('option[value="'+sex+'"]').attr('selected', true);
+				$('#op_'+id).find('.selected').removeClass('selected');
+				$('#op_'+id).find('a[value="'+sex+'"]').addClass('selected');
+			}
+		});		
+	
+		//卡号检测
+		$('input[name="post[CARD_NO]"]').on('blur', function(){
+			var pare 	= $(this);
+			var card_no = pare.val();			
+			if(!!card_no) {
+				$.ajax({
+					type: "POST",
+					url: "__MODULE__/Public/getvipcard_data",
+					data: {card_no:card_no},
+					success: function(_data){
+						if(_data.state == 0){
+							$('input[name="post[VIP_CARD_FLAG]"]').val(_data.result.CARD_P_MAP_ID);
+							$('span[note-type="kataocan"]').html(_data.result.CARD_NAME);
+							$('span[note-type="kafei"]').html(_data.result.CARD_OPENFEE+' 元');
+						}else{
+							alertMsg.error(_data.msg);
+							$('input[name="post[VIP_CARD_FLAG]"]').val('');
+							$('span[note-type="kataocan"]').html('--');
+							$('span[note-type="kafei"]').html('--');
+							pare.val('');
+						}
+				   }
+				});
+			}		
+		});
+		
+		//上传图片
+		var uploadify_onSelectError = function(file, errorCode, errorMsg) {
+	        var msgText = "上传失败\n";
+	        switch (errorCode) {
+	            case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
+	                //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+	                msgText += "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+	                msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+	                msgText += "文件大小为0";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+	                msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
+	                break;
+	            default:
+	                msgText += "错误代码：" + errorCode + "\n" + errorMsg;
+	        }
+	        alert(msgText);
+	    };		 
+		var uploadify_onUploadError = function(file, errorCode, errorMsg, errorString) {
+	        // 手工取消不弹出提示
+	        if (errorCode == SWFUpload.UPLOAD_ERROR.FILE_CANCELLED
+	                || errorCode == SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED) {
+	            return;
+	        }
+	        var msgText = "上传失败\n";
+	        switch (errorCode) {
+	            case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
+	                msgText += "HTTP 错误\n" + errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.MISSING_UPLOAD_URL:
+	                msgText += "上传文件丢失，请重新上传";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.IO_ERROR:
+	                msgText += "IO错误";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
+	                msgText += "安全性错误\n" + errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
+	                msgText += "每次最多上传 " + this.settings.uploadLimit + "个";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
+	                msgText += errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.SPECIFIED_FILE_ID_NOT_FOUND:
+	                msgText += "找不到指定文件，请重新操作";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
+	                msgText += "参数错误";
+	                break;
+	            default:
+	                msgText += "文件:" + file.name + "\n错误码:" + errorCode + "\n"
+	                        + errorMsg + "\n" + errorString;
+	        }
+	        alert(msgText);
+	    }
+		$('#LP_ID').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'hideButton' 	: true,
+            'auto'	   		: true,
+            'multi'       	: true,
+            'queueSizeLimit': 2,
+            'fileTypeExts'  : '*.jpg;*.jpge;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'overrideEvents' : [ 'onDialogClose', 'onUploadError', 'onSelectError' ],
+            'onInit': function () {                        //隐藏进度条
+               $("#LP_ID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			file_index = file.index%2;
+		 		switch (file_index) {
+		 			case 0:
+		 				$('img[id="ID_PHOTO_A"]').attr('src',resjson.result);
+		 				$('input[name="post[ID_PHOTO_A]"]').val(resjson.result);
+		 			break;
+		 			case 1:
+			 			$('img[id="ID_PHOTO_B"]').attr('src',resjson.result);
+			 			$('input[name="post[ID_PHOTO_B]"]').val(resjson.result);
+		 			break;
+		 		};
+	        },
+	        'onUploadError' : uploadify_onUploadError,
+	        'onSelectError' : uploadify_onSelectError
+        });
+		$(".email_auto").mailAutoComplete({
+			boxClass: "out_box", //外部box样式
+			listClass: "list_box", //默认的列表样式
+			focusClass: "focus_box", //列表选样式中
+			markCalss: "mark_box", //高亮样式
+			autoClass: false,
+			textHint: true //提示文字自动隐藏
+		});
+	</script>
+</div>

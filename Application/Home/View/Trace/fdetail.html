@@ -1,0 +1,151 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[SYSTEM_DATE_A]" value="{$postdata.SYSTEM_DATE_A}"/>
+	<input type="hidden" name="post[SYSTEM_DATE_B]" value="{$postdata.SYSTEM_DATE_B}"/>
+	<input type="hidden" name="post[BRANCH_MAP_ID]" value="{$postdata.BRANCH_MAP_ID}"/>
+	<input type="hidden" name="post[PARTNER_MAP_ID]" value="{$postdata.PARTNER_MAP_ID}"/>
+	<input type="hidden" name="post[SHOP_NO]" value="{$postdata.SHOP_NO}"/>
+	<input type="hidden" name="post[SHOP_NAMEAB]" value="{$postdata.SHOP_NAMEAB}"/>
+	<input type="hidden" name="post[TRANS_SUBID]" value="{$postdata.TRANS_SUBID}"/>
+	<input type="hidden" name="post[SHOUYI_TYPE]" value="{$postdata.SHOUYI_TYPE}"/>
+	<input type="hidden" id="exportdata" value="{$exportdata}"/><!-- Excel导出 -->
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">				
+				<p>
+					<span>
+						<label>交易日期：</label>
+						<input class="input01 textInput date f_l readonly" type="text" value="{$postdata.SYSTEM_DATE_A}" name="post[SYSTEM_DATE_A]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+					<code class="code"> ~ </code>
+					<span>
+						<input class="input01 textInput date f_l readonly" type="text" value="{$postdata.SYSTEM_DATE_B}" name="post[SYSTEM_DATE_B]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+					<span class="sta_day">
+						<a href="javascript:;" note-type="seltime" begin="{$timedata.jintian_b}" end="{$timedata.jintian_n}">当日</a>
+						<a href="javascript:;" note-type="seltime" begin="{$timedata.zuotian_b}" end="{$timedata.zuotian_n}">昨日</a>
+						<a href="javascript:;" note-type="seltime" begin="{$timedata.benyue_b}" end="{$timedata.benyue_n}">本月</a>
+						<a href="javascript:;" style="border:none;" note-type="seltime" begin="{$timedata.shangyue_b}" end="{$timedata.shangyue_n}">上月</a>
+					</span>
+				</p>
+				<p class="maxcombox5">
+					<label>交易类型：</label>
+					<select class="combox" name="post[TRANS_SUBID]">
+						<option value="">请选择</option>
+						<option value="31" <eq name="postdata['TRANS_SUBID']" value="31">selected</eq>>消费</option>
+						<option value="33" <eq name="postdata['TRANS_SUBID']" value="33">selected</eq>>现金消费</option>
+					</select>
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>流水归属：</label>
+					{:get_level_sel($postdata['BRANCH_MAP_ID'],'-1','plv[]',$postdata['PARTNER_MAP_ID'],5)}
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>商户编号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.SHOP_NO}" name="post[SHOP_NO]" maxlength="15">
+				</p>
+				<p>
+					<label>商户名称：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.SHOP_NAMEAB}" name="post[SHOP_NAMEAB]" maxlength="12">
+				</p>
+				<p>
+					<label>收益归属：</label>
+					<select class="combox" name="post[SHOUYI_TYPE]">
+						<option value="1" <eq name="postdata['SHOUYI_TYPE']" value="1">selected</eq>>当前平台</option>
+						<option value="2" <eq name="postdata['SHOUYI_TYPE']" value="2">selected</eq>>当前流水归属</option>
+					</select>
+				</p>
+				<p class="maxcombox5">
+					<label>来源：</label>
+					<select class="combox" name="post[SOURCE]">
+						<option value="1" <eq name="postdata['SOURCE']" value="1">selected</eq>>线上</option>
+						<option value="0" <eq name="postdata['SOURCE']" value="0">selected</eq>>线下</option>
+					</select>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="209">
+		<thead>
+			<tr>
+				<th width="4%" align='center'>来源</th>
+				<th width="6%" align='center'>交易类型</th>
+				<th width="10%" >商户名称</th>
+				<th width="13%" align='center'>银行卡号</th>
+				<th width="6%" align='right'>交易金额</th>
+				<th width="6%" align='right'>积分率</th>
+				<th width="6%" align='center'>结果</th>
+				<th width="13%" align='center'>会员卡号</th>
+				<th width="8%" align='right'>平台分润</th>
+				<th width="8%" align='right'>个人分润</th>
+				<th width="6%" align='center'>结算标志</th>
+				<th width="14%" align='center'>交易日期</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.SYSTEM_REF}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td <if condition='$vo.SOURCE eq 1'>style="color:red;"</if>><if condition='$vo.SOURCE eq 1'>线上<else/>线下</if></td>
+					<td>{$vo.TRANS_NAME}</td>
+					<td>{$vo.SHOP_NAMEAB}</td>
+					<td>{$vo.CARD_NO|setCard_no=###}</td>
+					<td>{$vo.TRANS_AMT|setMoney=###,2,2}</td>
+					<td>{$vo.SHOP_NO|set_jifenlv=###}</td>
+					<td>{$trace_status[$vo[TRACE_STATUS]]}</td>
+					<td>{$vo.VIP_CARDNO}</td>
+					<td>{$vo.pingtai|setMoney=###,2,2}</td>
+					<td>{$vo.geren|setMoney=###,2,2}</td>
+					<td><eq name="vo.MARK_FLAG" value="0">已清<else/>未清</eq></td>
+					<td>{$vo.SYSTEM_DATE} {$vo.SYSTEM_TIME}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span><a class="statis" href="javascript:;" note-type="getstatis">点击查看统计</a></span></div>
+		<div class="pagination" checkPage="1" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+	<script type="text/javascript">		
+		//页面加载执行
+		$(document).ready(function(){
+			var	navsnum     = $('.tabsPageHeader .navTab-tab .selected').index();
+			var tabscontent = $('.tabsPageContent .unitBox:eq('+navsnum+')');
+			//点击查看统计
+			tabscontent.find('a[note-type="getstatis"]').on('click',  function(){
+				tabscontent.find('.pages').html('<span><img class="loading" src="__PUBLIC__/home/images/loading.gif">统计中...</span>');
+				
+				var	exportdata  = tabscontent.find('#exportdata').val();
+				var url 	    = exportdata ? '__ACTION__' + exportdata + '&submit=__ACTNAME__&ajax=loading' : '__ACTION__?submit=__ACTNAME__&ajax=loading';
+				$.ajaxSettings.global = false;		//关闭框架loading	
+				$.getJSON(url, {}, function(_data) {
+					tabscontent.find('.pages').html('<span>共 '+ _data.count +' 条</span><span>　总交易金额 '+ _data.total +' 元</span><span>　平台总分润 '+ _data.amt +' 元</span>');
+					$.ajaxSettings.global = true;	//开启框架loading	
+				});
+			});
+			//日期选择
+			tabscontent.find('a[note-type="seltime"]').on('click',  function(){
+				var begin = $(this).attr('begin'),end = $(this).attr('end');
+				tabscontent.find('input[name="post[SYSTEM_DATE_A]"]').val(begin);
+				tabscontent.find('input[name="post[SYSTEM_DATE_B]"]').val(end);
+			});
+		});
+	</script>
+</div>

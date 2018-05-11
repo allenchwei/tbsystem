@@ -1,0 +1,53 @@
+<!-- 
+<form id="pagerForm" method="post" action="__ACTION__">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[BANK_BNAME]" value="{$postdata.BANK_BNAME}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__" onsubmit="return dialogSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>名称：</label>
+					<input class="input01 textInput ws23" type="text" value="{$postdata.BANK_BNAME}" name="post[BANK_BNAME]" maxlength="40">
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+			</div>
+		</div>
+	</form>
+</div> -->
+<div class="pageContent">
+	<table class="table" width="100%" layoutH="57"><!-- 107 -->
+		<thead>
+			<tr>
+				<th width="15%" align='center'>审核编号</th>
+				<th width="5%" align='center'>审核类型</th>
+				<th width="15%" align='center'>审核状态</th>
+				<th width="40%" align='center'>备注信息</th>
+				<th width="10%" align='center'>操作人</th>
+				<th width="15%" align='center'>操作日期</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.BRANCH_MAP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.CHECK_NO}</td>
+					<td>{$vo['CHECK_FLAG'] == '1' ? '进件' : '变更'}</td>
+					<td>{:C('CHECK_POINT.all')[$vo['CHECK_POINT']]}</td>
+					<td title="{$vo.CHECK_DESC}">{$vo.CHECK_DESC}</td>
+					<td>{$vo.USER_NAME}</td>
+					<td>{$vo.CHECK_TIME}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="dialog" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

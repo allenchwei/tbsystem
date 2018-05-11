@@ -1,0 +1,295 @@
+<style>
+.er1 .error{left:125px}
+.er2 .error{left:255px}
+.er2 p{text-align:right;}
+.er2 p label{float:none;}
+.rate .kl span.error{left: 69px;}
+.rate .xz span.error{left:250px}
+.jies2 .xz span.error{left:280px}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.HOST_MAP_ID" value="0">
+			<input type="hidden" name="post[HOST_MAP_ID]" value="{$info.HOST_MAP_ID}">
+			<input type="hidden" name="post[NEWS_FLAG]" value="{$info.HOST_STATUS}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content30">
+				<p style="width:100%;"><label>| 基本信息<label></p>
+				<p style="width:100%;">
+					<label>名称：</label>
+					<input type="text" value="{$info.HOST_NAME}" class="required ws416" name="post[HOST_NAME]" maxlength="26"/>
+				</p>
+				<p style="width:66.66%;">
+					<label>简称：</label>
+					<input type="text" value="{$info.HOST_NAMEAB}" class="required ws23" name="post[HOST_NAMEAB]" maxlength="13"/>
+				</p>
+				<p>
+					<label>协议到期：</label>
+					<input type="text" value="{$info.END_TIME}" class="required date" name="post[END_TIME]" readonly="true" minDate="{:date('Y-m-d')}"/>
+					<a class="inputDateButton f_l" href="#">选择</a>
+				</p>
+				<p style="width:66.66%;">
+					<label>地址：</label>
+					{$info['CITY_NO']|getcity_select=###,'post[CITY_NO]'}
+				</p>
+				<p>
+					<label>邮编：</label>
+					<input type="text" value="{$info.ZIP}" class="required digits" name="post[ZIP]" maxlength="6"/>
+				</p>
+				<p style="width:100%;">
+					<label>&nbsp;</label>
+					<input type="text" value="{$info.ADDRESS}" class="required ws416" name="post[ADDRESS]" maxlength="80"/>
+				</p>
+				<p>
+					<label>联系人：</label>
+					<input type="text" value="{$info.MANAGER}" class="required" name="post[MANAGER]" maxlength="40"/>
+				</p>
+				<p>
+					<label>联系手机：</label>
+					<input type="text" value="{$info.MOBILE}" class="required digits" name="post[MOBILE]" maxlength="11"/>
+				</p>
+				<p>
+					<label>分配收单号：</label>
+					<input type="text" value="{$info.HOST_ACQ_CODE}" class="required digits" name="post[HOST_ACQ_CODE]" maxlength="11"/>
+				</p>
+				<p>
+					<label>联系电话：</label>
+					<input type="text" value="{$info.TEL}" name="post[TEL]" title="请规范输入联系电话" maxlength="15"/>
+				</p>
+				<p>
+					<label>联系邮箱：</label>
+					<input type="text" value="{$info.EMAIL}" class="email_auto" name="post[EMAIL]" maxlength="40"/>
+				</p>
+				<p>
+					<label>映射规则：</label>
+					<select class="combox" name="post[KEY_TYPE]">
+						<volist name="key_type" id="vo">
+							<option value="{$key}" <if condition="$info['KEY_TYPE'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:100%;">
+					<label>支付渠道：</label>
+					<select name="post[CHANNEL]">
+						<option value="">暂无</option>
+						<volist name="channel_list" id="vo">
+						<option value="{$vo[id]}" <if condition="($info[CHANNEL] eq $vo[id]) and ($info['CHANNEL'] neq '')">selected</if>>{$vo[name]}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>交易时间：</label>
+					<input type="text" value="{$info.HOST_TRANS_TIME}" name="post[HOST_TRANS_TIME]" title="例如：00:00-21:30" />
+				</p>
+				<p>
+					<label>代付时间：</label>
+					<input type="text" value="{$info.HOST_DF_TIME}" name="post[HOST_DF_TIME]" title="例如：00:00-21:30"/>
+				</p>
+				<div class="clear"></div>
+			</div>		
+			<div class="tabs">
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>权限开通</span></a></li>
+							<li><a href="javascript:;"><span>成本扣率</span></a></li>
+							<li><a href="javascript:;"><span>结算方式</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">
+					<if condition="(($info['HOST_STATUS'] eq 0) and ($info['HOST_STATUS'] neq '')) || ($info['HOST_STATUS'] eq 4)">
+						<include file="Gallery/host_common_bottom1" />
+						<include file="Gallery/host_common_bottom2" />
+						<include file="Gallery/host_common_bottom3" />
+					<else />
+						<div class="pageFormContent">
+							<div class="content100">
+								<p class="rad">
+									<label>映射规则：</label>
+									<select class="combox" name="post[HOST_PPP_FLAG]">
+										<volist name="host_ppp_flag" id="vo">
+											<option value="{$key}" <if condition="$info['HOST_PPP_FLAG'] eq $key">selected</if>>{$vo}</option>
+										</volist>
+									</select>
+								</p>
+								<p class="qxjy">
+									<label>交易开通：</label>
+									<input type="hidden" value="" name="post[AUTH_TRANS_MAP]"/>								
+									<span style="width:85%;float:left;">
+										<volist name="trans_list" id="vo">
+											<span><label><input type="checkbox" value="{$vo.TRANS_MAP_ID}" <eq name="auth_trans_checked[$vo['TRANS_MAP_ID']-1]" value="1">checked="checked"</eq>>{$vo.TRANS_NAME}</label></span>
+										</volist>
+									</span>
+								</p>
+								<div class="clear"></div>
+							</div>
+						</div>
+						<div class="pageFormContent" note-type="checkxz">
+							<div class="rate">
+								<div class="lb"><b>行业类别</b></div>
+								<div class="kl"><b>扣率（百分比）</b></div>
+								<div class="fd"><b>是否封顶</b></div>
+								<div class="clear"></div>
+							</div>
+							<div class="rate">
+								<div class="lb"><b>行业类别</b></div>
+								<div class="kl"><b>扣率（百分比）</b></div>
+								<div class="fd"><b>是否封顶</b></div>
+								<div class="clear"></div>
+							</div>
+							<input type="hidden" value="" name="post[HMDR_DATA]"/>
+							<gt name="info.HOST_MAP_ID" value="0">
+								<volist name="hmdr_list" key="k" id="vo">
+									<div class="rate" MCC_TYPE="{$vo.MCC_TYPE}" HMDR_ID="{$vo.HMDR_ID}" MCC_NAME="{$mcc_type[$vo[MCC_TYPE]]}">
+										<div class="lb">{$mcc_type[$vo[MCC_TYPE]]}</div>
+										<div class="kl"><input type="text" name="jishu_{$k}" value="{$vo.PER_FEE|setMoney=###,2,2}" date-type="PER_FEE" class="number ws10 required" maxlength="4">　%</div>
+										<div class="fd xz"><label><input type="checkbox" <gt name="vo.FIX_FEE" value="0">checked</gt>>封顶　</label><input type="text" name="fengding_{$k}" <gt name="vo.FIX_FEE" value="0"> value="{$vo.FIX_FEE|setMoney=###,2,2}" <else/> value="" disabled </gt> date-type="FIX_FEE" class="ws10 xuanzhong" maxlength="6">　元</div>
+										<div class="clear"></div>
+									</div>
+								</volist>
+							<else />
+								<volist name="mcc_type" key="k" id="vo">
+									<div class="rate" MCC_TYPE="{$key}" HMDR_ID="" MCC_NAME="{$vo}">
+										<div class="lb">{$vo}</div>
+										<div class="kl"><input type="text" name="jishu_{$k}" value="" date-type="PER_FEE" class="number ws10 required" maxlength="4">　%</div>
+										<div class="fd xz"><label><input type="checkbox">封顶　</label><input type="text" name="fengding_{$k}" value="" disabled date-type="FIX_FEE" class="ws10 xuanzhong" maxlength="6">　元</div>
+										<div class="clear"></div>
+									</div>
+								</volist>
+							</gt>
+							<div class="clear"></div>
+						</div>
+						<div class="pageFormContent" style="height:180px;">
+							<div class="content100">
+								<p class="p_11">
+									<label>清算模式：</label>		
+									<select class="combox" name="post[HOST_SETTLE_FLAG]">
+										<volist name="host_settle_flag" id="vo">
+											<option value="{$key}" <if condition="$info['HOST_SETTLE_FLAG'] eq $key">selected</if>>{$vo}</option>
+										</volist>
+									</select>
+								</p>
+								<p class="p_11">
+									<label>结算周期：</label>
+									T+　<input type="text" value="{$info.SETTLE_T|default='1'}" name="post[SETTLE_T]" class="required host_input" style="width:107px" maxlength="1">	
+									<span class="error" for="post[SETTLE_T]" style="left:152px;display:none;">必填字段</span>
+								</p>
+								<div class="clear"></div>
+							</div>
+							<div class="jies1">
+								<div class="content100 er1">
+									<p>
+										<label>结算起始金额：</label>				
+										<input type="text" value="<gt name='info.SETTLE_OFF_AMT' value='0'>{$info.SETTLE_OFF_AMT|setMoney=###,2,2}</gt>" name="post[SETTLE_OFF_AMT]" class="required doubles" maxlength="13">
+										<code>　元/日</code>
+									</p>
+									<p>
+										<label>结算免手续费金额：</label>				
+										<input type="text" value="<gt name='info.SETTLE_FREE_AMT' value='0'>{$info.SETTLE_FREE_AMT|setMoney=###,2,2}</gt>" name="post[SETTLE_FREE_AMT]" class="required doubles" maxlength="13">
+										<code>　元/日</code>	
+									</p>
+									<p>
+										<label>结算最高金额：</label>				
+										<input type="text" value="<gt name='info.SETTLE_TOP_AMT' value='0'>{$info.SETTLE_TOP_AMT|setMoney=###,2,2}</gt>" name="post[SETTLE_TOP_AMT]" class="required doubles" maxlength="13">
+										<code>　元/日</code>
+									</p>
+									<div class="clear"></div>
+								</div>
+							</div>
+							<div class="jies2">
+								<div class="content100 er2" note-type="checkxz">
+									<p class="xz">
+										<label><input type="checkbox" <gt name='info.SETTLE_OFF_FEE' value='0'>checked</gt>>不足则顺延下个工作日，否则额外手续费</label>
+										<input type="text" <gt name='info.SETTLE_OFF_FEE' value='0'> value="{$info.SETTLE_OFF_FEE|setMoney=###,2,2}" <else/> value="" disabled </gt> name="post[SETTLE_OFF_FEE]" class="doubles host_input xuanzhong" maxlength="6">
+										<code>　元/次</code>
+									</p>
+									<p class="xz">
+										<label><input type="checkbox" <gt name='info.SETTLE_FEE' value='0'>checked</gt>>超出则收取手续费</label>
+										<input type="text" <gt name='info.SETTLE_FEE' value='0'> value="{$info.SETTLE_FEE|setMoney=###,2,2}" <else/> value="" disabled </gt> name="post[SETTLE_FEE]" class="doubles host_input xuanzhong" maxlength="6">
+										<code>　元/次</code>
+									</p>
+									<div class="clear"></div>
+								</div>
+							</div>
+							<div class="clear"></div>
+						</div>
+					</if>
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<a href="javascript:;" class="anniu ch-btn-skin ch-btn-small ch-icon-ok" onclick="checkSubmit()">确 定</a>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		function checkSubmit(){
+			/*
+			* 获取交易方式
+			**/
+			var tarr	 = [],
+				trans    = $('input[name="post[AUTH_TRANS_MAP]"]'),			
+			trans_list	 = trans.parent().find('input[type="checkbox"]');
+			if(trans_list.length > 0){				
+				//交易方式
+				$.each( trans_list, function(i, n){
+					var transdata = {};
+					var checked = $(this).attr('checked') ? 1 : 0;
+					//组装对象
+					transdata.trans_id = $(this).val();
+					transdata.is_check = checked;
+					//组装数组
+					tarr.push(transdata);
+					//json转成字符串
+					tjsonstr = JSON.stringify(tarr);
+				});
+				trans.val(tjsonstr);
+			}
+			
+			/*
+			* 获取成本扣率
+			**/
+			var hdata = [],
+				hmdr  = $('input[name="post[HMDR_DATA]"]'),
+			hmdr_list = hmdr.parent().find('div[MCC_TYPE]');
+			if(hmdr_list.length > 0){
+				$.each( hmdr_list, function(i, n){
+					var MCC_TYPE = $(this).attr('MCC_TYPE'),
+						HMDR_ID  = $(this).attr('HMDR_ID'),
+						MCC_NAME = $(this).attr('MCC_NAME'),
+						PER_FEE  = $(this).find('input[date-type="PER_FEE"]').val(),
+						hcheck   = $(this).find('input[type="checkbox"]:checked').val() ? 0 : 1,
+						FIX_FEE  = $(this).find('input[date-type="FIX_FEE"]').val();
+					hdata.push({'MCC_TYPE':MCC_TYPE, 'HMDR_ID':HMDR_ID, 'PER_FEE':PER_FEE, 'FIX_FEE':FIX_FEE});
+				});
+				hmdr.val(JSON.stringify(hdata));
+			}			
+			
+			$('form[name="form"]').submit();		
+		}
+		
+		//行业类别   结算方式
+		$('div[note-type="checkxz"] input[type="checkbox"]').on('click', function(){
+			var pare 	= $(this).closest('.xz'),
+				checked = $(this).attr('checked');
+			if(checked){
+				pare.find('.xuanzhong').attr('disabled', false).addClass('required ');
+			}else{
+				pare.find('.xuanzhong').attr('disabled', true).removeClass('required ');
+			}
+		});
+		$(".email_auto").mailAutoComplete({
+			boxClass: "out_box", //外部box样式
+			listClass: "list_box", //默认的列表样式
+			focusClass: "focus_box", //列表选样式中
+			markCalss: "mark_box", //高亮样式
+			autoClass: false,
+			textHint: true //提示文字自动隐藏
+		});
+	</script>
+</div>

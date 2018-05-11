@@ -1,0 +1,89 @@
+<style>span.error{left: 225px;}</style>
+<div class="pageContent">	
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.PBOCPARA_ID" value="0">
+			<input type="hidden" name="post[PBOCPARA_ID]" value="{$info.PBOCPARA_ID}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content50 iccardparam">
+				<p>
+					<label>IC参数AID：</label>
+					<input type="text" name="post[IC_AID]" value="{$info.IC_AID}" class="hexadecimal required" maxlength="20" />
+				</p>
+				<p>
+					<label>缺省TAC：</label>
+					<input type="text" name="post[IC_TAC_DEFAULT]" value="{$info.IC_TAC_DEFAULT}" class="hexadecimal required" maxlength="10" />
+				</p>
+				<p>
+					<label>IC参数ASI应用指示符：</label>
+					<input type="text" name="post[IC_ASI]" value="{$info.IC_ASI}" class="hexadecimal required" maxlength="8" />
+				</p>
+				<p>
+					<label>联机TAC：</label>
+					<input type="text" name="post[IC_TAC_ONLINE]" value="{$info.IC_TAC_ONLINE}" class="hexadecimal required" maxlength="10"/>
+				</p>
+				<p>
+					<label>参数版本号：</label>
+					<input type="text" name="post[IC_APP_VER]" value="{$info.IC_APP_VER}" class="digits required" maxlength="4"/>
+				</p>
+				<p>
+					<label>拒绝TAC：</label>
+					<input type="text" name="post[IC_TAC_REFUSE]" value="{$info.IC_TAC_REFUSE}" class="hexadecimal required" maxlength="10"/>
+				</p>
+				<p class="ic_line"></p>
+				<p>
+					<label>终端脱机最低限额：</label>
+					<input type="text" name="post[IC_LEAST_AMT]" value="{$info.IC_LEAST_AMT|setMoney=###,2,2}" class="doubles required" maxlength="6"/>　元
+				</p>
+				<p>
+					<label>电子现金交易限额：</label>
+					<input type="text" name="post[IC_CASH_LIMIT_AMT]" value="{$info.IC_CASH_LIMIT_AMT|setMoney=###,2,2}" class="doubles required" min="0" maxlength="10"/>　元
+				</p>
+				<p>
+					<label>偏置随机选择阀值：</label>
+					<input type="text" name="post[IC_RAND_OFFSET]" value="{$info.IC_RAND_OFFSET|default='1'}" class="doubles required" min="1" maxlength="8"/>
+				</p>
+				<p>
+					<label>非接交易最低限额：</label>
+					<input type="text" name="post[IC_NFC_LEAST_AMT]" value="{$info.IC_NFC_LEAST_AMT|setMoney=###,2,2}" class="doubles required" min="0" maxlength="10"/>　元
+				</p>
+				<p>
+					<label>偏置随机选择最大目标百分数：</label>
+					<input type="text" name="post[IC_RAND_MAX_PER]" value="{$info.IC_RAND_MAX_PER|default='0'}" class="doubles required" min="0" max="100"/>　%
+				</p>
+				<p>
+					<label>非接交易最大限额：</label>
+					<input type="text" name="post[IC_NFC_LIMIT_AMT]" value="{$info.IC_NFC_LIMIT_AMT|setMoney=###,2,2}" class="doubles required" min="0" maxlength="10"/>　元
+				</p>
+				<p>
+					<label>随机选择目标百分数：</label>
+					<input type="text" name="post[IC_RAND_PER]" value="{$info.IC_RAND_PER|default='0'}" class="doubles required" min="0" max="100"/>　%
+				</p>
+				<p>
+					<label>CVM 所需限额：</label>
+					<input type="text" name="post[IC_NFC_CVM]" value="{$info.IC_NFC_CVM|setMoney=###,2,2}" class="doubles required" min="0" maxlength="10"/>　元
+				</p>
+				<p style="width:100%;">
+					<label>联机PIN 支持能力：</label>
+					<select class="combox" name="post[IC_ONLINE_PIN]">
+						<volist name="ic_online_pin" id="vo">
+							<option value="{$key}" <if condition="$info['IC_ONLINE_PIN'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:100%;">
+					<label>缺省DDOL：</label>
+					<textarea name="post[IC_DDOL_DEFAULT]" style="width:558px;height:80px;" class="required">{$info.IC_DDOL_DEFAULT}</textarea>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

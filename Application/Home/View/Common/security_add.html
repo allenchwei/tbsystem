@@ -1,0 +1,202 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.SECURITY_MAP_ID" value="0">
+			<input type="hidden" name="post[SECURITY_MAP_ID]" value="{$info.SECURITY_MAP_ID}">
+			<input type="hidden" name="post[SRBA_ID2]" value="{$srba_info2.SRBA_ID}">	<!--2 养老险 -->
+			<input type="hidden" name="post[SRBA_ID]" value="{$srba_info.SRBA_ID}">		<!--1 意外险 -->
+			<input type="hidden" name="post[type_num]" value="{$type_num}">		
+		</gt>
+		<div class="pageFormContent" layoutH="80" style="padding-bottom:0px;">
+			<div class="content100">
+				<p>
+					<label>公司名称：</label>
+					<input type="text" value="{$info.SECURITY_NAME}" name="post[SECURITY_NAME]" class="required ws45" maxlength="40"/>
+				</p>
+				<p>
+					<label>公司地址：</label>
+					{$info.CITY_NO|getcity_select=###,'post[CITY_NO]'}
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content30">
+				<p style="width:66.66%;">
+					<label>　</label>
+					<input type="text" value="{$info.ADDRESS}" name="post[ADDRESS]" class="required ws416" maxlength="40"/>
+				</p>
+				<p>
+					<label>邮政编码：</label>
+					<input type="text" value="{$info.ZIP}" name="post[ZIP]" class="required" maxlength="8"/>
+				</p>
+				<p style="width:100%;">
+					<label>承保险种：</label>
+					<select class="combox" name="post[SECURITY_TYPE]">
+						<volist name="security_type" id="vo">
+							<option value="{$key}" <if condition="($type_num eq $key)">selected</if>>{$vo}</option>
+						</volist>
+						<option value="12" <if condition="($type_num eq 12)">selected</if>>{$security_type[2]}、{$security_type[1]}</option>
+					</select>
+				</p>
+				<p>
+					<label>联系人：</label>
+					<input type="text" value="{$info.MANAGER}" name="post[MANAGER]" class="required" maxlength="10"/>
+				</p>
+				<p>
+					<label>联系手机：</label>
+					<input type="text" value="{$info.MOBILE}" name="post[MOBILE]" class="phone required" maxlength="11"/>
+				</p>
+				<p>
+					<label>状态：</label>
+					<select class="combox" name="post[SECURITY_STATUS]">
+						<volist name="security_status" id="vo">
+							<option value="{$key}" <if condition="$info['SECURITY_STATUS'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>联系电话：</label>
+					<input type="text" value="{$info.TEL}" name="post[TEL]" class="phone" maxlength="15"/>
+				</p>
+				<p>
+					<label>联系传真：</label>
+					<input type="text" value="{$info.FAX}" name="post[FAX]" class="phone" maxlength="15"/>
+				</p>
+				<div class="clear"></div>
+			</div>
+			
+			<!--2 养老险 -->
+			<div class="tabs cont_2" <if condition="($type_num eq 2) or ($type_num eq 12)">style="display:block;"<else/>style="display:none;"</if>>
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>养老险</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">					
+					<div class="pageFormContent">
+						<div class="content50">
+							<p>
+								<label>最小年龄：</label>
+								<input type="text" class="digits doomClass" name="post[AGE_BEGIN2]" value="{$srba_info2.AGE_BEGIN}" maxlength="2">　岁
+							</p>
+							<p>
+								<label>单份保单金额：</label>
+								<input type="text" class="number" name="post[SECURITY_AMT2]" value="<gt name='srba_info2[SECURITY_AMT]' value='0'>{$srba_info2.SECURITY_AMT|setMoney=###,2,2}</gt>" maxlength="8">　元
+							</p>
+							<p>
+								<label>最大年龄：</label>
+								<input type="text" class="digits doomClass" name="post[AGE_END2]" value="{$srba_info2.AGE_END}" maxlength="2">　岁
+							</p>
+							<p>
+								<label>最少保单金额：</label>
+								<input type="text" class="number doomClass" name="post[SECURITY_LOWAMT2]" value="<gt name='srba_info2[SECURITY_LOWAMT]' value='0'>{$srba_info2.SECURITY_LOWAMT|setMoney=###,2,2}</gt>" maxlength="8">　元
+							</p>
+							<p>
+								<label>每年最大保费：</label>
+								<input type="text" class="number" name="post[SECURITY_MAXAMT2]" value="<gt name='srba_info2[SECURITY_MAXAMT]' value='0'>{$srba_info2.SECURITY_MAXAMT|setMoney=###,2,2}</gt>" maxlength="15">　元
+							</p>
+							<p>
+								<label>在线标志：</label>
+								<select class="combox" name="post[ONLINE_FLAG2]">
+									<volist name="online_flag" id="vo">
+										<option value="{$key}" <if condition="$srba_info2['ONLINE_FLAG'] eq $key">selected</if>>{$vo}</option>
+									</volist>
+								</select>
+							</p>
+							<div class="clear"></div>
+						</div>	
+					</div>
+				</div>		
+			</div>
+			
+			<!--1 意外险 -->
+			<div class="tabs cont_1" <if condition="($type_num eq 1) or ($type_num eq 12)">style="display:block;"<else/>style="display:none;"</if>>
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>意外险</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">
+					<div class="pageFormContent">
+						<div class="content50">
+							<p>
+								<label>最小年龄：</label>
+								<input type="text" class="digits doomClass" name="post[AGE_BEGIN]" value="{$srba_info.AGE_BEGIN}" maxlength="2">　岁
+							</p>
+							<p>
+								<label>单份保单金额：</label>
+								<input type="text" class="number" name="post[SECURITY_AMT]" value="<gt name='srba_info[SECURITY_AMT]' value='0'>{$srba_info.SECURITY_AMT|setMoney=###,2,2}</gt>" maxlength="8">　元
+							</p>
+							<p>
+								<label>最大年龄：</label>
+								<input type="text" class="digits doomClass" name="post[AGE_END]" value="{$srba_info.AGE_END}" maxlength="2">　岁
+							</p>
+							<p>
+								<label>最少保单金额：</label>
+								<input type="text" class="number doomClass" name="post[SECURITY_LOWAMT]" value="<gt name='srba_info[SECURITY_LOWAMT]' value='0'>{$srba_info.SECURITY_LOWAMT|setMoney=###,2,2}</gt>" maxlength="8">　元
+							</p>
+							<p>
+								<label>每年最大保费：</label>
+								<input type="text" class="number" name="post[SECURITY_MAXAMT]" value="<gt name='srba_info[SECURITY_MAXAMT]' value='0'>{$srba_info.SECURITY_MAXAMT|setMoney=###,2,2}</gt>" maxlength="15">　元
+							</p>
+							<p>
+								<label>在线标志：</label>
+								<select class="combox" name="post[ONLINE_FLAG]">
+									<volist name="online_flag" id="vo">
+										<option value="{$key}" <if condition="$srba_info['ONLINE_FLAG'] eq $key">selected</if>>{$vo}</option>
+									</volist>
+								</select>
+							</p>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>		
+			</div>			
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		//默认初始加载
+		$(function($) {
+			var num = '{$type_num}' ? '{$type_num}' : 2;
+			secCheckclass(num);
+		});
+		$('select[name="post[SECURITY_TYPE]"]').on("change", function() {
+			secCheckclass($(this).val());
+		});
+		function secCheckclass(num){
+			if(num == '12'){
+				$('.tabs').find('.doomClass').addClass('required');
+				$('.cont_1,.cont_2').show();
+			}else{			
+				$('.cont_'+(num==2?'1':'2')).find('input').val('');
+				$('.tabs').hide().find('.doomClass').removeClass('required');
+				$('.cont_'+num).show().find('.doomClass').addClass('required');	
+			}
+		}
+		
+		//通过地区自动获取邮编
+		$('select[name="post[CITY_NO]').on('change',function(){
+			var city_code = $(this).val();
+			if(!!city_code){
+				$.ajax({
+				   type: "POST",
+				   url : "/index.php/Home/Public/ajaxgetcode",
+				   data: "city_no="+ city_code,
+				   success: function(data){
+						if(!data) return;
+						$('input[name="post[ZIP]"]').val(data.CITY_ZIP_CODE);
+				   }
+				});
+			}			
+		})
+	</script>
+</div>

@@ -1,0 +1,22 @@
+<!-- 商户路由通道 -->
+<div class="pageFormContent other err_offset_2">
+	<p style="width: 100%">
+		<label>自动切换：</label>
+		<span class="shop_s"><label><input type="radio" name="shop[ISAUTO]" value="0" <if condition="$shop_info.ISAUTO eq 0">checked</if>/>关</label>
+		<label><input type="radio" name="shop[ISAUTO]" value="1" <if condition="$shop_info.ISAUTO eq 1">checked</if>/>开</label></span>
+	</p>
+	<p style="width: 100%">
+		<label>通道：</label>
+		<span class="shop_s"><label>
+		<select name="shop[HOST_MAP_ID]">
+		<option value="0">请选择</option>
+		<volist name="host_list" id="vo">
+		<option value="{$vo['HOST_MAP_ID']}" <if condition="$shop_info.HOST_MAP_ID eq $vo[HOST_MAP_ID]">selected</if>>{$vo['HOST_NAME']}</option>
+		</volist>
+		</select>
+		</label></span>
+	</p>
+	<script type="text/javascript">
+		
+	</script>
+</div>

@@ -1,0 +1,56 @@
+<style>
+.err_offset_1 .error{left:115px;}
+.err_offset_2 .error{left:125px;}
+.err_offset_3 .error{left:255px;}
+.err_offset_3_1 .error{left:0px;}
+.err_offset_4 .error{left:110px;}
+.err_offset_4_1 .error{left:175px;}
+.err_offset_4_2 .error{left:523px;}
+.err_offset_4_3 .error{left:120px;}
+.pageFormContent .label_100 label{width:100px;}
+.pageFormContent .label_30 label{width:100px;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="partner[submit]" value="__ACTNAME__">
+		<gt name="partner_info.PARTNER_MAP_ID" value="0">
+			<input type="hidden" name="partner[PARTNER_MAP_ID]" value="{$partner_info.PARTNER_MAP_ID}">
+			<input type="hidden" name="partner[PARTNER_STATUS]" value="{$partner_info.PARTNER_STATUS}">
+		</gt>
+		<div class="pageFormContent err_offset_1" layoutH="{$Think.config.tk_max_add_lay}">
+			<!-- 基本信息 -->
+			<include file="partner_common_edit"/>
+			<div class="tabs">
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>证照</span></a></li>
+							<li><a href="javascript:;"><span>结算方式</span></a></li>
+							<li><a href="javascript:;"><span>银行账户</span></a></li>
+							<li><a href="javascript:;"><span>其他设置</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">
+					<!-- 证照详情 -->
+					<include file="pcert_common_show" />
+					
+					<!-- 结算方式 -->
+					<include file="pcls_common_show" />
+
+					<!-- 银行账户 -->
+					<include file="pbact_common_show" />
+					
+					<!-- 其他配置 -->
+					<include file="pcfg_common_show" />
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>

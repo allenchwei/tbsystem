@@ -1,0 +1,53 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>风控规则ID：</label>
+				<span class="show">{$info.VAL_ID}</span>
+			</p>
+			<p>
+				<label>规则名称：</label>
+				<span class="show">{$info.RULE_NAME}</span>
+			</p>
+			<p>
+				<label>适用商户等级：</label>
+				<span class="show">{$shop_grade[$info[SHOP_GRADE]]}</span>
+			</p>
+			<p>
+				<label>适用商户分类：</label>
+				<span class="show">{$mcc_type[$info[MCC_TYPE]]}　{$info.MCC_CODE|getmcc_name=###}</span>
+			</p>
+			<p class="ic_line"></p>
+			<p>
+				<label>风控周期：</label>
+				<span class="show">{$risk_t[$info[RISK_T]]}</span>
+			</p>
+			<p>
+				<label>风控动作：</label>
+				<span class="show">{$risk_active[$info[RISK_ACTIVE]]}</span>
+			</p>
+			<p>
+				<label>规则状态：</label>
+				<span class="show">{$risk_status[$info[RISK_STATUS]]}</span>
+			</p>
+			<p>
+				<label>风控阀值：</label>
+				<span class="show">{$info.RISK_TARGET}　% | 元 | 笔	</span>
+			</p>
+			<p>
+				<label>风控累计积数：</label>
+				<span class="show">{$info.ACTIVE_BOUND}</span>
+			</p>
+			<p>
+				<label>备注：</label>
+				<span class="show" style="width:600px;height:80px;">{$info.RISK_REMARK}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

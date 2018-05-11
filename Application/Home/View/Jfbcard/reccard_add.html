@@ -1,0 +1,127 @@
+<style>.jfbmake .jfbkuai .jfb_radio .shop_s label{width:120px;}</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="outcard[submit]" value="__ACTNAME__">
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="jfbmake" style="padding:0 20px 20px;">
+				<div class="title">实体卡回收单</div>
+				<div class="jname">
+					<a>回收日期：{:Date('Y-m-d')}</a>
+					<a class="f_r">回收批次：{$max_batch}</a>
+					<div class="clear"></div>
+				</div>
+				<div class="jfbkuai" style="padding:10px 40px;">
+					<div class="content100">
+						<p class="jfb_out">
+							<label>收货方：</label>
+							<span class="show">{:get_branch_name($home['BRANCH_MAP_ID'],$home['PARTNER_MAP_ID'])}</span>
+						</p>
+						<p class="jfb_sel">
+							<label>发货方：</label>
+							{:get_level_sel('',-1,'plv[]','',$home['USER_LEVEL'])}
+						</p>
+						<p class="jfb_input">
+							<label>回收数量</label>
+							<input type="text" class="required digits" name="outcard[CARD_NUM]" value="1" maxlength="5" min="1" max="10000"/>　张
+						</p>
+						<p class="jfb_radio">
+							<span class="shop_s"><label><input type="radio" name="cardno_type" value='0' checked>连续卡号</label></span>
+							<span class="shop_s"><label><input type="radio" name="cardno_type" value='1'>非连续卡号</label></span>
+						</p>
+						<div class="clear"></div>
+					</div>
+					<div class="content50" node-type="cardno_type0">
+						<p class="jfb_input">
+							<label>起始卡号</label>
+							<input type="text" class="required digits" name="outcard[CARD_BEGIN]" value="" maxlength="16"/>
+						</p>
+						<p class="jfb_input">
+							<label>结束卡号</label>
+							<input type="text" class="required digits" name="outcard[CARD_END]" value="" maxlength="16"/>
+						</p>
+						<div class="clear"></div>
+					</div>
+					<div class="content100" node-type="cardno_type1" style="display:none;">
+						<p class="jfb_input">
+							<label>卡号</label>
+							<input type="text" class="digits" name="outcard[CARD_NO][]" value="" maxlength="16"/>
+						</p>
+						<p class="jfb_input">
+							<label>添加卡号</label>
+							<a class="anniu ch-icon-plus" node-type="morecardno" href="javascript:;" data-num="1"></a>
+						</p>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="bzhu">
+					备注<input type="text" name="outcard[RES]" value="" maxlength="30"/>
+					操作人：{$Think.session.HOME.USER_NAME}
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+	<script type="text/javascript">
+		$('input[name="cardno_type"]').on('click',function(){
+			var cardno_type0 = $('div[node-type="cardno_type0"]');
+			var cardno_type1 = $('div[node-type="cardno_type1"]');
+			switch($(this).val()){
+				case '0' :
+					cardno_type0.show();
+					cardno_type1.hide();
+					cardno_type1.find('.required').removeClass('required');
+					cardno_type0.find('input').addClass('required');
+				break;
+				case '1' :
+					cardno_type0.hide();
+					cardno_type1.show();
+					cardno_type0.find('.required').removeClass('required');
+					cardno_type1.find('input').addClass('required');
+				break;
+			}
+		})
+		//添加更多卡号输入框
+		$('a[node-type="morecardno"]').on('click',function(){
+			//var inputnum = parseInt($(this).attr('data-num'))+parseInt(1);
+			var inputnum = parseInt($('input[name="outcard[CARD_NUM]"]').val())+parseInt(1);
+			if (inputnum <= 10) {
+				var	inputstr = '<p class="jfb_input"><label>卡号</label><input type="text" class="required digits" name="outcard[CARD_NO][]" value="" maxlength="16"/><a class="anniu ch-icon-minus" onclick="minus_card($(this))" href="javascript:;" data-num="1"></a></p>';
+				//$(this).attr('data-num',inputnum);
+				$(this).closest('p').before(inputstr);
+				//数量+1
+				$('input[name="outcard[CARD_NUM]"]').val(inputnum);
+			}else{
+				alert('最多只能添中10个');
+			}
+		})
+		//减去卡号并数量-1
+		function minus_card(thisobj){
+			thisobj.parent().remove();
+			var num = $('input[name="outcard[CARD_NUM]"]').val();
+			if (num>1) {
+				$('input[name="outcard[CARD_NUM]"]').val(num-1);
+			};
+		}
+		//起始卡号处发事件
+		$('input[name="outcard[CARD_BEGIN]"]').on('keyup', function(){
+			$('input[name="outcard[CARD_END]"]').val($(this).val());
+		})
+		//终止卡号处发事件
+		$('input[name="outcard[CARD_END]"]').on('keyup', function(){
+			//var head_no = '95668830';
+			var begin_no = $('input[name="outcard[CARD_BEGIN]"]').val();
+			var begin_no_temp = begin_no.substr(8,16);
+			var end_no_temp = $(this).val().substr(8,16);
+			var card_num = parseInt(end_no_temp) - parseInt(begin_no_temp)+1;
+			if (card_num < 0) {
+				card_num = 0;    
+			};
+			$('input[name="outcard[CARD_NUM]"]').val(card_num);
+		})
+	</script>
+</div>

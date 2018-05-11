@@ -1,0 +1,87 @@
+<!--路由管理|成本扣率和结算方式-->
+<div class="tabs">
+		<div class="tabsHeader">
+			<div class="tabsHeaderContent">
+				<ul>
+					<!-- <li><a href="javascript:;"><span>权限开通</span></a></li> -->
+					<li><a href="javascript:;"><span>成本扣率</span></a></li>
+					<li><a href="javascript:;"><span>结算方式</span></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="tabsContent">
+				<div class="pageFormContent">
+					<div class="rate">
+						<div class="lb"><b>行业类别</b></div>
+						<div class="kl"><b>扣率（百分比）</b></div>
+						<div class="fd"><b>是否封顶</b></div>
+						<div class="clear"></div>
+					</div>
+					<div class="rate">
+						<div class="lb"><b>行业类别</b></div>
+						<div class="kl"><b>扣率（百分比）</b></div>
+						<div class="fd"><b>是否封顶</b></div>
+						<div class="clear"></div>
+					</div>
+					<input type="hidden" value="" name="post[HMDR_DATA]"/>
+					<volist name="hmdr_list" id="vo">
+						<div class="rate">
+							<div class="lb">{$mcc_type[$vo[MCC_TYPE]]}</div>
+							<div class="kl">{$vo.PER_FEE|setMoney=###,2,2}　%</div>
+							<div class="fd"><gt name="vo.FIX_FEE" value="0"><label>封　顶　</label>{$vo.FIX_FEE|setMoney=###,2,2}　元<else />不封顶</gt></div>
+							<div class="clear"></div>
+						</div>
+					</volist>
+					<div class="clear"></div>
+				</div>
+				<div class="pageFormContent">
+				<div class="content100">
+					<p class="p_11">
+						<label>清算模式：</label>
+						<span class="show">{$host_settle_flag[$info_host[HOST_SETTLE_FLAG]]}</span>
+					</p>
+					<p class="p_11">
+						<label>结算周期：</label>
+						<span class="show">T+　{$info_host.SETTLE_T}</span>	
+					</p>
+					<div class="clear"></div>
+				</div>
+				<div class="jies1">
+					<div class="content100 er1">
+						<p>
+							<label>结算起始金额：</label>
+							<span class="show">{$info_host.SETTLE_OFF_AMT|setMoney=###,2,2}</span>
+							<code>　元/日</code>
+						</p>
+						<p>
+							<label>结算免手续费金额：</label>
+							<span class="show">{$info_host.SETTLE_FREE_AMT|setMoney=###,2,2}</span>
+							<code>　元/日</code>	
+						</p>
+						<p>
+							<label>结算最高金额：</label>
+							<span class="show">{$info_host.SETTLE_TOP_AMT|setMoney=###,2,2}</span>
+							<code>　元/日</code>
+						</p>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="jies2">
+					<div class="content100 er2">
+						<p>
+							<label>不足则顺延下个工作日，否则额外手续费</label>
+							<gt name='info_host.SETTLE_OFF_FEE' value='0'>{$info_host.SETTLE_OFF_FEE|setMoney=###,2,2}</gt>
+							<code>　元/次</code>
+						</p>
+						<p>
+							<label>超出则收取手续费</label>
+							<gt name='info_host.SETTLE_FEE' value='0'>{$info_host.SETTLE_FEE|setMoney=###,2,2}</gt>
+							<code>　元/次</code>
+						</p>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>

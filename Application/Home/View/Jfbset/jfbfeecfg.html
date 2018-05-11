@@ -1,0 +1,73 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[CFG_FLAG]" value="{$postdata.CFG_FLAG}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>分润名目：</label>
+					<select class="combox" name="post[CFG_FLAG]">
+						<option value="">请选择</option>
+						<volist name="cfg_flag" id="vo">
+							<option value="{$key}" <eq name="postdata['CFG_FLAG']" value="$key">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="141">
+		<thead>
+			<tr>
+				<th width="7%" align='center'>ID</th>
+				<th width="20%" >分润名目</th>
+				<th width="7%" align='center'>会员</th>
+				<th width="7%" align='center'>分期比例</th>
+				<th width="7%" align='center'>交通意外险</th>
+				<th width="7%" align='center'>总部</th>
+				<th width="7%" align='center'>省公司</th>
+				<th width="8%" align='center'>地市子公司</th>
+				<th width="8%" align='center'>区县服务中心</th>
+				<th width="8%" align='center'>推广个人创业</th>
+				<th width="7%" align='center'>推广大商家</th>
+				<th width="7%" align='center'>创业合伙人</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.CFG_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.CFG_ID}</td>
+					<td>{$vo.CFG_NAME}</td>
+					<td><gt name="vo.CON_PER" value="0">			{$vo.CON_PER|setMoney=###,2,2}			<if condition="$vo.CFG_FLAG eq 1"> % <else/> 元 </if> <else/> - </gt></td>
+					<td><gt name="vo.DIV_PER" value="0">			{$vo.DIV_PER|setMoney=###,2,2}%			 												  <else/> - </gt></td>
+					<td><gt name="vo.TRAFICC_FEE" value="0">		{$vo.TRAFICC_FEE|setMoney=###,2,2}		<if condition="$vo.CFG_FLAG eq 1"> % <else/> 元 </if> <else/> - </gt></td>
+					<td><gt name="vo.BRANCH_FEE1" value="0">		{$vo.BRANCH_FEE1|setMoney=###,2,2}		<if condition="$vo.CFG_FLAG eq 1"> % <else/> 元 </if> <else/> - </gt></td>
+					<td><gt name="vo.ISS_BRANCH_FEE2" value="0">	{$vo.ISS_BRANCH_FEE2|setMoney=###,2,2}	<if condition="$vo.CFG_FLAG eq 1"> % <else/> 元 </if> <else/> - </gt></td>
+					<td><gt name="vo.ISS_PARTNER_FEE1" value="0">	{$vo.ISS_PARTNER_FEE1|setMoney=###,2,2}	<if condition="$vo.CFG_FLAG eq 1"> % <else/> 元 </if> <else/> - </gt></td>
+					<td><gt name="vo.ISS_PARTNER_FEE2" value="0">	{$vo.ISS_PARTNER_FEE2|setMoney=###,2,2}	<if condition="$vo.CFG_FLAG eq 1"> % <else/> 元 </if> <else/> - </gt></td>
+					<td><gt name="vo.PARTNER_FEE3A" value="0">		{$vo.PARTNER_FEE3A|setMoney=###,2,2}	<if condition="$vo.CFG_FLAG eq 1"> % <else/> 元 </if> <else/> - </gt></td>
+					<td><gt name="vo.PARTNER_FEE3B" value="0">		{$vo.PARTNER_FEE3B|setMoney=###,2,2}	<if condition="$vo.CFG_FLAG eq 1"> % <else/> 元 </if> <else/> - </gt></td>
+					<td><gt name="vo.ISS_PARTNER_FEE3" value="0">	{$vo.ISS_PARTNER_FEE3|setMoney=###,2,2}	<if condition="$vo.CFG_FLAG eq 1"> % <else/> 元 </if> <else/> - </gt></td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

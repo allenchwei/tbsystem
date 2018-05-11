@@ -1,0 +1,73 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="info.CARD_BIN" value="0">
+		<input type="hidden" name="post[submit]" value="smdr_edit">
+		<input type="hidden" name="post[CARD_BIN]" value="{$info.CARD_BIN}">
+	<else />
+		<input type="hidden" name="post[submit]" value="smdr_add">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="kuai">
+				<div class="new_01">
+					<div class="m">
+						<p>
+							<label>发卡银行：</label>
+							<select class="combox" name="post[ISSUE_STR]">
+								<volist name="issuelist" id="vo">
+									<option value="{$vo.ISSUE_CODE}_{$vo.ISSUE_NAME}" <if condition="$info.ISSUE_CODE eq $vo.ISSUE_CODE">selected</if>>{$vo.ISSUE_NAME}</option>
+								</volist>
+							</select>
+						</p>
+						<p>
+							<label>卡BIN号：</label>
+							<gt name="info.CARD_BIN" value="0">
+								<span class="show">{$info.CARD_BIN}</span>
+							<else />
+								<input type="text" value="" class="digits required" name="post[CARD_BIN]" maxlength="10"/>
+								<font color="red" class="msg">1-10位数字组成</font>
+							</gt>
+						</p>
+						<p>
+							<label>卡表名称：</label>
+							<input type="text" value="{$info.CARD_NAME}" class="required" size="55" name="post[CARD_NAME]"/>
+							<font color="red" class="msg">最多30个汉字</font>
+						</p>
+						<p>
+							<label>卡种类型：</label>
+							<select class="combox" name="post[CARD_TYPE]">
+								<volist name="Think.config.CARD_TYPE" KEY="k" id="vo">
+									<option value="{$k}" <if condition="$info.CARD_TYPE eq $k">selected</if>>{$vo}</option>
+								</volist>
+							</select>
+						</p>
+						<p>
+							<label>所在磁道：</label>
+							<select class="combox" name="post[CARD_TRACK]">
+								<volist name="Think.config.CARD_TRACK" KEY="k" id="vo">
+									<option value="{$k}" <if condition="$info.CARD_TRACK eq $k">selected</if>>{$vo}</option>
+								</volist>
+							</select>
+						</p>
+						<p>
+							<label>偏移位置：</label>
+							<input type="text" value="<gt name='info.CARD_BIN' value='0'>{$info.PAN_OFF}<else />2</gt>" class="required" name="post[PAN_OFF]" maxlength="2"/>
+							<font color="red" class="msg">1位数字组成，主账号起始所在磁道偏移</font>
+						</p>
+						<p>
+							<label>卡号长度：</label>
+							<input type="text" value="<gt name='info.CARD_BIN' value='0'>{$info.PAN_LEN}<else />16</gt>" class="required" name="post[PAN_LEN]" maxlength="2"/>
+							<font color="red" class="msg">（12-19) 2位数字组成，卡号长度</font>
+						</p>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

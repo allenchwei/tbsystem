@@ -1,0 +1,124 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.BRANCH_MAP_ID" value="0">
+			<input type="hidden" name="post[BRANCH_MAP_ID]" value="{$info.BRANCH_MAP_ID}">
+			<input type="hidden" name="post[BRANCH_LEVEL]" value="{$info.BRANCH_LEVEL}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content30">
+				<p style="width:66.66%">
+					<label>公司名称：</label>
+					<input type="text" value="{$info.BRANCH_NAME}" name="post[BRANCH_NAME]" class="required ws416" maxlength="26"/>
+				</p>
+				<p>
+					<label>公司简称：</label>
+					<input type="text" value="{$info.BRANCH_NAMEAB}" name="post[BRANCH_NAMEAB]" class="required" maxlength="13"/>
+				</p>
+				<p style="width:66.66%">
+					<label>公司地址：</label>
+					{$info.CITY_NO|getcity_select=###,'post[CITY_NO]'}
+				</p>
+				<p>
+					<label>级别：</label>
+					<gt name="info.BRANCH_MAP_ID" value="0">
+						<span class="show">{$branch_level[$info[BRANCH_LEVEL]]}</span>
+					<else/>
+						<span class="show">{$branch_level[1]}</span>
+					</gt>
+				</p>
+				<p style="width:66.66%">
+					<label>&nbsp;</label>
+					<input type="text" value="{$info.ADDRESS}" name="post[ADDRESS]" class="required ws416" maxlength="30"/>
+				</p>
+				<p>
+					<label>公司邮编：</label>
+					<input type="text" value="{$info.ZIP}" name="post[ZIP]" class="digits required" maxlength="6"/>
+				</p>
+				<p>
+					<label>联系人：</label>
+					<input type="text" value="{$info.MANAGER}" name="post[MANAGER]" class="required" maxlength="20"/>
+				</p>
+				<p>
+					<label>联系手机：</label>
+					<input type="text" value="{$info.MOBILE}" name="post[MOBILE]" class="required digits" maxlength="11"/>
+				</p>
+				<p>
+					<label>路由通道：</label>
+					<select class="combox" name="post[HOST_MAP_ID]">
+						<volist name="host_list" id="vo">
+							<option value="{$vo.HOST_MAP_ID}" <if condition="$info['HOST_MAP_ID'] eq $vo['HOST_MAP_ID']">selected</if>>{$vo.HOST_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>联系电话：</label>
+					<input type="text" value="{$info.TEL}" name="post[TEL]" class="digits" maxlength="15"/>
+				</p>
+				<p>
+					<label>联系传真：</label>
+					<input type="text" value="{$info.FAX}" class="digits" name="post[FAX]" maxlength="15"/>
+				</p>
+				<p>
+					<label>状态：</label>
+					<select class="combox" name="post[BRANCH_STATUS]">
+						<volist name="branch_status" id="vo">
+							<option value="{$key}" <if condition="$info['BRANCH_STATUS'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<!-- <p>
+					<label>承保公司：</label>
+					<select class="combox" name="post[SECURITY_MAP_ID]">
+						<volist name="security_list" id="vo">
+							<option value="{$vo.SECURITY_MAP_ID}" <if condition="$info['SECURITY_MAP_ID'] eq $vo['SECURITY_MAP_ID']">selected</if>>{$vo.SECURITY_NAME}</option>
+						</volist>
+					</select>
+				</p> -->
+				<div class="clear"></div>
+			</div>
+			
+			<if condition="($info['BRANCH_LEVEL'] eq '') or ($info['BRANCH_LEVEL'] eq 1)"> 
+			<div class="tabs">
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>银行账户</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">
+					<div class="pageFormContent">
+						<div class="content100">
+							<p>
+								<label>户名：</label>
+								<input type="text" value="{$info.BANKACCT_NAME}" name="post[BANKACCT_NAME]" class="required ws45" maxlength="80"/>
+							</p>
+							<p>
+								<label>账号：</label>
+								<input type="text" value="{$info.BANKACCT_NO}" name="post[BANKACCT_NO]" class="digits required ws45" maxlength="32"/>
+							</p>
+							<p>
+								<label>开户行：</label>
+								<input type="text" value="{$info.BANK_NAME}" name="org.BANK_NAME" class="required ws26">
+								<a class="btnLook" href="{:U('/Home/Public/getbankbid')}" width="700" height="427" tdialog="true" lookupGroup="org">查找带回</a>	
+							</p>
+							<p>
+								<label>开户行联行号：</label>
+								<input type="text" value="{$info.BANKACCT_BID}" name="org.BANKACCT_BID" class="required ws45">
+							</p>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</if>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,76 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[INSTALL_DATE_A]" value="{$postdata.INSTALL_DATE_A}"/>
+	<input type="hidden" name="post[INSTALL_DATE_B]" value="{$postdata.INSTALL_DATE_B}"/>
+	<input type="hidden" name="post[bid]" value="{$postdata.bid}"/>
+	<input type="hidden" name="post[pid]" value="{$postdata.pid}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">				
+				<p>
+					<span>
+						<label>统计周期：</label>
+						<input class="input01 textInput date f_l readonly" type="text" value="{$postdata.INSTALL_DATE_A}" name="post[INSTALL_DATE_A]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+					<code class="code"> ~ </code>
+					<span>
+						<input class="input01 textInput date f_l readonly" type="text" value="{$postdata.INSTALL_DATE_B}" name="post[INSTALL_DATE_B]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+					<span class="sta_day">
+						<a href="javascript:;" note-type="seltime" begin="{$timedata.jintian_b}" end="{$timedata.jintian_n}">当日</a>
+						<a href="javascript:;" note-type="seltime" begin="{$timedata.zuotian_b}" end="{$timedata.zuotian_n}">昨日</a>
+						<a href="javascript:;" note-type="seltime" begin="{$timedata.benyue_b}" end="{$timedata.benyue_n}">本月</a>
+						<a href="javascript:;" style="border:none;" note-type="seltime" begin="{$timedata.shangyue_b}" end="{$timedata.shangyue_n}">上月</a>
+					</span>
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>　　归属：</label>
+					{:get_level_sel($postdata['bid'],'-1','soplv[]',$postdata['pid'],5)}
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<table class="table" width="100%" layoutH="114">
+		<thead>
+			<tr>
+				<th width="50%" align='center'>新增POS机</th>
+				<th width="50%" align='center'>累计POS机</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="resdata">
+				<tr target="sid_target">
+					<td>{$resdata.count|default='0'}</td>
+					<td>{$resdata.total|default='0'}</td>
+				</tr>
+			</notempty>
+		</tbody>
+	</table>
+	<script type="text/javascript">		
+		//页面加载执行
+		$(document).ready(function(){
+			var	navsnum     = $('.tabsPageHeader .navTab-tab .selected').index();
+			var tabscontent = $('.tabsPageContent .unitBox:eq('+navsnum+')');
+			//日期选择
+			tabscontent.find('a[note-type="seltime"]').on('click',  function(){
+				var begin = $(this).attr('begin'),end = $(this).attr('end');
+				tabscontent.find('input[name="post[INSTALL_DATE_A]"]').val(begin);
+				tabscontent.find('input[name="post[INSTALL_DATE_B]"]').val(end);
+			});
+		});
+	</script>
+</div>

@@ -1,0 +1,96 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<input type="hidden" name="post[submit]" value="__ACTNAME__">
+	<gt name="info.HPOS_ID" value="0">
+		<input type="hidden" name="post[HPOS_ID]" value="{$info.HPOS_ID}">
+		<input type="hidden" name="post[KEY_INDEX]" value="{$info.KEY_INDEX}">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>通道名称：</label>
+					<select class="combox" id="HOST_ID" name="post[HOST_MAP_ID]">
+						<volist name="host_list" id="vo">
+							<option value="{$vo.HOST_MAP_ID}" <if condition="$info['HOST_MAP_ID'] eq $vo['HOST_MAP_ID']">selected</if>>{$vo.HOST_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>商户编号：</label>
+					<input type="text" value="{$info.HSHOP_NO}" class="required digits ws40" id="HSHOP_NO" name="post[HSHOP_NO]" maxlength="15"/>
+				</p>
+				<p>
+					<label>商户名称：</label>
+					<span class="show"><input type="text" note-type="hshop_name" value="{$info.HSHOP_NAME}" class="input_nbg ws26"></span>
+				</p>
+				<p>
+					<label>POS编号：</label>
+					<input type="text" value="{$info.HPOS_NO}" class="required digits" name="post[HPOS_NO]" maxlength="8"/>
+				</p>
+				<p>
+					<label>POS批次号：</label>
+					<input type="text" value="{$info.HPOS_BATCH}" class="required digits" name="post[HPOS_BATCH]" maxlength="6"/>
+				</p>
+			</div>
+			<div class="content30">
+				<p style="width:66.66%">
+					<label>POS流水号：</label>
+					<input type="text" value="{$info.HPOS_TRACE}" class="required digits" name="post[HPOS_TRACE]" maxlength="6"/>
+				</p>
+				<p>
+					<label>POS状态：</label>
+					<span class="show">{$login_flag[$info[LOGIN_FLAG]]|default="签退"}</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content100">
+				<p class="remark">
+					<label>备注：</label>
+					<span>POS机刷银行卡需要添加第三方通道数据。相关信息来自通道方。</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		//select
+		$('select[name="post[HOST_MAP_ID]"]').on('change', function() {
+			var host_id  = $(this).val();
+			var	hshop_no = $('#HSHOP_NO').val();
+			getHshop(host_id, hshop_no);
+		});
+		//input
+		$('input[name="post[HSHOP_NO]"]').on('blur', function() {
+			var host_id  = $('#HOST_ID').val(),
+				hshop_no = $(this).val();
+			getHshop(host_id, hshop_no);
+		});
+		function getHshop(host_id, hshop_no) {
+			var dt = {};
+			dt.host_id  = host_id;
+			dt.hshop_no = hshop_no;
+			if(!!dt.host_id && !!dt.hshop_no) {
+				$.ajax({
+					type: "POST",
+					url: "__MODULE__/Public/gethshop_data",
+					data: dt,
+					success: function(_data){
+						if(_data.state == 0){
+							$('input[note-type="hshop_name"]').val(_data.result.HSHOP_NAME);
+						}else{
+							alertMsg.error(_data.msg);
+							$('input[name="post[HSHOP_NO]"]').val('');
+							$('input[note-type="hshop_name"]').val('');
+						}
+				   }
+				});
+			}
+		}
+	</script>
+</div>

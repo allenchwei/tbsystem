@@ -1,0 +1,77 @@
+<style>
+.pageFormContent .bili p label{width:125px;}
+.pageFormContent .bili p span{left:140px;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<input type="hidden" name="post[submit]" value="__ACTNAME__">
+	<gt name="info.SHOP_MAP_ID" value="0">		
+		<input type="hidden" name="post[SHOP_MAP_ID]" value="{$info.SHOP_MAP_ID}">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>商户编号：</label>
+					<span class="show">{$info.SHOP_NO}</span>
+				</p>
+				<p>
+					<label>商户名称：</label>
+					<span class="show">{$info.SHOP_NAME}</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content50">
+				<p>
+					<label>商户等级：</label>
+					<select class="combox" name="post[SHOP_GRADE]">
+						<volist name="shop_grade" id="vo">
+							<option value="{$key}" <eq name="info['SHOP_GRADE']" value="$key">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>风险积数：</label>
+					<input type="text" value="{$info.SHOP_RISKBOUND}" class="required" name="post[SHOP_RISKBOUND]" maxlength="4"/>
+				</p>
+				<p class="ic_line"></p>
+			</div>
+			<div class="content50 bili">
+				<p style="width:100%;">
+					<label>手输比例：</label>
+					<input type="text" value="{$info.POSMODE_PER}" class="digits required ws10" name="post[POSMODE_PER]" max="100" maxlength="3"/>　%
+				</p>
+				<p style="width:100%;">
+					<label>退货比例：</label>
+					<input type="text" value="{$info.REFUND_PER}" class="digits required ws10" name="post[REFUND_PER]" max="100" maxlength="3"/>　%
+				</p>
+				<p>
+					<label>调单比例：</label>
+					<input type="text" value="{$info.CBREQ_PER}" class="digits required ws10" name="post[CBREQ_PER]" max="100" maxlength="3"/>　%
+				</p>
+				<p>
+					<label>退单比例：</label>
+					<input type="text" value="{$info.CBBACK_PER}" class="digits required ws10" name="post[CBBACK_PER]" max="100" maxlength="3"/>　%
+				</p>
+				<p>
+					<label>非营业时间交易比例：</label>
+					<input type="text" value="{$info.BUSITIME_ABS}" class="digits required ws10" name="post[BUSITIME_ABS]" max="100" maxlength="3"/>　%
+				</p>
+				<p>
+					<label>查询交易比例：</label>
+					<input type="text" value="{$info.BALANCE_PER}" class="digits required ws10" name="post[BALANCE_PER]" max="100" maxlength="3"/>　%
+				</p>
+				<p style="width:100%;">
+					<label>备注：</label>
+					<textarea style="width:536px;height:80px;" name="post[RES]">{$info.RES}</textarea>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

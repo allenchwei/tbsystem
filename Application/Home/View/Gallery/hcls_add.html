@@ -1,0 +1,93 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<input type="hidden" name="post[HOST_MAP_ID]" value="{$info.HOST_MAP_ID}">
+		<input type="hidden" name="post[flag]" value="{$info.flag}">
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<include file="Gallery/host_common_top" />	
+			<div class="tabs">
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>结算方式</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">					
+					<div class="pageFormContent" style="height:180px;">
+						<div class="content100">
+							<p class="p_11">
+								<label>清算模式：</label>		
+								<select class="combox" name="post[HOST_SETTLE_FLAG]">
+									<volist name="host_settle_flag" id="vo">
+										<option value="{$key}" <if condition="$info['HOST_SETTLE_FLAG'] eq $key">selected</if>>{$vo}</option>
+									</volist>
+								</select>
+							</p>
+							<p class="p_11">
+								<label>结算周期：</label>
+								T+　<input type="text" value="{$info.SETTLE_T|default='1'}" name="post[SETTLE_T]" class="required host_input" style="width:107px" maxlength="1">	
+								<span class="error" for="post[SETTLE_T]" style="left:152px;display:none;">必填字段</span>
+							</p>
+							<div class="clear"></div>
+						</div>
+						<div class="jies1">
+							<div class="content100 er1">
+								<p>
+									<label>结算起始金额：</label>				
+									<input type="text" value="<gt name='info.SETTLE_OFF_AMT' value='0'>{$info.SETTLE_OFF_AMT|setMoney=###,2,2}</gt>" name="post[SETTLE_OFF_AMT]" class="required doubles" maxlength="13">
+									<code>　元/日</code>
+								</p>
+								<p>
+									<label>结算免手续费金额：</label>				
+									<input type="text" value="<gt name='info.SETTLE_FREE_AMT' value='0'>{$info.SETTLE_FREE_AMT|setMoney=###,2,2}</gt>" name="post[SETTLE_FREE_AMT]" class="required doubles" maxlength="13">
+									<code>　元/日</code>	
+								</p>
+								<p>
+									<label>结算最高金额：</label>				
+									<input type="text" value="<gt name='info.SETTLE_TOP_AMT' value='0'>{$info.SETTLE_TOP_AMT|setMoney=###,2,2}</gt>" name="post[SETTLE_TOP_AMT]" class="required doubles" maxlength="13">
+									<code>　元/日</code>
+								</p>
+								<div class="clear"></div>
+							</div>
+						</div>
+						<div class="jies2">
+							<div class="content100 er2" note-type="checkxz">
+								<p class="xz">
+									<label><input type="checkbox" <gt name='info.SETTLE_OFF_FEE' value='0'>checked</gt>>不足则顺延下个工作日，否则额外手续费</label>
+									<input type="text" <gt name='info.SETTLE_OFF_FEE' value='0'> value="{$info.SETTLE_OFF_FEE|setMoney=###,2,2}" <else/> value="" disabled </gt> name="post[SETTLE_OFF_FEE]" class="doubles host_input xuanzhong" maxlength="6">
+									<code>　元/次</code>
+								</p>
+								<p class="xz">
+									<label><input type="checkbox" <gt name='info.SETTLE_FEE' value='0'>checked</gt>>超出则收取手续费</label>
+									<input type="text" <gt name='info.SETTLE_FEE' value='0'> value="{$info.SETTLE_FEE|setMoney=###,2,2}" <else/> value="" disabled </gt> name="post[SETTLE_FEE]" class="doubles host_input xuanzhong" maxlength="6">
+									<code>　元/次</code>
+								</p>
+								<div class="clear"></div>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		//行业类别   结算方式
+		$('div[note-type="checkxz"] input[type="checkbox"]').on('click', function(){
+			var pare 	= $(this).closest('.xz'),
+				checked = $(this).attr('checked');
+			if(checked){
+				pare.find('.xuanzhong').attr('disabled', false).addClass('required ');
+			}else{
+				pare.find('.xuanzhong').attr('disabled', true).removeClass('required ');
+			}
+		});
+	</script>
+</div>

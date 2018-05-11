@@ -1,0 +1,50 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>通道名称：</label>
+				<span class="show">{$info.HOST_NAME}</span>
+			</p>
+			<p>
+				<label>商户编号：</label>
+				<span class="show">{$info.HSHOP_NO}</span>
+			</p>
+			<p>
+				<label>商户名称：</label>
+				<span class="show">{$info.HSHOP_NAME}</span>
+			</p>
+			<p>
+				<label>POS编号：</label>
+				<span class="show">{$info.HPOS_NO}</span>
+			</p>
+			<p>
+				<label>POS批次号：</label>
+				<span class="show">{$info.HPOS_BATCH}</span>
+			</p>
+		</div>
+		<div class="content30">
+			<p style="width:66.66%">
+				<label>POS流水号：</label>
+				<span class="show">{$info.HPOS_TRACE}</span>
+			</p>
+			<p>
+				<label>POS状态：</label>
+				<span class="show">{$login_flag[$info[LOGIN_FLAG]]}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="content100">
+			<p class="remark">
+				<label>备注：</label>
+				<span>POS机刷银行卡需要添加第三方通道数据。相关信息来自通道方。</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+		</div>
+	</div>
+</div>

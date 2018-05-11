@@ -1,0 +1,145 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="80" style="padding-bottom:0px;">
+		<div class="content100">
+			<p>
+				<label>公司名称：</label>
+				<span class="show">{$info.SECURITY_NAME}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="content30">
+			<p style="width:66.66%;">
+				<label>公司地址：</label>
+				<span class="show">{$info.CITY_NO|getcity_name=###}{$info.ADDRESS}</span>
+			</p>
+			<p>
+				<label>邮政编码：</label>
+				<span class="show">{$info.ZIP}</span>
+			</p>
+			<p style="width:100%;">
+				<label>承保险种：</label>
+				<span class="show">
+					<eq name="type_num" value="12">
+						{$security_type[2]}、{$security_type[1]}
+					<else/>
+						{$security_type[$type_num]}
+					</eq>
+				</span>
+			</p>
+			<!-- <p style="width:66.66%;">
+				<label>承保区域：</label>
+				<span class="show">{$info.SECURITY_CITYNO|getcity_name=###}</span>
+			</p> -->
+			<p>
+				<label>联系人：</label>
+				<span class="show">{$info.MANAGER}</span>
+			</p>
+			<p>
+				<label>联系手机：</label>
+				<span class="show">{$info.MOBILE}</span>
+			</p>
+			<p>
+				<label>状态：</label>
+				<span class="show">{$security_status[$info[SECURITY_STATUS]]}</span>
+			</p>
+			<p>
+				<label>联系电话：</label>
+				<span class="show">{$info.TEL}</span>
+			</p>
+			<p>
+				<label>联系传真：</label>
+				<span class="show">{$info.FAX}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+		
+		<!--2 养老险 -->
+		<div class="tabs" <if condition="($type_num eq 2) or ($type_num eq 12)">style="display:block;"<else/>style="display:none;"</if>>
+			<div class="tabsHeader">
+				<div class="tabsHeaderContent">
+					<ul>
+						<li><a href="javascript:;"><span>养老险</span></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="tabsContent">
+				<div class="pageFormContent">
+					<div class="content50">
+						<p>
+							<label>最小年龄：</label>
+							<span class="show">{$srba_info2.AGE_BEGIN}</span>　岁
+						</p>
+						<p>
+							<label>单份保单金额：</label>
+							<span class="show">{$srba_info2.SECURITY_AMT|setMoney=###,2,2}</span>　元
+						</p>
+						<p>
+							<label>最大年龄：</label>
+							<span class="show">{$srba_info2.AGE_END}</span>　岁
+						</p>
+						<p>
+							<label>最少保单金额：</label>
+							<span class="show">{$srba_info2.SECURITY_LOWAMT|setMoney=###,2,2}</span>　元
+						</p>
+						<p style="width:100%">
+							<label>每年最大保费：</label>
+							<span class="show">{$srba_info2.SECURITY_MAXAMT|setMoney=###,2,2}</span>　元
+						</p>							
+						<p>
+							<label>在线标志：</label>
+							<span class="show">{$online_flag[$srba_info2[ONLINE_FLAG]]}</span>
+						</p>
+						<div class="clear"></div>
+					</div>	
+				</div>
+			</div>		
+		</div>
+		
+		<!--1 意外险 -->
+		<div class="tabs" <if condition="($type_num eq 1) or ($type_num eq 12)">style="display:block;"<else/>style="display:none;"</if>>
+			<div class="tabsHeader">
+				<div class="tabsHeaderContent">
+					<ul>
+						<li><a href="javascript:;"><span>意外险</span></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="tabsContent">
+				<div class="pageFormContent cont_1">
+					<div class="content50">
+						<p>
+							<label>最小年龄：</label>
+							<span class="show">{$srba_info.AGE_BEGIN}</span>　岁
+						</p>
+						<p>
+							<label>单份保单金额：</label>
+							<span class="show">{$srba_info.SECURITY_AMT|setMoney=###,2,2}</span>　元
+						</p>
+						<p>
+							<label>最大年龄：</label>
+							<span class="show">{$srba_info.AGE_END}</span>　岁
+						</p>
+						<p>
+							<label>最少保单金额：</label>
+							<span class="show">{$srba_info.SECURITY_LOWAMT|setMoney=###,2,2}</span>　元
+						</p>
+						<p style="width:100%">
+							<label>每年最大保费：</label>
+							<span class="show">{$srba_info.SECURITY_MAXAMT|setMoney=###,2,2}</span>　元
+						</p>												
+						<p>
+							<label>在线标志：</label>
+							<span class="show">{$online_flag[$srba_info[ONLINE_FLAG]]}</span>
+						</p>
+						<div class="clear"></div>
+					</div>	
+				</div>
+			</div>		
+		</div>			
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

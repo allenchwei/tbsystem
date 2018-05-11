@@ -1,0 +1,64 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<input type="hidden" name="post[submit]" value="__ACTNAME__">
+	<gt name="info.MENU_ID" value="0">		
+		<input type="hidden" name="post[MENU_ID]" value="{$info.MENU_ID}">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>						
+					<label>上级菜单：</label>				
+					<select name="post[MENU_PID]">
+						{$menu_select}
+					</select>
+				</p>
+				<p>
+					<label>菜单名称：</label>
+					<input type="text" value="{$info.MENU_TITLE}" class="required ws45" name="post[MENU_TITLE]" maxlength="20"/>
+				</p>					
+				<p>
+					<label>节点类型：</label>				
+					<select name="post[MENU_LEVEL]">
+						<option value="2" <eq name="info.MENU_LEVEL" value="2">selected=""</eq> >模块</option>
+						<option value="3" <eq name="info.MENU_LEVEL" value="3">selected=""</eq> >方法</option>
+						<option value="0" <eq name="info.MENU_LEVEL" value="0">selected=""</eq> >非节点</option>
+					</select>
+				</p>
+				<p>
+					<label>菜单类型：</label>										
+					<select name="post[MENU_DISPLAY]">
+						<option value="1" <eq name="info.MENU_DISPLAY" value="1">selected=""</eq> >主菜单</option>
+						<option value="2" <eq name="info.MENU_DISPLAY" value="2">selected=""</eq> >子菜单</option>
+						<option value="0" <eq name="info.MENU_DISPLAY" value="0">selected=""</eq> >不显示</option>
+					</select>
+				</p>
+				<p>
+					<label>节点名称：</label>				
+					<input type="text" value="{$info.MENU_NAME}" name="post[MENU_NAME]" maxlength="20">
+				</p>					
+				<p>
+					<label>链接参数：</label>					
+					<textarea class="ws60" name="post[MENU_DATA]" style="height:165px;" >{$info.MENU_DATA}</textarea>
+				</p>						
+				<p>
+					<label>节点状态：</label>
+					<input type="radio" class="radio" value="1" name="post[MENU_STATUS]" <if condition="($info['MENU_STATUS'] eq 1) OR ($info['MENU_STATUS'] eq '') ">checked</if>>
+					启用
+					<input type="radio" class="radio" value="0" name="post[MENU_STATUS]" <eq name="info.MENU_STATUS" value="0">checked</eq>>
+					关闭
+				</p>
+				<p>
+					<label>备注说明：</label>
+					<input type="text" value="{$info.MENU_REMARK}" class="ws60" name="post[MENU_REMARK]"/>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

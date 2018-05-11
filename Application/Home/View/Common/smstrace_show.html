@@ -1,0 +1,54 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>归属：</label>
+				<span class="show">{$info.PARTNER_MAP_ID|get_level_name=###,$info['BRANCH_MAP_ID']}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="content50">
+			<p>
+				<label>短信类型：</label>
+				<span class="show">{$sms_model_type[$info[SMS_MODEL_TYPE]]}</span>
+			</p>
+			<p>
+				<label>短信状态：</label>
+				<span class="show">{$sms_status[$info[SMS_STATUS]]}</span>
+			</p>
+			<p>
+				<label>短信日期：</label>
+				<span class="show">{$info.SMS_DATE}</span>
+			</p>
+			<p>
+				<label>短信时间：</label>
+				<span class="show">{$info.SMS_TIME}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="content100">
+			<p>
+				<label>会员：</label>
+				<span class="show">{$info.VIP_NAME}</span>
+			</p>
+			<p>
+				<label>接收人姓名：</label>
+				<span class="show">{$info.SMS_RECV_NAME}</span>
+			</p>
+			<p>
+				<label>手机号：</label>
+				<span class="show">{$info.SMS_RECV_MOB}</span>
+			</p>
+			<p>
+				<label>短信内容：</label>
+				<span class="show">{$info.SMS_TEXT}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

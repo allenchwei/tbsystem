@@ -1,0 +1,62 @@
+<div class="pageContent">
+	<div class="pageFormContent dkls_show" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="dkls_table">
+			<form id="pagerForm" method="post" action="/index.php/Home/Settle/dkls_qblist.html">
+				<input type="hidden" name="pageNum" value="1" />
+				<input type="hidden" name="id" value="{$info.QB_ID}"/>
+			</form>
+			<table class="table" width="100%" layoutH="140">
+				<thead>
+					<tr>
+						<th width="5%" >卡号</th>
+						<th width="12%" >交易ID</th>
+						<th width="6%" align='center'>交易类型</th>
+						<th width="5%" align='center'>交易状态</th>
+						<th width="5%" align='right'>交易金额</th>
+						<th width="5%" align='right'>商户手续费</th>
+						<th width="5%" align='right'>附加费用</th>
+						<th width="12%" >商户</th>
+						<th width="5%" align='center'>终端</th>
+						<th width="7%" align='center'>交易日期</th>
+						
+						<th width="5%" align='center'>交易参考号</th>
+						<th width="10%" align='center'>积分宝参考号</th>
+						<th width="5%" align='center'>入账状态</th>
+						<th width="7%" align='center'>入账日期</th>
+						<th width="6%" align='center'>入账批次</th>
+					</tr>
+				</thead>
+				<tbody>
+					<volist name='list' key="k" id='vo'>
+						<tr target="sid_target" rel="{$vo.QB_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+							<td>{$vo.CARD_NO}</td>
+							<td>{$vo.TRADE_ID}</td>
+							<td>{$vo.TRADE_NAME}</td>
+							<td>{$vo.TRADE_STATUS}</td>
+							<td>{$vo.TRADE_AMT}</td>
+							<td>{$vo.HAND_AMT}</td>
+							<td>{$vo.ADDIT_AMT}</td>
+							<td>{$vo.SHOP_NAME}</td>
+							<td>{$vo.POS_NO}</td>
+							<td>{$vo.TRADE_TIME}</td>
+							<td>{$vo.TRADE_REF}</td>
+							<td>{$vo.JFB_REF}</td>
+							<td>{$vo.ACCOUNT_STATUS}</td>
+							<td>{$vo.ACCOUNT_TIME}</td>
+							<td>{$vo.ACCOUNT_BATCH}</td>
+						</tr>
+					</volist>
+				</tbody>
+			</table>
+			<div class="panelBar">
+				<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+				<div class="pagination" targetType="dialog" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+			</div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,37 @@
+<div class="pageContent" style="margin-left: 17%">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<input type="hidden" name="post[ID]" value="{$scfg_info.ID}" style="width: 22%">
+				<p style="margin-left: 3%">
+					<label>商户等级：</label>
+					<select class="combox" name="post[SHOP_GRADE]">
+						<volist name="GRADE_LEVEL" id="vo">
+							<option value="{$key}" <if condition="($scfg_info['SHOP_GRADE'] eq $key)">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p class="p_11 err_offset_6">
+					<label>一级比例扣率线：</label>
+					<input type="text" name="post[FIR_FEE]" value="{$scfg_info.FIR_FEE}"  style="width: 22%"><span style="font-size: 10px;color:red"> 万分比</span>
+				</p>
+				<p class="p_11 err_offset_6">
+					<label>二级比例扣率线：</label>
+					<input type="text" name="post[SEC_FEE]" value="{$scfg_info.SEC_FEE}"  style="width: 22%"><span style="font-size: 10px;color:red"> 万分比</span>
+				</p>
+				<p class="p_11 err_offset_6">
+					<label>三级比例扣率线：</label>
+					<input type="text" name="post[THR_FEE]" value="{$scfg_info.THR_FEE}" style="width: 22%"><span style="font-size: 10px;color:red"> 万分比</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>

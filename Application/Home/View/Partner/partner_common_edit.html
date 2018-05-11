@@ -1,0 +1,194 @@
+	<div class="content25">
+		<p class="label_100" style="width:50%;">
+			<label>合作伙伴名称：</label>
+			<input type="text" name="partner[PARTNER_NAME]" value="{$partner_info.PARTNER_NAME}" class="required ws23" maxlength="26"/>
+		</p>
+		<p class="label_100">
+			<label>简称：</label>
+			<input type="text" name="partner[PARTNER_NAMEAB]" value="{$partner_info.PARTNER_NAMEAB}" class="required" maxlength="13"/>
+		</p>
+		<p class="label_30">
+			<label>协议到期：</label>
+			<input type="text" readonly="true" minDate="{:date('Y-m-d')}" name="partner[END_TIME]" value="{$partner_info.END_TIME}" class="date ws15" datefmt="yyyy-MM-dd" />
+			<a class="inputDateButton" href="javascript:;">选择</a>
+		</p>
+	</div>
+	<div class="content25">
+		<p class="label_100 maxcombox" style="width:75%;">
+			<label>所在地址：</label>
+			{$partner_info[CITY_NO]|getcity_select=###,'partner[CITY_NO]'}
+			<input type="text" class="required" name="partner[ADDRESS]" value="{$partner_info.ADDRESS}" style="width:200px;"/>
+			<span class="error" for="partner[ADDRESS]" style="left: 505px; display: none;">必填字段</span>
+			<input type="text" class="required digits ws10" name="partner[ZIP]" value="{$partner_info.ZIP}" maxlength="6"/>
+			<span class="error" for="partner[ZIP]" style="left: 711px; display: none;">必填字段</span>
+		</p>
+		<p class="label_100">
+			<label>联系人员：</label>
+			<input type="text" class="required ws15" name="partner[MANAGER]" value="{$partner_info.MANAGER}" maxlength="10"/>
+		</p>
+		<p class="label_100 maxcombox">
+			<label>合作伙伴级别：</label>
+			<eq name="partner_info['PARTNER_STATUS']" value="0">
+				<span class="show">{:C('PLEVEL_NAME')[$partner_info['PARTNER_LEVEL']]}</span>
+				<input type="hidden" name="partner[PARTNER_LEVEL]" value="{$partner_info.PARTNER_LEVEL}">
+			<else />
+				<select class="combox" name="partner[PARTNER_LEVEL]" node-type="partnerlv">
+					<volist name="Think.config.PLEVEL_NAME" id="vo">
+						<if condition="$partner_info['PARTNER_LEVEL'] eq $key">
+							<option value="{$key}" >{$vo}</option>
+						</if>
+					</volist>
+				</select>
+			</eq>
+		</p>
+		<p class="label_100 maxcombox" style="width:50%;">
+			 <if condition="($home['BRANCH_MAP_ID'] eq '100000')">
+			 	<span node-type="getrolesel" <neq name='partner_info["PARTNER_LEVEL"]' value='3'>style="display:none;"</neq>>
+					<label style="width: 85px">角色：</label>
+					<select class="combox" name="partner[PARTNER_LEVEL1]">
+						<volist name="Think.config.PLEVEL_ROLE_NAME" id="vo">
+							<option value="{$key}" <if condition="$partner_info.PLEVEL_MAP_ID eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</span>
+			 <else />
+				 <if condition="($partner_info['PARTNER_STATUS'] eq 0) and ($home['BRANCH_MAP_ID'] neq '100000')">
+				 		<eq name="partner_info['PARTNER_LEVEL']" value="3">
+							<span class="show">{:C('PLEVEL_ROLE_NAME')[$partner_info['PARTNER_LEVEL']]}</span>
+						</eq>
+				 	<else />
+					 	<span node-type="getrolesel" <neq name='partner_info["PARTNER_LEVEL"]' value='3'>style="display:none;"</neq>>
+							<label style="width: 85px">角色：</label>
+							<select class="combox" name="partner[PARTNER_LEVEL1]">
+								<volist name="Think.config.PLEVEL_ROLE_NAME" id="vo">
+									<option value="{$key}" <if condition="$partner_info.PLEVEL_MAP_ID eq $key">selected</if>>{$vo}</option>
+								</volist>
+							</select>
+						</span>
+				 </if>
+			 </if>
+		</p>
+		<p class="err_offect_1 label_30">
+			<label>联系手机：</label>
+			<input type="text" class="required digits ws15" name="partner[MOBILE]" value="{$partner_info.MOBILE}" maxlength="11" title="只能输入整数"/>
+		</p>
+		<div class="label_100 maxcombox levelsel" style="width:75%;padding:5px 0;">
+			<label>归属上级：</label>
+			<div class="selbox" node-type="partnerlv2">
+				<eq name="partner_info['PARTNER_STATUS']" value="0">
+					{:get_level_sel($partner_info['BRANCH_MAP_ID'],'nobranch','plv[]',$partner_info['PARTNER_MAP_ID_P'],$partner_info['PARTNER_LEVEL']-1)}
+				<else />
+					{:get_level_sel($partner_info['BRANCH_MAP_ID'],'-1','plv[]',$partner_info['PARTNER_MAP_ID_P'],$partner_info['PARTNER_LEVEL']-1)}
+				</eq>
+			</div>
+		</div>
+		<p class="label_30">
+			<label>联系电话：</label>
+			<input type="text" class="digits ws15" name="partner[TEL]" value="{$partner_info.TEL}" maxlength="15"/>
+		</p>
+		<p class="label_100 maxcombox">
+			<label>合作伙伴类别：</label>
+			<select class="combox" name="partner[PARTNER_G_FLAG]">
+				<volist name="partner_g_f" id="vo">
+					<option value="{$key}" <if condition="($partner_info.PARTNER_G_FLAG eq $key) and ($partner_info.PARTNER_G_FLAG neq '')">selected</if>>{$vo}</option>
+				</volist>
+			</select>
+		</p>
+		<p class="label_100 maxcombox" style="width:50%;">
+			<span node-type="getgpsel" <neq name='partner_info.PARTNER_G_FLAG' value='3'>style="display:none;"</neq>><label style="width: 85px">归属集团公司：</label>{:get_company_sel($partner_info['PARTNER_MAP_ID_G'],'partner[PARTNER_MAP_ID_G]')}
+			</span>
+		</p>
+		<p class="err_offect_1 label_30">
+			<label>联系邮箱：</label>
+			<input type="text" class="email_auto ws15" name="partner[EMAIL]" value="{$partner_info.EMAIL}" title="请数据正确的邮件格式"/>
+		</p>
+		<div class="clear"></div>
+		<p class="label_100 maxcombox">
+			<label>养老险承保公司：</label>
+			<select class="combox" name="partner[SECURITY_MAP_ID1]">
+				<volist name="security_data[1]" id="vo">
+					<option value="{$vo.SECURITY_MAP_ID}" <if condition="$partner_info['SECURITY_MAP_ID1'] eq $vo['SECURITY_MAP_ID']">selected</if>>{$vo.SECURITY_NAME}</option>
+				</volist>
+			</select>
+		</p>
+		<p class="label_100 maxcombox">
+			<label>意外险承保公司：</label>
+			<select class="combox" name="partner[SECURITY_MAP_ID2]">
+				<volist name="security_data[0]" id="vo">
+					<option value="{$vo.SECURITY_MAP_ID}" <if condition="$partner_info['SECURITY_MAP_ID2'] eq $vo['SECURITY_MAP_ID']">selected</if>>{$vo.SECURITY_NAME}</option>
+				</volist>
+			</select>
+		</p>
+		<p class="label_30">
+		</p>
+		<p class="label_100" style="width:50%;">
+			
+		</p>
+		<div class="clear"></div>
+	</div>	
+	<script type="text/javascript">
+		//通过user_id获得用户名
+		$('input[node-type="getusername"]').on('blur',function(){
+			var userid = $(this).val(),
+				target = $(this).attr('data-target');
+			$.ajax({
+			   type: "POST",
+			   url: "__MODULE__/Public/getusername",
+			   data: "userid="+userid,
+			   success: function(data){
+			   		if (data.state != 0) {
+			   			$("input[name='"+ target +"']").val('无此用户');
+			   		}else{
+						$("input[name='"+ target +"']").val(data.data.USER_NAME);
+			   		}
+			   }
+			});
+		})
+		//通过选择合作伙伴类别显示/隐藏集团公司下拉
+		$('select[name="partner[PARTNER_G_FLAG]"]').on('change',function(){
+			var glv = $(this).val();
+			if (glv == '3') {
+				$('span[node-type="getgpsel"]').show();
+			}else{
+				$('span[node-type="getgpsel"]').hide();
+			}
+		})
+
+		//通过地区自动获取邮编
+		$('select[name="partner[CITY_NO]').on('change',function(){
+			var city_code = $(this).val();
+			$.ajax({
+			   type: "POST",
+			   url : "/index.php/Home/Public/ajaxgetcode",
+			   data: "city_no="+ city_code,
+			   success: function(data){
+			   		if(!data) return;
+			   		$('input[name="partner[ZIP]"]').val(data.CITY_ZIP_CODE);
+			   }
+			});
+		})
+
+		//通过选择合作伙伴级别显示/隐藏级别角色
+		$('select[name="partner[PARTNER_LEVEL]"]').on('change',function(){
+			var plv = $(this).val();
+			if (plv == '3') {
+				$('span[node-type="getrolesel"]').show();
+			}else{
+				$('span[node-type="getrolesel"]').hide();
+			}
+		})
+		//通过级别返回下拉级别
+		$('select[node-type="partnerlv"]').on('change',function(){
+			var flag = $(this).val()-1;
+				$('select[name="plv[]"]').attr('maxlv',flag);
+				$('select[name="plv[]"]').trigger("change");
+		});
+		$(".email_auto").mailAutoComplete({
+			boxClass: "out_box", //外部box样式
+			listClass: "list_box", //默认的列表样式
+			focusClass: "focus_box", //列表选样式中
+			markCalss: "mark_box", //高亮样式
+			autoClass: false,
+			textHint: true //提示文字自动隐藏
+		});
+	</script>

@@ -1,0 +1,98 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[SHOP_GRADE]" value="{$postdata.SHOP_GRADE}"/>
+	<input type="hidden" name="post[MCC_TYPE]" value="{$postdata.MCC_TYPE}"/>
+	<input type="hidden" name="post[RULE_TYPE]" value="{$postdata.RULE_TYPE}"/>
+	<input type="hidden" name="post[RISK_STATUS]" value="{$postdata.RISK_STATUS}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>适用商户等级：</label>
+					<select class="combox" name="post[SHOP_GRADE]">
+						<volist name="shop_grade" id="vo">
+							<option value="{$key}" <if condition="($postdata['SHOP_GRADE'] eq $key) && ($postdata['SHOP_GRADE'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>适用商户分类：</label>
+					<select class="combox" name="post[MCC_TYPE]">
+						<option value="">所有</option>
+						<volist name="mcc_type" id="vo">
+							<option value="{$key}" <if condition="($postdata['MCC_TYPE'] eq $key) && ($postdata['MCC_TYPE'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>风控规则类型：</label>
+					<select class="combox" name="post[RULE_TYPE]">
+						<option value="">所有</option>
+						<volist name="rule_type" id="vo">
+							<option value="{$key}" <if condition="($postdata['RULE_TYPE'] eq $key) && ($postdata['RULE_TYPE'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>风控规则状态：</label>
+					<select class="combox" name="post[RISK_STATUS]">
+						<option value="">所有</option>
+						<volist name="risk_status" id="vo">
+							<option value="{$key}" <if condition="($postdata['RISK_STATUS'] eq $key) && ($postdata['RISK_STATUS'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="175">
+		<thead>
+			<tr>
+				<th width="8%" align='center'>ID</th>
+				<th width="15%">风险规则</th>
+				<th width="8%" align='center'>周期</th>
+				<th width="8%" align='right'>阀值</th>
+				<th width="8%" align='center'>动作</th>
+				<th width="15%" align='center'>适用商户</th>
+				<th width="8%" align='center'>适用MCC</th>
+				<th width="8%" align='center'>风险累积数</th>
+				<th width="8%" align='center'>状态</th>
+				<th width="14%">备注</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.VAL_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.VAL_ID}</td>
+					<td>{$vo.RULE_NAME}</td>
+					<td>{$risk_t[$vo[RISK_T]]}</td>
+					<td>{$vo.RISK_TARGET}</td>
+					<td>{$risk_active[$vo[RISK_ACTIVE]]}</td>
+					<td>{$shop_grade[$vo[SHOP_GRADE]]}</td>
+					<td>{$mcc_type[$vo[MCC_TYPE]]}</td>
+					<td>{$vo.ACTIVE_BOUND}</td>
+					<td>{$risk_status[$vo[RISK_STATUS]]}</td>
+					<td title="{$vo.RISK_REMARK}">{$vo.RISK_REMARK}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

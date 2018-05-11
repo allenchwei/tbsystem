@@ -1,0 +1,75 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[ISSUE_CODE]" value="{$postdata.ISSUE_CODE}"/>
+	<input type="hidden" name="post[CARD_TYPE]" value="{$postdata.CARD_TYPE}"/>
+	<input type="hidden" name="post[CARD_BIN]" value="{$postdata.CARD_BIN}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>发卡行：</label>
+					<select class="combox" name="post[ISSUE_CODE]">
+						<option value="">请选择</option>
+						<option value="-1">积分宝卡</option>						
+						<volist name="bank_list" id="vo">
+							<option value="{$vo.ISSUE_CODE}" <eq name="postdata.ISSUE_CODE" value="$vo.ISSUE_CODE">selected</eq>>{$vo.BANK_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>卡类：</label>
+					<select class="combox" name="post[CARD_TYPE]">
+						<option value="">请选择</option>
+						<volist name="card_type" KEY="k" id="vo">
+							<option value="{$k}" <eq name="postdata.CARD_TYPE" value="$k">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>卡BIN：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.CARD_BIN}" name="post[CARD_BIN]" maxlength="10" onkeyup="value=value.replace(/[^\d]/g,'')">
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="141">
+		<thead>
+			<tr>
+				<th width="26%" >发卡行</th>
+				<th width="18%" align="center">卡BIN</th>
+				<th width="26%" align="center">卡名称</th>
+				<th width="15%" align="center">类型</th>
+				<th width="15%" align="center">卡号长度</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.BIN_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td><eq name="vo.BIN_FLAG" value="0"> {$vo.ISSUE_NAME} <else/> 积分宝卡 </eq></td>
+					<td>{$vo.CARD_BIN}</td>
+					<td>{$vo.CARD_NAME}</td>
+					<td>{$card_type[$vo[CARD_TYPE]]}</td>
+					<td>{$vo.PAN_LEN}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

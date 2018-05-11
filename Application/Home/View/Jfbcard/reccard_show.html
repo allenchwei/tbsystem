@@ -1,0 +1,65 @@
+<style>.jfbmake .jfbkuai .jfb_radio .shop_s label{width:120px;}</style>
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="jfbmake" style="padding:0 20px 20px;">
+			<div class="title">实体卡回收单</div>
+			<div class="jname">
+				<a>回收日期：{:Date('Y-m-d')}</a>
+				<a class="f_r">回收批次：{$outcard_data[0].CARDOUT_BATCH_ID}</a>
+				<div class="clear"></div>
+			</div>
+			<div class="jfbkuai" style="padding:10px 40px;">
+				<div class="content100">
+					<p class="jfb_out">
+						<label>发货方：</label>
+						<span class="show">{$outcard_data[0].BRANCH_MAP_ID_OUT|get_branch_name=###,$outcard_data[0]['PARTNER_MAP_ID_OUT']}</span>
+					</p>
+					<p class="jfb_sel">
+						<label>收货方：</label>
+						<span class="show">{$outcard_data[0].BRANCH_MAP_ID_IN|get_branch_name=###,$outcard_data[0]['PARTNER_MAP_ID_IN']}</span>
+					</p>
+					<p class="jfb_input">
+						<label>回收数量</label>
+						<span class="show">{$outcard_data[0].CARD_NUM}</span>　张
+					</p>
+					<p class="jfb_radio">
+						<span class="show"><eq name="cardno_type" value="0">连续卡号<else />非连续卡号</eq></span>
+					</p>
+					<div class="clear"></div>
+				</div>
+				<eq name="cardno_type" value="0">
+					<div class="content50" node-type="cardno_type0">
+						<p class="jfb_input">
+							<label>起始卡号</label>
+							<span class="show">{$outcard_data[0].CARD_BEGIN}</span>
+						</p>
+						<p class="jfb_input">
+							<label>结束卡号</label>
+							<span class="show">{$outcard_data[0].CARD_END}</span>
+						</p>
+						<div class="clear"></div>
+					</div>
+				<else />
+					<div class="content100" node-type="cardno_type1">
+						<volist name="outcard_data" key="k" id="vo">
+							<p class="jfb_input">
+								<label>卡号{$k}</label>
+								<span class="show">{$vo.CARD_BEGIN}</span>
+							</p>	
+						</volist>
+						<div class="clear"></div>
+					</div>
+				</eq>
+			</div>
+			<div class="bzhu">
+				备注<input type="text" name="makecard[RES]" value="{$outcard_data[0].RES}" disabled="disabled" maxlength="30"/>
+				操作人：{$outcard_data[0].CREATE_USERNAME}
+			</div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

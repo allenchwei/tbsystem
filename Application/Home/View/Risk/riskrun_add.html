@@ -1,0 +1,52 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<input type="hidden" name="post[submit]" value="__ACTNAME__">
+	<gt name="info.RISKRUN_ID" value="0">		
+		<input type="hidden" name="post[RISKRUN_ID]" value="{$info.RISKRUN_ID}">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>规则ID：</label>
+					<span class="show">{$info.RISKRUN_ID}</span>
+				</p>
+				<p>
+					<label>商户风险等级：</label>
+					<span class="show">{$shop_grade[$info[SHOP_GRADE]]}</span>
+				</p>
+				<p class="ic_line"></p>
+				<p>
+					<label>商户分类：</label>
+					<span class="show">{$mcc_type[$info[MCC_TYPE]]}　{$info.MCC_CODE|getmcc_name=###}</span>
+				</p>
+				<p>
+					<label>本级风险积数：</label>
+					<input type="text" value="{$info.RISKRUN_BOUND}" class="digits required" name="post[RISKRUN_BOUND]" maxlength="4"/>
+				</p>
+				<p>
+					<label>　</label>
+					<font color="red">当商户风险积数达到该值时，系统自动把该商户自动调整为该风险等级</font>
+				</p>
+				<p>
+					<label>状态：</label>
+					<select class="combox" name="post[RISKRUN_STATUS]">
+						<volist name="riskrun_status" id="vo">
+							<option value="{$key}" <eq name="info['RISKRUN_STATUS']" value="$key">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>备注：</label>
+					<textarea style="width:450px;height:80px;" name="post[RISKRUN_REMARK]">{$info.RISKRUN_REMARK}</textarea>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

@@ -1,0 +1,67 @@
+<style>
+.cinfo_l{width:50%;float:left;}
+</style>
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>卡片归属：</label>
+				<span class="show">
+					{$card_res.PARTNER_MAP_ID|get_level_name=###,$card_res['BRANCH_MAP_ID']}
+				</span>
+			</p>
+			<p>
+				<label>卡套餐：</label>
+				<span class="show">{:C('CARD_P_MAP_ID')[$card_res['CARD_P_MAP_ID']]}</span>
+			</p>
+			<p>
+				<label>卡号：</label>
+				<span class="show">{$card_res.CARD_NO}</span>
+			</p>
+			<p>
+				<label>磁道信息：</label>
+				<span class="show">{$card_res.CARD_TRACK2}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="content50">
+			<p>
+				<label>卡费：</label>
+				<span class="show">{$cardmoney|setMoney=###,2,2}元</span>
+			</p>
+			<!-- <p>
+				<label>实收卡费：</label>
+				<span class="show">
+					<eq name="card_res['CARD_P_MAP_ID']" value="2">
+						{$cardmoney|setMoney=###,2,2}元
+					<else />
+						0.00元
+					</eq>
+				</span>
+			</p> -->
+			<!-- <p class="ic_line"></p>
+			<p style="width:100%;">
+				<label>实际余额：</label>
+				<span class="show">0.00元</span>
+			</p>
+			<p>
+				<label>可用余额：</label>
+				<span class="show">0.00元</span>
+			</p>
+			<p>
+				<label>投保总额：</label>
+				<span class="show">0.00元</span>
+			</p>
+			<p>
+				<label>欠款余额：</label>
+				<span class="show">0.00元</span>
+			</p> -->
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,73 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="info.FACTORY_MAP_ID" value="0">
+		<input type="hidden" name="post[submit]" value="factory_edit">
+		<input type="hidden" name="post[FACTORY_MAP_ID]" value="{$info.FACTORY_MAP_ID}">
+	<else />
+		<input type="hidden" name="post[submit]" value="factory_add">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>厂商名称：</label>
+					<input type="text" class="required ws416" name="post[FACTORY_NAME]" value="{$info.FACTORY_NAME}" maxlength="16"/>
+					
+				</p>
+				<p>
+					<label>厂商地址：</label>
+					{$info['CITY_NO']|getcity_select=###,'post[AREA_CODE]'}
+				</p>
+				<p>
+					<label>　</label>
+					<input type="text" class="required ws416" name="post[ADDRESS]" value="{$info.ADDRESS}" maxlength="33"/>
+				</p>
+				<p>
+					<label>邮编：</label>
+					<input type="text" class="required digits" name="post[ZIP]" value="{$info.ZIP}" maxlength="6"/>
+				</p>
+				<p>
+					<label>公司状态：</label>
+					<select class="combox" name="post[FACTORY_STATUS]">
+						<volist name="factory_status" id="vo">
+							<option value="{$key}" <if condition="$key eq $info['FACTORY_STATUS']">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>联系人：</label>
+					<input type="text" class="required" name="post[MANAGER]" value="{$info.MANAGER}" maxlength="6"/>
+				</p>
+				<p>
+					<label>联系电话：</label>
+					<input type="text" class="required" name="post[TEL]" value="{$info.TEL}" maxlength="15"/>
+				</p>
+				<p>
+					<label>公司网址：</label>
+					<input type="text" value="{$info.WEB}" class="url ws416" name="post[WEB]" maxlength="40"/>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+	<script>
+		//通过地区自动获取邮编
+		$('select[name="post[AREA_CODE]').on('change',function(){
+			var city_code = $(this).val();
+			$.ajax({
+			   type: "POST",
+			   url : "/index.php/Home/Public/ajaxgetcode",
+			   data: "city_no="+ city_code,
+			   success: function(data){
+			   		if(!data) return;
+			   		$('input[name="post[ZIP]"]').val(data.CITY_ZIP_CODE);
+			   }
+			});
+		})
+	</script>
+</div>

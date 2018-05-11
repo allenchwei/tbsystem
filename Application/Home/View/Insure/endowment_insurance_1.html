@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="gbk"?>
+<TXLife>
+  <TXLifeRequest>
+    <TransRefGUID>{$data.TB_ID}</TransRefGUID>
+    <TransType tc="103">New Business Submission</TransType>
+    <TransMode tc="2">Original</TransMode>
+    <TransExeDate/>
+    <TransExeTime/>
+    <OLifE>
+      <Holding id="Holding_1">
+        <Policy>
+          <ApplicantMode tc="1">自助</ApplicantMode>
+          <ProductCode>HMBCYLJ</ProductCode>
+          <PlanName>人保寿险惠民补充养老金保险（万能型）</PlanName>
+          <PolNumber></PolNumber>
+          <EffDate>{:date('Y-m-d',strtotime('+1 day'))}</EffDate>
+          <BenefitPeriod/>
+          <AccountNumber>33001617027053017852</AccountNumber>
+          <FeeStatus tc="2">OVERDUE</FeeStatus>
+          <AcctHolderName>浙江积分宝控股有限公司消费养老保险专户</AcctHolderName>
+          <AcctGovtID>330725196710076114</AcctGovtID>
+          <AcctGovtIDTC tc="2">2</AcctGovtIDTC>
+          <BankAcctType tc="7">7</BankAcctType>
+          <PaymentMethod tc="3">3</PaymentMethod>
+          <AcctPubPri tc="2"/>
+          <PolicyReceiveMode tc="5"/>
+          <BankName>00030000000000</BankName>
+          <Life>
+            <GrossPremAmtITD/>
+            <FaceUnits>1</FaceUnits>
+            <PolicyPaymentType>ALIPAY</PolicyPaymentType>
+            <Coverage VendorCode="10">
+              <ProductCode>61683</ProductCode>
+              <PlanName>人保寿险惠民补充养老年金保险（万能型）</PlanName>
+              <IndicatorCode tc="1">Base</IndicatorCode>
+              <ModalPremAmt>{$data.TB_AMT|setMoney=###,'2','2'}</ModalPremAmt>
+              <BenefitLimit>
+                <MaxBenefitDuration/>
+                <MaxBenefitDurPeriod/>
+              </BenefitLimit>
+              <PaymentDurationMode tc="1">SINGLE</PaymentDurationMode>
+              <ChargeType tc="5"/>
+              <PaymentDuration/>
+              <PayPeriod tc="2">2</PayPeriod>
+              <PayYear>{$vipdata.VIP_OLD}</PayYear>
+            </Coverage>
+          </Life>
+          <ApplicationInfo>
+            <HOAppFormNumber></HOAppFormNumber>
+            <SubmissionDate></SubmissionDate>
+            <SignedDate></SignedDate>
+          </ApplicationInfo>
+        </Policy>
+      </Holding>
+      <Relation OriginatingObjectID="Holding_1" RelatedObjectID="Party_1" id="Relation_1">
+        <OriginatingObjectType tc="4">Holding</OriginatingObjectType>
+        <RelatedObjectType tc="6">Party</RelatedObjectType>
+        <RelationRoleCode tc="8">Owner</RelationRoleCode>
+      </Relation>
+      <Relation OriginatingObjectID="Holding_1" RelatedObjectID="Party_2" id="Relation_2">
+        <OriginatingObjectType tc="4">Holding</OriginatingObjectType>
+        <RelatedObjectType tc="6">Party</RelatedObjectType>
+        <RelationRoleCode tc="32">Insured</RelationRoleCode>
+      </Relation>
+      <Relation OriginatingObjectID="Party_1" RelatedObjectID="Party_2" id="Relation_3">
+        <OriginatingObjectType tc="6">Party</OriginatingObjectType>
+        <RelatedObjectType tc="6">Party</RelatedObjectType>
+        <RelationRoleCode tc="5">Self</RelationRoleCode>
+      </Relation>
+         <Party id="Party_1">
+            <FullName>{$data.VIP_NAME}</FullName>
+            <GovtID>{$data.VIP_IDNO}</GovtID>
+            <GovtIDTC tc="1">中华人民共和国身份证</GovtIDTC>
+            <Person>
+                <Gender tc="{$vipdata.VIP_SEX}">{$vipdata['SEX_NAME']}</Gender>
+                <BirthDate>{$vipdata.VIP_BIRTHDAY}</BirthDate>
+            </Person>
+            <Address id="Address_1">
+                <Line1>{$vipdata.VIP_ADDRESS}</Line1>
+                <Zip />
+            </Address>
+            <Phone id="Phone_2">
+                <PhoneTypeCode tc="12">12</PhoneTypeCode>
+                <DialNumber>{$vipdata.VIP_MOBILE}</DialNumber>
+                <Email>{$vipdata.VIP_EMAIL}</Email>
+            </Phone>
+        </Party>
+        <Party id="Party_2">
+            <FullName>{$data.VIP_NAME}</FullName>
+            <GovtID>{$data.VIP_IDNO}</GovtID>
+            <GovtIDTC tc="1">中华人民共和国身份证</GovtIDTC>
+            <Person>
+                <Gender tc="{$vipdata.VIP_SEX}">{$vipdata['SEX_NAME']}</Gender>
+                <BirthDate>{$vipdata.VIP_BIRTHDAY}</BirthDate>
+            </Person>
+            <Address id="Address_1">
+                <Line1>{$vipdata.VIP_ADDRESS}</Line1>
+                <Zip />
+            </Address>
+            <Phone id="Phone_2">
+                <PhoneTypeCode tc="12">12</PhoneTypeCode>
+                <DialNumber>{$vipdata.VIP_MOBILE}</DialNumber>
+                <Email>{$vipdata.VIP_EMAIL}</Email>
+            </Phone>
+        </Party>
+    </OLifE>
+    <OLifEExtension VendorCode="1">
+      <CarrierCode>PICC</CarrierCode>
+      <Branch>1940303</Branch>
+      <AgencyCode>19410215</AgencyCode>
+      <Teller/>
+      <BankCode>ZJJFB</BankCode>
+    </OLifEExtension>
+  </TXLifeRequest>
+</TXLife>

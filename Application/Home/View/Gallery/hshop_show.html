@@ -1,0 +1,44 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>通道名称：</label>
+				<span class="show">{$info.HOST_NAME}</span>
+			</p>
+			<p>
+				<label>商户编号：</label>
+				<span class="show">{$info.HSHOP_NO}</span>
+			</p>
+			<p>
+				<label>商户KEY：</label>
+				<span class="show">{$info.KEYT}</span>
+			</p>
+			<p>
+				<label>商户名称：</label>
+				<span class="show">{$info.HSHOP_NAME}</span>
+			</p>
+			<p>
+				<label>中文简称：</label>
+				<span class="show">{$info.HSHOP_NAMEABCN}</span>
+			</p>
+			<p>
+				<label>英文简称：</label>
+				<span class="show">{$info.HSHOP_NAMEABEN}</span>
+			</p>
+			<p>
+				<label>MCC类：</label>
+				<span class="show">{$mcc_type[$info[MCC_TYPE]]}　{$info.MCC_CODE|getmcc_name=###}</span>
+			</p>
+			<p>
+				<label>商户地址：</label>
+				<span class="show">{$info['CITY_NO']|getcity_name=###}{$info.HSHOP_ADDRESS}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

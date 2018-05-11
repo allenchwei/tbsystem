@@ -1,0 +1,27 @@
+<div class="pageContent">
+    <form enctype="multipart/form-data" method="post" action="{:U('Home/Settle/dzupload')}" class="pageForm required-validate" onsubmit="return iframeCallback(this,navTabAjaxDone);">
+        <div class="pageFormContent" layoutH="58">
+        	<p>
+					<label>选择通道：</label>
+					<select class="combox" name="post[channel]">
+						<option value="">请选择</option>
+						
+							<option value="2" <?php if ($postdata['channel'] == $key){?> selected<?php }?> >兴业</option>
+						
+					</select>
+				</p>
+            <div class="unit">
+                            <label>选择Excel文件：</label>
+                                <input type="file" name="file_stu"/>
+            </div>
+                    <span style="color: #0000FF;margin-left: 80px;">备注：可以上传Microsoft Excel 2003格式的文件（文件名为*.xls），文件大小小于2M。</span>                   
+        </div>
+        <div class="formBar">
+	        <div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">保 存</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+            
+        </div>
+    </form>
+</div>

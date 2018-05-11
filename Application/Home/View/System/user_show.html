@@ -1,0 +1,48 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>用户级别：</label>
+				<span class="show">{$user_level[$info[USER_LEVEL]]}</span>
+			</p>
+			<p>
+				<label>用户归属：</label>
+				<span class="show">{$info.PARTNER_MAP_ID|get_level_name=###,$info['BRANCH_MAP_ID']}</span>
+			</p>
+			<p>
+				<label>角色名称：</label>
+				<span class="show">{$info.ROLE_NAME}</span>
+			</p>
+			<p>
+				<label>用户工号：</label>
+				<span class="show">{$info.USER_NO}</span>
+			</p>
+			<p>
+				<label>用户名称：</label>
+				<span class="show">{$info.USER_NAME}</span>
+			</p>
+			<p>
+				<label>用户状态：</label>
+				<span class="show">{$user_status[$info[USER_STATUS]]}</span>
+			</p>
+			<p>
+				<label>用户手机：</label>
+				<span class="show">{$info.USER_MOBILE}</span>
+			</p>
+			<p>
+				<label>用户邮箱：</label>
+				<span class="show">{$info.EMAIL}</span>
+			</p>
+			<p>
+				<label>　</label>
+				<font color="red">注：初始密码为000000</font>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

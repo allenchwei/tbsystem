@@ -1,0 +1,83 @@
+<div class="pageFormContent">
+	<div class="content100" node-type="bact_box">
+		<p>
+			<label>结算标志：</label>
+			<span>
+				<label><input type="radio" node-type="bank_flag" value="0" name="sbact[SHOP_BANK_FLAG]" <if condition="$sbact_info['SHOP_BANK_FLAG'] eq 0">checked<elseif condition="$sbact_info['SHOP_BANK_FLAG'] eq ''"/> checked </if>>对公帐号</label>
+				<label><input type="radio" node-type="bank_flag" value="1" name="sbact[SHOP_BANK_FLAG]" <eq name="sbact_info.SHOP_BANK_FLAG" value="1">checked</eq>>对私帐号</label>
+			</span>	
+		</p>
+		<div class="sbact1" <if condition="($sbact_info['SHOP_BANK_FLAG'] neq 0)">style="display:none;"<elseif condition="$sbact_info['SHOP_BANK_FLAG'] eq ''"/> style="display:show;" </if>>
+			<p>
+				<label>户名：</label>
+				<input type="text" class="required ws23" name="sbact[BANKACCT_NAME1]" value="{$sbact_info.BANKACCT_NAME1}">
+			</p>
+			<p>
+				<label>账号：</label>
+				<input type="text" class="required digits ws23" name="sbact[BANKACCT_NO1]" value="{$sbact_info.BANKACCT_NO1}">
+			</p>
+			<p>
+				<label>开户行：</label>
+				<input type="text" value="{$sbact_info.BANK_NAME1}" name="org1.BANK_NAME" class="required ws26">
+				<a class="btnLook" href="{:U('/Home/Public/getbankbid')}" width="700" height="427" tdialog="true" lookupGroup="org1">查找带回</a>	
+			</p>
+			<p>
+				<label>开户行联行号：</label>
+				<input type="text" value="{$sbact_info.BANKACCT_BID1}" name="org1.BANKACCT_BID" class="required ws45">
+			</p>
+			<p>
+				<label>银行预留手机号：</label>
+				<input type="text" value="{$sbact_info.BANK_MOBILE1}" name="sbact[BANK_MOBILE1]" class="required ws45">
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="sbact2" <neq name="sbact_info.SHOP_BANK_FLAG" value="1">style="display:none;"</neq>>
+			<p>
+				<label>户名：</label>
+				<input type="text" class="ws23" name="sbact[BANKACCT_NAME2]" value="{$sbact_info.BANKACCT_NAME2}">
+			</p>
+			<p>
+				<label>账号：</label>
+				<input type="text" class="ws23 digits" name="sbact[BANKACCT_NO2]" value="{$sbact_info.BANKACCT_NO2}">
+			</p>
+			<p>
+				<label>开户行：</label>
+				<input type="text" value="{$sbact_info.BANK_NAME2}" name="org2.BANK_NAME" class="required ws26">
+				<a class="btnLook" href="{:U('/Home/Public/getbankbid')}" width="700" height="427" tdialog="true" lookupGroup="org2">查找带回</a>	
+			</p>
+			<p>
+				<label>开户行联行号：</label>
+				<input type="text" value="{$sbact_info.BANKACCT_BID2}" name="org2.BANKACCT_BID" class="required ws45">
+			</p>
+			<p>
+				<label>银行预留手机号：</label>
+				<input type="text" value="{$sbact_info.BANK_MOBILE2}" name="sbact[BANK_MOBILE2]" class="required ws45">
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<script type="text/javascript">
+		//公户私户切换
+		$('input[node-type="bank_flag"]').on('click',function(){
+			switch($(this).val()){
+				case '0' :
+					$('.sbact1').show();
+					$('.sbact2').hide();
+				break;
+				case '1' :
+					$('.sbact1').hide();
+					$('.sbact2').show();
+				break;
+			}
+			bact_required($(this).val());
+		})
+		function bact_required(bank_flag){
+			var bank_flag = bank_flag || 0;
+			var num = bank_flag == 0 ? 1 : 2;
+			$('div[node-type="bact_box"]').find('.required').removeClass('required');
+			$('.sbact'+num).find('input').addClass('required');
+		}
+		bact_required({$sbact_info['SHOP_BANK_FLAG']});
+	</script>
+</div>

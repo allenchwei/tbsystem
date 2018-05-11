@@ -1,0 +1,125 @@
+<style>
+.pageFormContent label{width:110px;}
+.pageFormContent .content50 label{width:125px;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="pos_info.POS_ID" value="0">
+		<input type="hidden" name="pos[submit]" value="pos_edit">
+		<input type="hidden" name="pos[POS_ID]" value="{$pos_info.POS_ID}">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content30 pos">
+				<p>
+					<label>商户名称：</label>
+					<span class="show">{$shop_info.SHOP_NAME}</span>
+				</p>
+				<p style="width:66.66%;">
+					<label>商户编号：</label>
+					<span class="show">{$shop_info.SHOP_NO}</span>
+				</p>
+			</div>
+			<div class="content100">
+				<p>
+					<label>商户归属：</label>
+					<span class="show">{$shop_info.PARTNER_MAP_ID|get_level_name=###,$shop_info['BRANCH_MAP_ID']}</span>
+				</p>
+			</div>
+			<div class="content30 pos">
+				<p>
+					<label>终端号：</label>
+					<span class="show">{$pos_info.POS_NO}</span>
+				</p>
+				<p>
+					<label>POS型号：</label>
+					<span class="show">{$pos_info.MODEL_NAME}</span>
+				</p>
+				<p>
+					<label>POS序列号：</label>
+					<span class="show">{$pos_info.DEVICE_SN}</span>
+				</p>
+				<p class="ic_line"></p>
+				<p>
+					<label>POS批次号：</label>
+					<input type="text" class="required" name="pos[POS_BATCH]" value="{$pos_info.POS_BATCH}" maxlength="6"/>
+				</p>
+				<p>
+					<label>流水号：</label>
+					<input type="text" class="required" name="pos[POS_TRACE]" value="{$pos_info.POS_TRACE}" maxlength="6"/>
+				</p>
+				<p>
+					<label>交易超时时间：</label>
+					<input type="text" class="required digits ws14" name="pos[POS_TIMEOUT]" value="{$pos_info.POS_TIMEOUT}" maxlength="2"/>　秒
+				</p>
+				<p style="width:100%;">
+					<label>通讯参数索引：</label>
+					<select class="combox" name="pos[COM_INDEX]">
+						<volist name="comm_data" id="vo">
+							<option value="{$vo.COM_INDEX}" <if condition="$pos_info['COM_INDEX'] eq $vo['COM_INDEX']">selected</if>>{$vo.COM_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>手工输入卡号：</label>
+					<span class="shop_s">
+						<label><input type="radio" value="0" <eq name="pos_info['POS_MAN_MODE']" value='0'>checked</eq> name="pos[POS_MAN_MODE]">支持</label>
+						<label><input type="radio" value="1" <eq name="pos_info['POS_MAN_MODE']" value='1'>checked</eq> name="pos[POS_MAN_MODE]">不支持</label>
+					</span>	
+				</p>
+				<p>
+					<label>IC公钥更新标志：</label>
+					<span class="shop_s">
+						<label><input type="radio" value="0" <eq name="pos_info['POS_PBOCKEYFLAG']" value='0'>checked</eq> name="pos[POS_PBOCKEYFLAG]">是</label>
+						<label><input type="radio" value="1" <eq name="pos_info['POS_PBOCKEYFLAG']" value='1'>checked</eq> name="pos[POS_PBOCKEYFLAG]">否</label>
+					</span>	
+				</p>
+				<p>
+					<label>程序更新标志：</label>
+					<span class="shop_s">
+						<label><input type="radio" value="0" <eq name="pos_info['POS_PROGFLAG']" value='0'>checked</eq> name="pos[POS_PROGFLAG]">是</label>
+						<label><input type="radio" value="1" <eq name="pos_info['POS_PROGFLAG']" value='1'>checked</eq> name="pos[POS_PROGFLAG]">否</label>
+					</span>	
+				</p>
+				<p>
+					<label>参数更新标志：</label>
+					<span class="shop_s">
+						<label><input type="radio" value="0" <eq name="pos_info['POS_PARAFLAG']" value='0'>checked</eq> name="pos[POS_PARAFLAG]">是</label>
+						<label><input type="radio" value="1" <eq name="pos_info['POS_PARAFLAG']" value='1'>checked</eq> name="pos[POS_PARAFLAG]">否</label>
+					</span>	
+				</p>
+				<p>
+					<label>IC参数更新标志：</label>
+					<span class="shop_s">
+						<label><input type="radio" value="0" <eq name="pos_info['POS_PBOCPARAFLAG']" value='0'>checked</eq> name="pos[POS_PBOCPARAFLAG]">是</label>
+						<label><input type="radio" value="1" <eq name="pos_info['POS_PBOCPARAFLAG']" value='1'>checked</eq> name="pos[POS_PBOCPARAFLAG]">否</label>
+					</span>	
+				</p>
+				<p>
+					<label>IC黑名单更新标志：</label>
+					<span class="shop_s">
+						<label><input type="radio" value="0" <eq name="pos_info['POS_HMDFLAG']" value='0'>checked</eq> name="pos[POS_HMDFLAG]">是</label>
+						<label><input type="radio" value="1" <eq name="pos_info['POS_HMDFLAG']" value='1'>checked</eq> name="pos[POS_HMDFLAG]">否</label>
+					</span>	
+				</p>
+				<p class="ic_line"></p>
+				<div class="clear"></div>
+			</div>
+			<div class="content50">
+				<p>
+					<label>终端程序当前版本号：</label>
+					<span class="show">{$pos_info.POS_CURPROGVER}</span>
+				</p>
+				<p>
+					<label>终端程序最新版本号：</label>
+					<input type="text" class="required" name="pos[POS_NEWPROGVER]" value="{$pos_info.POS_NEWPROGVER}" maxlength="6"/>
+				</p>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

@@ -1,0 +1,84 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<input type="hidden" name="post[HOST_MAP_ID]" value="{$info.HOST_MAP_ID}">
+		<input type="hidden" name="post[flag]" value="{$info.flag}">		
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<include file="Gallery/host_common_top" />
+			<div class="tabs">
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>成本扣率</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">
+					<div class="pageFormContent" note-type="checkxz">
+						<div class="rate">
+							<div class="lb"><b>行业类别</b></div>
+							<div class="kl"><b>扣率（百分比）</b></div>
+							<div class="fd"><b>是否封顶</b></div>
+							<div class="clear"></div>
+						</div>
+						<div class="rate">
+							<div class="lb"><b>行业类别</b></div>
+							<div class="kl"><b>扣率（百分比）</b></div>
+							<div class="fd"><b>是否封顶</b></div>
+							<div class="clear"></div>
+						</div>
+						<input type="hidden" value="" name="post[HMDR_DATA]"/>
+						<volist name="hmdr_list" key="k" id="vo">
+							<div class="rate" MCC_TYPE="{$vo.MCC_TYPE}" HMDR_ID="{$vo.HMDR_ID}" MCC_NAME="{$mcc_type[$vo[MCC_TYPE]]}">
+								<div class="lb">{$mcc_type[$vo[MCC_TYPE]]}</div>
+								<div class="kl"><input type="text" name="jishu_{$k}" value="<gt name='vo.PER_FEE' value='0'>{$vo.PER_FEE|setMoney=###,2,2}</gt>" date-type="PER_FEE" class="number ws10 required" maxlength="4">　%</div>
+								<div class="fd xz"><label><input type="checkbox" <gt name="vo.FIX_FEE" value="0">checked</gt>>封顶　</label><input type="text" name="fengding_{$k}" <gt name="vo.FIX_FEE" value="0"> value="{$vo.FIX_FEE|setMoney=###,2,2}" <else/> value="" disabled </gt> date-type="FIX_FEE" class="ws10 xuanzhong" maxlength="6">　元</div>
+								<div class="clear"></div>
+							</div>
+						</volist>
+						<div class="clear"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<a href="javascript:;" class="anniu ch-btn-skin ch-btn-small ch-icon-ok" onclick="checkSubmit()">确 定</a>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		function checkSubmit(){
+			/*
+			* 获取成本扣率
+			**/
+			var hdata = [],
+				hmdr  = $('input[name="post[HMDR_DATA]"]'),
+			hmdr_list = hmdr.parent().find('div[MCC_TYPE]');
+			$.each( hmdr_list, function(i, n){
+				var MCC_TYPE = $(this).attr('MCC_TYPE'),
+					HMDR_ID  = $(this).attr('HMDR_ID'),
+					MCC_NAME = $(this).attr('MCC_NAME'),
+					PER_FEE  = $(this).find('input[date-type="PER_FEE"]').val(),
+					hcheck   = $(this).find('input[type="checkbox"]:checked').val() ? 0 : 1,
+					FIX_FEE  = $(this).find('input[date-type="FIX_FEE"]').val();
+				hdata.push({'MCC_TYPE':MCC_TYPE, 'HMDR_ID':HMDR_ID, 'PER_FEE':PER_FEE, 'FIX_FEE':FIX_FEE});
+			});
+			hmdr.val(JSON.stringify(hdata));
+			
+			$('form[name="form"]').submit();		
+		}
+		
+		//行业类别   结算方式
+		$('div[note-type="checkxz"] input[type="checkbox"]').on('click', function(){
+			var pare 	= $(this).closest('.xz'),
+				checked = $(this).attr('checked');
+			if(checked){
+				pare.find('.xuanzhong').attr('disabled', false).addClass('required ');
+			}else{
+				pare.find('.xuanzhong').attr('disabled', true).removeClass('required ');
+			}
+		});
+	</script>
+</div>

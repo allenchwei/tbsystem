@@ -1,0 +1,81 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[CHANNEL_MAP_ID]" value="{$postdata.CHANNEL_MAP_ID}"/>
+	<input type="hidden" name="post[STATUS]" value="{$postdata.STATUS}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>渠道名称：</label>
+					<select class="combox" name="post[CHANNEL_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="channel_list" id="vo">
+							<option value="{$vo['CHANNEL_MAP_ID']}" <if condition="($postdata['CHANNEL_MAP_ID'] eq $vo['CHANNEL_MAP_ID']) and ($postdata['CHANNEL_MAP_ID'] neq '')">selected</if>>{$vo['CHANNEL_NAME']}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>状态：</label>
+					<select class="combox" name="post[STATUS]">
+						<option value="">请选择</option>
+						<volist name="host_status_check" id="vo">
+							<option value="{$key}" <if condition="($postdata['STATUS'] eq $key) and ($postdata['STATUS'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="141">
+		<thead>
+			<tr>
+				<th width="3%" align='center'>等级</th>
+				<th width="8%" align='center'>渠道</th>
+				<th width="8%" align='center'>角色名称</th>
+				<th width="10%" align='center'>角色申请费用</th>
+				<th width="12%" align='center'>返佣比例扣率线(万分比)</th>
+				<th width="10%" align="center">返佣固定费用</th>
+				<th width="10%" align="center">返佣上级费用</th>
+				<th width="12%" align="center">下级升级创业合伙人返佣固定费用</th>
+				<th width="12%" align="center">返佣第二级费用</th>
+				<th width="12%" align="center">返佣第三级费用</th>
+				<th width="12%" align='center'>状态</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.R_ID}</td>
+					<td>{$vo.CHANNEL_NAME}</td>
+					<td>{$vo.R_NAME}</td>
+					<td>{$vo.R_APPLYAMT|setMoney=###,2,2}<if condition='$vo[CHANNEL_MAP_ID] eq 7 and $vo[R_APPLYAMT] lt 1100'>&nbsp;(推荐人数)</if></td>
+					<td>{$vo.R_FEE}</td>
+					<td>{$vo.R_AMT|setMoney=###,2,2}<if condition='$vo[CHANNEL_MAP_ID] eq 7'>&nbsp;(万分之)</if></td>
+					<td>{$vo.R_UPSAMT|setMoney=###,2,2}<if condition='$vo[CHANNEL_MAP_ID] eq 7'>&nbsp;(万分之)</if></td>
+					<td>{$vo.R_RAMT|setMoney=###,2,2}</td>
+					<td>{$vo.R_UPSAMT_SEC|setMoney=###,2,2}</td>
+					<td>{$vo.R_UPSAMT_THR|setMoney=###,2,2}</td>
+					<td>{$host_status[$vo[STATUS]]}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

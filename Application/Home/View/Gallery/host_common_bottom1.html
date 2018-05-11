@@ -1,0 +1,30 @@
+	<div class="pageFormContent">
+		<div class="content100">
+			<div class="content50">
+				<p>
+					<label>日均限额：</label>
+					<span class="show">{$info.DAY_MAXAMT|setMoney=###,'6','2'}　万元</span>
+				</p>
+				<p>
+					<label>单笔限额：</label>
+					<span class="show">{$info.SIGN_MAXAMT|setMoney=###,'6','2'}　万元</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<p class="rad">
+				<label>映射规则：</label>
+				<span class="show">{$host_ppp_flag[$info[HOST_PPP_FLAG]]}</span>
+			</p>
+			<p class="qxjy">
+				<label>交易开通：</label>						
+				<span style="width:85%;float:left;">
+					<volist name="trans_list" id="vo">
+						<eq name="auth_trans_checked[$vo['TRANS_MAP_ID']-1]" value="1">
+							<span class="show">{$vo.TRANS_NAME} &nbsp;</span>
+						</eq>
+					</volist>
+				</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>

@@ -1,0 +1,70 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>代扣公司名称：</label>
+					<span class="show">{$info.DKCO_NAME}</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content30">
+				<p style="width:66.66%;">
+					<label>代扣公司地址：</label>
+					<span class="show">{$info.CITY_NO|getcity_name=###}{$info.ADDRESS}</span>
+				</p>
+				<p>
+					<label>邮政编码：</label>
+					<span class="show">{$info.ZIP}</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content100">
+				<p>
+					<label>状态：</label>
+					<span class="show">{$dkco_status[$info[DKCO_STATUS]]}</span>
+				</p>
+				<p>
+					<label>联系人：</label>
+					<span class="show">{$info.MANAGER}</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content30">
+				<p>
+					<label>联系手机：</label>
+					<span class="show">{$info.MOBILE}</span>
+				</p>
+				<p>
+					<label>联系电话：</label>
+					<span class="show">{$info.TEL}</span>
+				</p>
+				<p>
+					<label>联系传真：</label>
+					<span class="show">{$info.FAX}</span>
+				</p>
+				<p class="ic_line"></p>
+				<div class="clear"></div>
+			</div>
+			<div class="content100">
+				<p>
+					<label>收费标准：</label>
+					<span class="show">{$dkco_fee_flag[$info[DKCO_FEE_FLAG]]}　<if condition="$info['DKCO_FEE_FLAG'] eq 0">{$info.DKCO_FEE_FIX|setMoney=###,2,2} 元<else/>{$info.DKCO_FEE_PER} %</if></span>
+				</p>
+				<p>
+					<label>代扣周期：</label>
+					<span class="show">{$info.DKCO_DK_T|default='2'}　{$dkco_dk_wd[$info[DKCO_DK_WD]]}</span>
+				</p>
+				<p>
+					<label>起扣金额：</label>
+					<span class="show">{$info.DKCO_DK_LOWAMT|setMoney=###,2,2}　元</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+			</div>
+		</div>
+	</form>
+</div> 

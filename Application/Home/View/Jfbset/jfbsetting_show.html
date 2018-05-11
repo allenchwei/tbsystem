@@ -1,0 +1,50 @@
+<style>.pageFormContent label{width:95px;}</style>
+<div class="pageContent">	
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<!-- <p>
+				<label>卡BIN码：</label>
+				<span class="show">{$info.CARD_BIN}</span>
+			</p> -->
+			<p>
+				<label>卡套餐名称：</label>
+				<span class="show">{$info.CARD_NAME}</span>
+			</p>
+			<p>
+				<label>卡级别：</label>
+				<span class="show">{$info.CLEVEL_NAME}</span>
+			</p>
+			<p>
+				<label>卡权限：</label>
+				<span class="show">{$info.CTYPE_NAME}</span>
+				</select>
+			</p>
+			<p>
+				<label>面值/余额上限：</label>
+				<span class="show">{$info.CARD_BALANCE|setMoney=###,2,2}</span>　元
+			</p>
+			<p>
+				<label>有限期限：</label>
+				<span class="show">{$info.CARD_EXP_NUM}</span>　年
+			</p>
+			<p>
+				<label>工本费：</label>
+				<span class="show">{$info.CARD_OPENFEE}</span>　元
+			</p>
+			<p>
+				<label>押金费：</label>
+				<span class="show">{$info.USER_DEPFEE}</span>　元
+			</p>
+			<p style="width:100%;">
+				<label>备注：</label>
+				<span class="show" style="width:558px;">{$info.CARD_DESC}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

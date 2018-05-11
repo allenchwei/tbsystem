@@ -1,0 +1,89 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[SYSTEM_DATE_A]" value="{$postdata.SYSTEM_DATE_A}"/>
+	<input type="hidden" name="post[SYSTEM_DATE_B]" value="{$postdata.SYSTEM_DATE_B}"/>
+	<input type="hidden" name="post[ACCT_AMT_A]" value="{$postdata.ACCT_AMT_A}"/>
+	<input type="hidden" name="post[ACCT_AMT_B]" value="{$postdata.ACCT_AMT_B}"/>
+	<input type="hidden" name="post[SHOP_NAMEAB]" value="{$postdata.SHOP_NAMEAB}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<span>
+						<label>日期区间：</label>
+						<input class="input01 textInput date f_l readonly" type="text" value="{$postdata.SYSTEM_DATE_A}" name="post[SYSTEM_DATE_A]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+					<code class="code"> ~ </code>
+					<span>
+						<input class="input01 textInput date f_l readonly" type="text" value="{$postdata.SYSTEM_DATE_B}" name="post[SYSTEM_DATE_B]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+				</p>
+				<p>
+					<label>交易金额：</label>
+					<input class="input01 textInput f_l" type="text" value="{$postdata['ACCT_AMT_A']}" name="post[ACCT_AMT_A]" maxlength="15">
+					<code class="code"> ~ </code>
+					<input class="input01 textInput f_l" type="text" value="{$postdata['ACCT_AMT_B']}" name="post[ACCT_AMT_B]" maxlength="15">
+				</p>
+				<p>
+					<label>商户名称：</label>
+					<input class="wid305 textInput" type="text" value="{$postdata.SHOP_NAMEAB}" name="post[SHOP_NAMEAB]" maxlength="12">
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>　　归属：</label>
+					{:get_level_sel($postdata['SBRANCH_MAP_ID'],'-1','plv[]',$postdata['SPARTNER_MAP_ID'],5)}
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="209">
+		<thead>
+			<tr>
+				<th width="14%" align='center'>交易日期</th>
+				<th width="9%" align='center'>账号</th>
+				<th width="15%" align='left'>户名</th>
+				<th width="8%" align='right'>分录前金额</th>
+				<th width="8%" align='right'>借 D</th>
+				<th width="8%" align='right'>贷 C</th>
+				<th width="8%" align='right'>分录后金额</th>
+				<th width="8%" align='center'>平台流水号</th>
+				<th width="22%">备注</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.PLEVEL_MAP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.SYSTEM_DATE} {$vo.SYSTEM_TIME}</td>
+					<td>{$vo.ACCT_NO}</td>
+					<td>{$vo.ACCT_NO|getacct_name=###,'10202'}</td>
+					<td>{$vo.ACCT_YBAL|setMoney=###,2,2}</td>
+					<td><eq name="vo['ACCT_ACTIVE']" value="D">{$vo.ACCT_AMT|setMoney=###,2,2}</eq></td>
+					<td><eq name="vo['ACCT_ACTIVE']" value="C">{$vo.ACCT_AMT|setMoney=###,2,2}</eq></td>
+					<td>{$vo.ACCT_CBAL|setMoney=###,2,2}</td>
+					<td>{$vo.SYSTEM_REF}</td>
+					<td>{$vo.ACCT_DESC}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

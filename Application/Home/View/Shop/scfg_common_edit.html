@@ -1,0 +1,113 @@
+<!-- 商户其他配置信息 -->
+<div class="pageFormContent other err_offset_2">
+	<!-- <div class="content100">
+		<p class="p_11 err_offset_6">
+			<label>积分兑换比例：</label>
+			<code>100元 =</code><input type="text" name="scfg[BOUND_RATE]" value="{$scfg_info.BOUND_RATE|default='50'}" class="required doubles ws10" min="0" maxlength="5">　积分
+		</p>
+		<div class="clear"></div>
+	</div> -->
+	<p style="width: 100%">
+		<label>运营分润是否特殊：</label>
+		<span class="shop_s"><label><input type="radio" checked name="scfg[RAKE_FLAG]" value="0" <eq name="scfg_info[RAKE_FLAG]" value="0">checked</eq> node-type="other_flag">否</label></span>
+		<span class="shop_s"><label style="width:50px;"><input type="radio" name="scfg[RAKE_FLAG]" value="1" <eq name="scfg_info[RAKE_FLAG]" value="1">checked</eq> node-type="other_flag">是</label></span>
+		<span style="color:#999;">(会员与平台分润比例;正常分配比例 50%:50%)</span>
+	</p>
+	<div class="clear"></div>
+	<div class="content50 err_offset_6">
+		<div class="other_box" <eq name="scfg_info[RAKE_FLAG]" value="1"> style="display:inline;" <else /> style="display:none;"</eq>>
+			<p class="p_11">
+				<label>运营分润比例：</label>
+				<span>
+					<code>会员比例</code><input type="text" name="scfg[CON_PER_RAKE]" value="{$scfg_info.CON_PER_RAKE|setMoney=###,2,2}"class="doubles ws10" min="0">　%
+				</span>
+			</p>
+			<p class="p_11 err_offset_6_1">
+				<span>
+					<code>平台比例</code><input type="text" value="{$scfg_info.PLAT_PER_RAKE|setMoney=###,2,2}" name="scfg[PLAT_PER_RAKE]" class="doubles ws10 input_nbg readonly" readonly="true" min="0">　%
+				</span>
+			</p>
+		</div>
+		<p style="width: 100%">
+			<!-- <if condition="($Think.session.HOME.USER_LEVEL eq 2) OR (filter_auth($home['BRANCH_MAP_ID']))"> 
+				style="display:inline;"
+				<else />
+				style="display:none;"
+			</if> -->
+			<label>分润转赠：</label>
+			<span class="shop_s"><label><input type="radio" checked name="scfg[DONATE_FLAG]" value="0" <eq name="scfg_info[DONATE_FLAG]" value="0">checked</eq> node-type="other_flag1">否</label></span>
+			<span class="shop_s"><label style="width:50px;"><input type="radio" name="scfg[DONATE_FLAG]" value="1" <eq name="scfg_info[DONATE_FLAG]" value="1">checked</eq> node-type="other_flag1">是</label></span>
+			<span style="color:#999;">(二次分配)</span>
+		</p>
+		<div class="clear"></div>
+	</div>
+	<div class="content100 other_box1"
+		<eq name="scfg_info[DONATE_FLAG]" value="1"> 
+			style="display:inline;"
+		<else />
+			style="display:none;"
+		</eq>>
+		<p>
+			<label>转赠产品：</label>
+			<select class="combox" name="scfg[DONATE_TYPE]">
+				<volist name="Think.config.DONATE_TYPE" id="vo">
+					<option value="{$key}" <if condition="$scfg_info.DONATE_TYPE eq $key">selected</if>>{$vo}</option>
+				</volist>
+			</select>
+		</p>
+		<p>
+			<label>转赠比例：</label>
+			<input type="text" name="scfg[DONATE_RATE]" value="{$scfg_info.DONATE_RATE}" class="ws10">　%
+		</p>
+		<p>
+			<label>受赠合作伙伴：</label>
+			{:get_level_sel('','all','scfg_plv[]',$scfg_info['PARTNER_MAP_ID'],3)}
+		</p>
+		<p>
+			<label>转赠备注：</label>
+			<textarea style="width:600px;height:60px;" name="scfg[DONATE_RES]">{$scfg_info.DONATE_RES}</textarea>
+		</p>
+		<div class="clear"></div>
+	</div>
+	<script type="text/javascript">
+		//其他配置切换
+		$('input[node-type="other_flag"]').on('click',function(){
+			switch($(this).val()){
+				case '0' :
+					$('.other_box').hide();
+					$('.other_box').find('.required').removeClass('required');
+				
+				break;
+				case '1' :
+					$('.other_box').show();
+					$('.other_box').find('input').addClass('required');
+				break;
+			}
+		})
+
+		//其他配置切换
+		$('input[node-type="other_flag1"]').on('click',function(){
+			switch($(this).val()){
+				case '0' :
+					$('.other_box1').hide();
+					$('.other_box1').find('.required').removeClass('required');
+				
+				break;
+				case '1' :
+					$('.other_box1').show();
+					$('.other_box1').find('input').addClass('required');
+				break;
+			}
+		})
+
+		//运营比例合计100
+		$('input[name="scfg[CON_PER_RAKE]"]').on('keyup', function(){
+			var per_rake = $(this).val();
+			if(per_rake > 100){
+				$(this).val(100);
+				per_rake = 100;
+			}
+			$('input[name="scfg[PLAT_PER_RAKE]').val(100-per_rake);
+		})
+	</script>
+</div>

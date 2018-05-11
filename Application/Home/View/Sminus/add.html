@@ -1,0 +1,38 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="info.SHOP_MAP_ID" value="0">
+		<input type="hidden" name="post[submit]" value="edit">
+		<input type="hidden" name="post[SHOP_MAP_ID]" value="{$info.SHOP_MAP_ID}">
+	<else />
+		<input type="hidden" name="post[submit]" value="add">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>平台商户ID：</label>
+					<input type="text" class="required ws20" name="post[SHOP_MAP_ID]" <if condition="$info[SHOP_MAP_ID] neq ''">readonly</if> value="{$info.SHOP_MAP_ID}" maxlength="15"/>
+				</p>
+				<p>
+					<label>新用户立减额度：</label>
+					<input type="number" class="required ws20" name="post[VIP_AMT]" value="{$info.VIP_AMT|setMoney=###,2,2}" maxlength="10" min="100"/>
+				</p>
+				<p>
+					<label>随机立减额度：</label>
+					<input type="number" class="required ws20" name="post[NORMAL_AMT]" value="{$info.NORMAL_AMT|setMoney=###,2,2}" maxlength="10" min="100"/>
+				</p>
+				<p style="width:100%;">
+					<label>状态：</label>
+					<input type="radio" name="post[STATUS]" value="0" <if condition="$info[STATUS] eq 0">checked</if>/>正常
+					<input type="radio" name="post[STATUS]" value="1" <if condition="$info[STATUS] eq 1">checked</if>/>暂停
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

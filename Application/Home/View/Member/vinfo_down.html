@@ -1,0 +1,23 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>身份证正面：</label>
+				<input class="required ws50 textInput" type="text" value="{$info[ID_PHOTO][0]}">
+				<a href="__MODULE__/Member/vinfo_down/navTabId/__CONNAME__?submit=__ACTNAME__&url={$info[ID_PHOTO][0]}" class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-down" style="height:15px;line-height: 15px; margin-left:10px">下 载</a>
+			</p>
+			<p>
+				<label>身份证反面：</label>
+				<input class="required ws50 textInput" type="text" value="{$info[ID_PHOTO][1]}">
+				<a href="__MODULE__/Member/vinfo_down/navTabId/__CONNAME__?submit=__ACTNAME__&url={$info[ID_PHOTO][1]}" class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-down" style="height:15px;line-height: 15px; margin-left:10px">下 载</a>
+			</p>
+			<p class="ic_line"></p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

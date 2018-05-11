@@ -1,0 +1,136 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[PARTNER_STATUS]" value="{$postdata.PARTNER_STATUS}"/>
+	<input type="hidden" name="post[bid]" value="{$postdata.bid}"/>
+	<input type="hidden" name="post[pid]" value="{$postdata.pid}"/>
+	<input type="hidden" name="post[PLEVEL_NAME]" value="{$postdata.PLEVEL_NAME}"/>
+	<input type="hidden" name="post[PARTNER_G_FLAG]" value="{$postdata.PARTNER_G_FLAG}"/>
+	<input type="hidden" name="post[PARTNER_NAME]" value="{$postdata.PARTNER_NAME}"/>
+	<input type="hidden" name="post[PLEVEL_MAP_ID]" value="{$postdata.PLEVEL_MAP_ID}"/>
+	<input type="hidden" id="exportdata" value="{$exportdata}"/><!-- Excel导出 -->
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" name="searchform" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>合作伙伴级别：</label>
+					<select class="combox" name="post[PLEVEL_NAME]" node-type="sopartnerlv">
+						<option value="">请选择</option>
+						<volist name="Think.config.PLEVEL_NAME" id="vo">
+							<option value="{$key}" <if condition="$postdata['PLEVEL_NAME'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>合作伙伴类别：</label>
+					<select class="combox" name="post[PARTNER_G_FLAG]">
+						<option value="">请选择</option>
+						<volist name="partner_g_f" id="vo">
+							<option value="{$key}" <if condition="($postdata.PARTNER_G_FLAG eq $key) and ($postdata.PARTNER_G_FLAG neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>合作伙伴状态：</label>
+					<select class="combox" name="post[PARTNER_STATUS]">
+						<option value="">请选择</option>
+						<volist name="partner_status_arr" id="vo">
+							<option value="{$key}" <if condition="($postdata['PARTNER_STATUS'] eq $key) and ($postdata['PARTNER_STATUS'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>合作伙伴角色：</label>
+					<select class="combox" name="post[PLEVEL_MAP_ID]" node-type="sopartnerlv">
+						<option value="">请选择</option>
+						<volist name="Think.config.PLEVEL_ROLE_NAME" id="vo">
+							<option value="{$key}" <if condition="$postdata['PLEVEL_MAP_ID'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p class="maxcombox">
+					<label>合作伙伴名称：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.PARTNER_NAME}" name="post[PARTNER_NAME]">
+				</p>
+				<p class="maxcombox">
+					<label>合作伙伴ID：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.PARTNER_MAP_ID}" name="post[PARTNER_MAP_ID]">
+				</p>
+				<div class="clear"></div>
+				<p class="maxcombox">
+					<label>合作伙伴归属：</label>
+					{:get_level_sel($postdata['bid'],-1,'soplv[]',$postdata['pid'],5)}
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="209">
+		<thead>
+			<tr>
+				<th width="8%" align='center'>ID</th>
+				<th width="8%">级别</th>
+				<th width="15%">合作伙伴名称</th>
+				<th width="19%">所在城市</th>
+				<th width="8%" align='center'>商户数量</th>
+				<th width="8%" align='center'>POS数量</th>
+				<th width="8%" align='center'>联系人</th>
+				<th width="10%" align='center'>手机</th>
+				<th width="8%" align='center'>类别</th>
+				<th width="8%" align='center'>状态</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.PARTNER_MAP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.PARTNER_MAP_ID}</td>
+					<td>&#12288;{$plevel_arr[$vo['PARTNER_LEVEL']]}</td>
+					<td>{$vo.PARTNER_NAME}</td>
+					<td>{$vo.CITY_NO|getcity_name=###}</td>
+					<td>{$vo.SHOP_COUNT}</td>
+					<td>{$vo.POS_COUNT}</td>
+					<td>{$vo.MANAGER}</td>
+					<td>{$vo.MOBILE}</td>
+					<td>{$partner_g_f[$vo[PARTNER_G_FLAG]]}</td>
+					<td>{$partner_status_arr[$vo['PARTNER_STATUS']]}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span><a class="statis" href="javascript:;" note-type="getstatis">点击查看统计</a></span></div>
+		<div class="pagination" checkPage="1" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+	<script type="text/javascript">		
+		//页面加载执行
+		$(document).ready(function(){
+			var	navsnum     = $('.tabsPageHeader .navTab-tab .selected').index();
+			var tabscontent = $('.tabsPageContent .unitBox:eq('+navsnum+')');
+			//点击查看统计
+			tabscontent.find('a[note-type="getstatis"]').on('click',  function(){
+				tabscontent.find('.pages').html('<span><img class="loading" src="__PUBLIC__/home/images/loading.gif">统计中...</span>');
+				
+				var	exportdata  = tabscontent.find('#exportdata').val();
+				var url 	    = exportdata ? '__ACTION__' + exportdata + '&submit=__ACTNAME__&ajax=loading' : '__ACTION__?submit=__ACTNAME__&ajax=loading';
+				$.ajaxSettings.global = false;		//关闭框架loading	
+				$.getJSON(url, {}, function(_data) {
+					tabscontent.find('.pages').html('<span>共 '+ _data.count +' 条</span>');
+					$.ajaxSettings.global = true;	//开启框架loading	
+				});
+			});
+		});
+	</script>
+</div>

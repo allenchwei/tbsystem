@@ -1,0 +1,52 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>等级级别：</label>
+				<span class="show">{$info.PLEVEL_LEVEL}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="content50">
+			<p>
+				<label>等级名称：</label>
+				<span class="show">{$plevel_name[$info[PLEVEL_LEVEL]]}</span>
+			</p>
+			<p>
+				<label>发票提醒金额：</label>
+				<span class="show">{$info.REMINDER_AMT|setMoney=###,6,2}　万元</span>
+			</p>
+			<p class="ic_line"></p>
+			<p>
+				<label>应收加盟费：</label>
+				<span class="show">{$info.JOIN_FEE|setMoney=###,6,2}　万元</span>
+			</p>
+			<p>
+				<label>应收保证金：</label>
+				<span class="show">{$info.FUND_AMT|setMoney=###,6,2}　万元</span>
+			</p>
+			<p>
+				<label>最低加盟费：</label>
+				<span class="show">{$info.JOINFEE_BEGIN|setMoney=###,6,2}　万元</span>
+			</p>
+			<p>
+				<label>最低保证金：</label>
+				<span class="show">{$info.FUND_BEGIN|setMoney=###,6,2}　万元</span>
+			</p>
+			<p>
+				<label>最高加盟费：</label>
+				<span class="show">{$info.JOINFEE_END|setMoney=###,6,2}　万元</span>
+			</p>
+			<p>
+				<label>最高保证金：</label>
+				<span class="show">{$info.FUND_END|setMoney=###,6,2}　万元</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

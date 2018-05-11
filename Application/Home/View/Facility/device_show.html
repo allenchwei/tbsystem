@@ -1,0 +1,59 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content50">
+			<p>
+				<label>厂商：</label>
+				<span class="show">{$info.FACTORY_NAME}</span>
+			</p>
+			<p>
+				<label>型号：</label>
+				<span class="show">{$info.MODEL_NAME}</span>
+			</p>
+			<p>
+				<label>设备序列号：</label>
+				<span class="show">{$info.DEVICE_SN}</span>
+			</p>
+			<p>
+				<label>设备状态：</label>
+				<span class="show">{:C('DEVICE_TYPE_ARR.DEVICE_STATUS')[$info['DEVICE_STATUS']]}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="content100">
+			<p>
+				<label>归属：</label>
+				<span class="show">{$info[PARTNER_MAP_ID]|get_level_name=###,$info['BRANCH_MAP_ID']}</span>
+			</p>
+			<p>
+				<label>商户简称：</label>
+				<span class="show">{$info.SHOP_NAMEABCN|default="-"}</span>
+			</p>
+			<p>
+				<label>安装商户号：</label>
+				<span class="show">{$info.SHOP_NO}</span>
+			</p>
+			<p>
+				<label>安装终端号：</label>
+				<span class="show">{$info.POS_NO}</span>
+			</p>
+			<p>
+				<label>安装址址：</label>
+				<span class="show">{$info.DEVICE_ADDRESS}</span>
+			</p>
+			<p>
+				<label>安装时间：</label>
+				<span class="show">{$info.INSTALL_DATE}</span>
+			</p>
+			<p>
+				<label>备注：</label>
+				<span class="show">{$info.REMARK}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

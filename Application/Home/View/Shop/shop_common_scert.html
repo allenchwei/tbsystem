@@ -1,0 +1,276 @@
+<div class="pageFormContent">
+	<div class="content100">
+		<p>
+			<label>合同编号：</label>
+			<input type="text" class="required" name="scert[AGREEMENT_NO]" value="{$scert_info.AGREEMENT_NO}" maxlength="20"/>
+		</p>
+		<p>
+			<label>注册地址：</label>
+			{$partner_info[CITY_NO]|getcity_name=###,'partner[CITY_NO]'}
+		</p>
+		<p class="err_offset_2">
+			<label>&nbsp;</label>
+			<input type="text" class="required ws23" title="地址项不能为空" name="scert[REG_ADDR]" value="" style="width:276px;" maxlength="30"/>
+		</p>
+		<p>
+			<label>营业有效期：</label>
+			<span note-type="yytime" class="f_l" <eq name="scert_info[REG_EXP]" value="99999999">style="display:none;"<else/>style="display:block;"</eq>>
+				<input type="text" readonly="true" minDate="{:date('Y-m-d')}" name="scert[REG_EXP]" value="<?php echo date('Y-m-d', strtotime($scert_info['REG_EXP']));?>" class="date ws40" datefmt="yyyy-MM-dd" />
+				<a class="inputDateButton f_l" href="#">选择</a>　
+			</span>
+			<span><input type="checkbox" name="scert[REG_EXP_FLAG]" <eq name="scert_info[REG_EXP]" value="99999999">checked</eq> value="1">长期</span>
+			<script type="text/javascript">
+				$('input[name="scert[REG_EXP_FLAG]"]').on('click', function(){
+					var check = $(this).attr('checked');
+					if(check){
+						$('span[note-type="yytime"]').hide();
+					}else{
+						$('span[note-type="yytime"]').show();			
+					}
+				});
+			</script>
+		</p>
+		<div class="p_img_2">
+			<label>营业执照号码：</label>
+			<input type="text" name="scert[REG_ID]" value="{$scert_info.REG_ID}" class="required digits" maxlength="13">
+			<span class="error" for="scert[REG_ID]" style="top: 25px;display: none;">必填字段</span>
+			<input type="hidden" name="scert[REGID_PHOTO]" value="{$scert_info.REGID_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='REGID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<img src="{$scert_info[REGID_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+			
+		</div>
+		<div class="p_img_2">
+			<label>组织机构代码：</label>
+			<input type="text" name="scert[ORG_ID]" value="{$scert_info.ORG_ID}" class="required" maxlength="9">
+			<span class="error" for="scert[ORG_ID]" style="top: 25px;display: none;">必填字段</span>
+			<input type="hidden" name="scert[ORGID_PHOTO]" value="{$scert_info.ORGID_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='ORGID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<img src="{$scert_info[ORGID_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+		</div>
+		<div class="p_img_2">
+			<label>税务登记证：</label>
+			<input type="text" name="scert[TAX_ID]" value="{$scert_info.TAX_ID}" class="required" maxlength="20">
+			<span class="error" for="scert[TAX_ID]" style="top: 25px;display: none;">必填字段</span>
+			<input type="hidden" name="scert[TAXID_PHOTO]" value="{$scert_info.TAXID_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='TAXID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<img src="{$scert_info[TAXID_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+		</div>
+		<div class="p_img_2">
+			<label>法人姓名：</label>
+			<input type="text" name="scert[LP_NAME]" value="{$scert_info.LP_NAME}" class="required" maxlength="20">
+			<span class="error" for="scert[LP_NAME]" style="top: 25px;display: none;">必填字段</span>
+			<input type="hidden" name="scert[LP_D_PHOTO]" value="{$scert_info.LP_D_PHOTO}">
+			<input type="hidden" name="scert[LP_R_PHOTO]" value="{$scert_info.LP_R_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='LP_ID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<img id="LP_D_PHOTO" src="{$scert_info[LP_D_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+			<img id="LP_R_PHOTO" src="{$scert_info[LP_R_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+		</div>
+		<p>
+			<label>身份证号码：</label>
+			<input type="text" name="scert[LP_ID]" value="{$scert_info.LP_ID}" class="required idcard ws23" maxlength="18">
+		</p>
+		<div class="p_img_2">
+			<label>开户许可证：</label>
+			<input type="hidden" name="scert[BANK_PHOTO]" value="{$scert_info.BANK_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='BANK_PHOTO' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<img src="{$scert_info[BANK_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+		</div>
+		<div class="clear"></div>
+		<div class="p_img_2">
+			<label>房屋租赁合同照片：</label>
+			<input type="hidden" name="scert[REGADDR_PHOTO1]" value="{$scert_info.REGADDR_PHOTO1}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='REGADDR_PHOTO1' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<img src="../../../Public/home/images/gszp.png" width="65" height="50">
+			<img src="../../../Public/home/images/gszp.png" width="65" height="50">
+			<img src="../../../Public/home/images/gszp.png" width="65" height="50">
+		</div>
+		<div class="p_img_2">
+			<label>场所门头照片：</label>
+			<input type="hidden" name="scert[OFFICE_PHOTO1]" value="{$scert_info.OFFICE_PHOTO1}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='OFFICE_PHOTO1' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<img src="../../../Public/home/images/gszp.png" width="65" height="50">
+			<img src="../../../Public/home/images/gszp.png" width="65" height="50">
+			<img src="../../../Public/home/images/gszp.png" width="65" height="50">
+		</div>
+		<div class="p_img_2">
+			<label>场所场景照片：</label>
+			<input type="hidden" name="scert[OFFICE_PHOTO3]" value="{$scert_info.OFFICE_PHOTO3}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='OFFICE_PHOTO3' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<img src="../../../Public/home/images/gszp.png" width="65" height="50">
+			<img src="../../../Public/home/images/gszp.png" width="65" height="50">
+			<img src="../../../Public/home/images/gszp.png" width="65" height="50">
+		</div>
+		<div class="p_img_2">
+			<label>备注：</label>
+			<textarea style="width:600px;height:60px;" name="scert[RES]">{$scert_info.RES}</textarea>
+		</div>
+		<div class="clear"></div>
+	</div>
+		<script>
+		//图片上传
+		$('#REGID').uploadify({
+			'height' 	    : 15,
+            'width'         : 80, 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpge;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#REGID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#REGID').closest('div.p_img_2');
+		 			param.find('img').attr('src',resjson.result);
+		 			param.find('input[name="scert[REGID_PHOTO]"]').val(resjson.result);
+	        }
+        });
+		$('#ORGID').uploadify({
+			'height' 	    : 15,
+            'width'         : 80, 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpge;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#ORGID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#ORGID').closest('div.p_img_2');
+		 			param.find('img').attr('src',resjson.result);
+		 			param.find('input[name="scert[ORGID_PHOTO]"]').val(resjson.result);
+	        }
+        });
+        $('#TAXID').uploadify({
+			'height' 	    : 15,
+            'width'         : 80, 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpge;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#TAXID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#TAXID').closest('div.p_img_2');
+		 			param.find('img').attr('src',resjson.result);
+		 			param.find('input[name="scert[TAXID_PHOTO]"]').val(resjson.result);
+	        }
+        });
+        $('#LP_ID').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: true,
+            'queueSizeLimit': 2,
+            'fileTypeExts'  : '*.jpg;*.jpge;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#LP_ID-queue").hide();
+            },
+	        'onSelectError' : function() {
+	            alert('上传失败。详细信息: 最多只能上传2张图片');
+	        },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#LP_ID').closest('div.p_img_2');
+		 		switch (file.index) {
+		 			case 0:
+		 				param.find('img[id="LP_D_PHOTO"]').attr('src',resjson.result);
+		 				param.find('input[name="scert[LP_D_PHOTO]"]').val(resjson.result);
+		 			break;
+		 			case 1:
+			 			param.find('img[id="LP_R_PHOTO"]').attr('src',resjson.result);
+			 			param.find('input[name="scert[LP_R_PHOTO]"]').val(resjson.result);
+		 			break;
+		 			default:
+		 				param.find('img[id="LP_D_PHOTO"]').attr('src',resjson.result);
+		 				param.find('input[name="scert[LP_D_PHOTO]"]').val(resjson.result);
+		 				param.find('img[id="LP_R_PHOTO"]').attr('src',resjson.result);
+			 			param.find('input[name="scert[LP_R_PHOTO]"]').val(resjson.result);
+		 			break;
+		 		};
+	        }
+        });
+        $('#BANK_PHOTO').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpge;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#BANK_PHOTO-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#BANK_PHOTO').closest('div.p_img_2');
+		 			param.find('img').attr('src',resjson.result);
+		 			param.find('input[name="scert[BANK_PHOTO]"]').val(resjson.result);
+	        }
+        });
+	</script>
+</div>

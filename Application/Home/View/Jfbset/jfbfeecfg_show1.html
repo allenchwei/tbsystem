@@ -1,0 +1,95 @@
+<style>
+.pageFormContent label{width: 150px;}
+span.error{left: 160px;}</style>
+<div class="pageContent">	
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>分润名目：</label>
+				<span class="show">{$cfg_flag[$info[CFG_FLAG]]}</span>
+			</p>
+			<p class="ic_line"></p>
+		</div>
+		<div class="content30">
+			<p>
+				<label>会员收益比例：</label>
+				<span class="show">{$info.CON_PER|setMoney=###,2,2}</span>　%
+			</p>
+			<p>
+				<label>平台收益比例：</label>
+				<span class="show" note-type="rem"></span>　%
+			</p>
+			<p class="ic_line"></p>
+		</div>
+		<div class="content30">
+			<p style="width:100%;">
+				<label>公司平台：</label>
+				<span class="show">{$info.BRANCH_FEE1|setMoney=###,2,2}</span>　%
+			</p>
+			<p>
+				<label>国家税收：</label>
+				<span class="show">{$info.NTAX_FEE1|setMoney=###,2,2}</span>　%
+			</p>
+			<p>
+				<label>国家级慈善基金：</label>
+				<span class="show">{$info.CADF_FEE1|setMoney=###,2,2}</span>　%
+			</p>
+			<p>
+				<label>教育培训基金：</label>
+				<span class="show">{$info.EATF_FEE1|setMoney=###,2,2}</span>　%
+			</p>
+			<p>
+				<label>发卡地省公司：</label>
+				<span class="show">{$info.ISS_BRANCH_FEE2|setMoney=###,2,2}</span>　%
+			</p>
+			<p style="width:66.66%;">
+				<label>消费地省公司：</label>
+				<span class="show">{$info.ACQ_BRANCH_FEE2|setMoney=###,2,2}</span>　%
+			</p>
+			<p>
+				<label>发卡地地市子公司：</label>
+				<span class="show">{$info.ISS_PARTNER_FEE1|setMoney=###,2,2}</span>　%
+			</p>
+			<p>
+				<label>消费地地市子公司：</label>
+				<span class="show">{$info.ACQ_PARTNER_FEE1|setMoney=###,2,2}</span>　%
+			</p>
+			<p>
+				<label>地方慈善基金（子公司）：</label>
+				<span class="show">{$info.ISS_LCF_FEE1|setMoney=###,2,2}</span>　%
+			</p>
+			<p>
+				<label>发卡地区县服务中心：</label>
+				<span class="show">{$info.ISS_PARTNER_FEE2|setMoney=###,2,2}</span>　%
+			</p>
+			<p style="width:66.66%">
+				<label>消费地区县服务中心：</label>
+				<span class="show">{$info.ACQ_PARTNER_FEE2|setMoney=###,2,2}</span>　%
+			</p>
+			<p>
+				<label>创业合伙人（或商家）：</label>
+				<span class="show">{$info.ISS_PARTNER_FEE3|setMoney=###,2,2}</span>　%
+			</p>
+			<p>
+				<label>个人创业：</label>
+				<span class="show">{$info.PARTNER_FEE3A|setMoney=###,2,2}</span>　%
+			</p>
+			<p>
+				<label>大商家收益（服务中心）：</label>
+				<span class="show">{$info.PARTNER_FEE3B|setMoney=###,2,2}</span>　%
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function($) {
+			var con = '{$info["CON_PER"]|setMoney=###,2,2}';
+			$('span[note-type="rem"]').html(100-con);
+		});
+	</script>
+</div>

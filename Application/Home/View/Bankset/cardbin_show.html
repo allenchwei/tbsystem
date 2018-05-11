@@ -1,0 +1,40 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>发卡银行：</label>
+				<span class="show"><if condition="$info['BIN_FLAG'] eq 0">{$info.ISSUE_NAME}<else/>积分宝卡</if></span>
+			</p>
+			<p>
+				<label>卡BIN号：</label>
+				<span class="show">{$info.CARD_BIN}</span>
+			</p>
+			<p>
+				<label>卡表名称：</label>
+				<span class="show">{$info.CARD_NAME}</span>
+			</p>
+			<p>
+				<label>卡种类型：</label>
+				<span class="show">{$card_type[$info[CARD_TYPE]]}</span>
+			</p>
+			<p>
+				<label>所在磁道：</label>
+				<span class="show">{$card_track[$info[CARD_TRACK]]}</span>
+			</p>
+			<p>
+				<label>偏移位置：</label>
+				<span class="show">{$info.PAN_OFF}</span>
+			</p>
+			<p>
+				<label>卡号长度：</label>
+				<span class="show">{$info.PAN_LEN}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

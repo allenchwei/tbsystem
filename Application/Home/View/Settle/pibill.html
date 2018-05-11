@@ -1,0 +1,78 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[SOURCE_TYPE]" value="{$postdata.SOURCE_TYPE}"/>
+	<input type="hidden" name="post[SETTLE_DATE]" value="{$postdata.SETTLE_DATE}"/>
+	<input type="hidden" name="post[PI_MAP_NAME]" value="{$postdata.PI_MAP_NAME}"/>
+	<input type="hidden" id="exportdata" value="{$exportdata}"/><!-- Excel导出 -->
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>　　类别：</label>
+					<select class="combox" name="post[SOURCE_TYPE]">
+						<option value="">请选择</option>
+						<volist name="p_flag" id="vo">
+							<option value="{$key}" <if condition="($postdata['SOURCE_TYPE'] eq $key) and ($postdata['SOURCE_TYPE'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>清算月份：</label>
+					<select class="combox" name="post[SETTLE_DATE]">
+						<option value="">请选择</option>
+						<volist name="date_arr" id="vo">
+							<option value="{$key}" <if condition="($postdata['SETTLE_DATE'] eq $key) and ($postdata['SETTLE_DATE'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>通道/渠道名称：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.PI_MAP_NAME}" name="post[PI_MAP_NAME]" maxlength="40">
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<table class="table" width="100%" layoutH="107">
+		<thead>
+			<tr>
+				<th width="9%" align='center'>类型</th>
+				<th width="12%" align='center'>编号</th>
+				<th width="12%" align='center'>名称</th>
+				<th width="11%" align='center'>清算日期</th>
+				<th width="14%" align='right'>入账总金额</th>
+				<th width="14%" align='right'>平台分润总金额</th>
+				<th width="14%" align='right'>消费者分期总金额</th>
+				<th width="14%" align='right'>养老金总金额</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.PIBILL_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$p_flag[$vo['SOURCE_TYPE']]}</td>
+					<td>{$vo.PI_MAP_ID}</td>
+					<td>{$vo.PI_MAP_NAME}</td>
+					<td>{$vo.SETTLE_DATE}</td>
+					<td>{$vo.JFB_FEE_AMT|setMoney=###,2,2}</td>
+					<td>{$vo.PLAT_FEE_AMT|setMoney=###,2,2}</td>
+					<td>{$vo.CON_DIV_FEE_AMT|setMoney=###,2,2}</td>
+					<td>{$vo.PI_AMT|setMoney=###,2,2}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span>{$dk_text}</div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

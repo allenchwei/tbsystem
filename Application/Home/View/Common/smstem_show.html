@@ -1,0 +1,47 @@
+<style>.content100 p label{width:120px;}</style>
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>短信模板适用类型：</label>
+				<span class="show">{$sms_model_type[$info[SMS_MODEL_TYPE]]}</span>
+			</p>
+			<p>
+				<label>短信模板适用城市：</label>
+				<eq name="info[SMS_MODEL_CITY]" value="000000">
+					<span class="show">所有其他城市</span>
+				<else/>
+					<span class="show">{$info.SMS_MODEL_CITY|getcity_name=###}</span>
+				</eq>
+			</p>
+			<p>
+				<label>标志：</label>
+				<span class="show">{$sms_model_status[$info[SMS_MODLE_STATUS]]}</span>
+			</p>
+			<p>
+				<label>模板：</label>
+				<span class="show" style="width:440px;height:150px;">{$info.SMS_MODEL}</span>
+			</p>
+			<p>
+				<label>注意：</label>
+				<span class="show" style="width:567px">
+					<span>{vip_cardno} 会员卡号　</span>
+					<span>{vip_cardno_tail} 会员卡号尾号　</span>
+					<span>{datetime} 时间　</span>
+					<span>{shop_name} 商户名称　</span>
+					<span>{purchase_amt} 消费金额　</span>
+					<span>{yl_amt} 养老金额　</span>
+					<span>{dk_bankacct_no_tail} 商户代扣账户尾号　</span>
+					<span>{dk_yl_amt} 代扣养老金额　</span>
+					<span>{check_code} 验证码　</span>
+				</span>
+			</p>		
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

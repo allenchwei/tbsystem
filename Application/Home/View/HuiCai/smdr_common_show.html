@@ -1,0 +1,226 @@
+<div class="pageFormContent">
+	<div class="jies1">
+		<div class="content100 err_offset_2">
+			<p class="p_11 err_offset_5">
+				<label>结算周期：</label>
+				<span class="show">T+{$smdr_info[0]['SETTLE_T']} 天</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="jies2">
+		<div class="content100" node-type="check">
+			<p>　</p>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<!-- 积分宝扣率 -->
+	<p class="ic_line"></p>
+	<p sytle="width:100%;text-align:left;">
+		<label style="font-size:14px;width:100%;text-align:left;">积分宝扣率:</label>	
+		<input type="hidden" name="smdr[mdr][0][PAY_TYPE]" value="5">
+	</p>
+	<div class="clear"></div>
+	<div class="jies1">
+		<!-- <p>
+			<label>商户收单扣率：</label>
+			<span class="show">{$smdr_info[0]['PER_FEE']|setMoney=###, '2', '2'}</span>　%
+		</p> -->
+		<p>
+			<label>积分宝扣率：</label>
+			<span class="show">{$smdr_info[0]['JFB_PER_FEE']|setMoney=###, '2', '2'}</span>　%
+		</p>
+	</div>
+	<div class="jies2">
+		<div class="content100" node-type="check">
+			
+			<!-- <p class="err_offset_4">
+				<empty name="smdr_info[0]['FIX_FEE']">
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="0" node-type="disable-checkbox" data-target="smdr[mdr][0][FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<span class="show">{$smdr_info[0]['FIX_FEE']|setMoney=###, '2', '2'}</span>　元/笔
+				<else />
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="1" checked node-type="disable-checkbox" data-target="smdr[mdr][0][FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<span class="show">{$smdr_info[0]['FIX_FEE']|setMoney=###, '2', '2'}</span>　元/笔
+				</empty>
+			</p> -->
+			<p class="err_offset_4">
+				<empty name="smdr_info[0]['JFB_FIX_FEE']">
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="0" node-type="disable-checkbox" data-target="smdr[mdr][0][JFB_FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<span class="show">{$smdr_info[0]['JFB_FIX_FEE']|setMoney=###, '2', '2'}</span>　元/笔
+				<else />
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="1" checked node-type="disable-checkbox" data-target="smdr[mdr][0][JFB_FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<span class="show">{$smdr_info[0]['JFB_FIX_FEE']|setMoney=###, '2', '2'}</span>　元/笔
+				</empty>
+			</p>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<!-- 银行卡扣率 -->
+	<p class="ic_line"></p>
+	<p sytle="width:100%;text-align:left;">
+		<label style="font-size:14px;width:100%;text-align:left;">银行卡扣率:</label>	
+		<input type="hidden" name="smdr[mdr][1][PAY_TYPE]" value="0">
+	</p>
+	<div class="clear"></div>
+	<div class="jies1">
+		<p>
+			<label>商户收单扣率：</label>	
+			<span class="show">{$smdr_info[1]['PER_FEE']|setMoney=###, '2', '2'}</span>　%
+		</p>
+		<p>
+			<label>积分宝扣率：</label>
+			<span class="show">{$smdr_info[1]['JFB_PER_FEE']|setMoney=###, '2', '2'}</span>　%
+		</p>
+	</div>
+	<div class="jies2">
+		<div class="content100" node-type="check">
+			<p class="err_offset_4">
+				<empty name="smdr_info[1]['FIX_FEE']">
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="0" node-type="disable-checkbox" data-target="smdr[mdr][1][FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<span class="show">{$smdr_info[1]['FIX_FEE']|setMoney=###, '2', '2'}</span>　元/笔
+				<else />
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="1" checked node-type="disable-checkbox" data-target="smdr[mdr][1][FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<span class="show">{$smdr_info[1]['FIX_FEE']|setMoney=###, '2', '2'}</span>　元/笔
+				</empty>
+			</p>
+			<p class="err_offset_4">
+				<empty name="smdr_info[1]['JFB_FIX_FEE']">
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="0" node-type="disable-checkbox" data-target="smdr[mdr][1][JFB_FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<span class="show">{$smdr_info[1]['JFB_FIX_FEE']|setMoney=###, '2', '2'}</span>　元/笔
+				<else />
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="1" checked node-type="disable-checkbox" data-target="smdr[mdr][1][JFB_FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<span class="show">{$smdr_info[1]['JFB_FIX_FEE']|setMoney=###, '2', '2'}</span>　元/笔
+				</empty>
+			</p>
+		</div>
+	</div>
+	
+	<!-- 积分宝卡扣率 -->
+	<p class="ic_line"></p>
+	<p sytle="width:100%;text-align:left;">
+		<label style="font-size:14px;width:100%;text-align:left;">积分宝卡扣率:</label>
+		<input type="hidden" name="smdr[mdr][2][PAY_TYPE]" value="4">
+	</p>
+	<div class="clear"></div>
+	<div class="jies1">
+		<!-- <p>
+			<label>商户收单扣率：</label>
+			<span class="show">{$smdr_info[2]['PER_FEE']|setMoney=###, '2', '2'}</span>　%
+		</p> -->
+		<p>
+			<label>积分宝扣率：</label>
+			<span class="show">{$smdr_info[2]['JFB_PER_FEE']|setMoney=###, '2', '2'}</span>　%
+		</p>
+	</div>
+	<div class="jies2">
+		<div class="content100" node-type="check">
+			<!-- <p class="err_offset_4">
+				<empty name="smdr_info[2]['FIX_FEE']">
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="0" node-type="disable-checkbox" data-target="smdr[mdr][2][FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<span class="show">{$smdr_info[2]['FIX_FEE']|setMoney=###, '2', '2'}</span>　元/笔
+				<else />
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="1" checked node-type="disable-checkbox" data-target="smdr[mdr][2][FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<span class="show">{$smdr_info[2]['FIX_FEE']|setMoney=###, '2', '2'}</span>　元/笔
+				</empty>
+			</p> -->
+			<p class="err_offset_4">
+				<empty name="smdr_info[2]['JFB_FIX_FEE']">
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="0" node-type="disable-checkbox" data-target="smdr[mdr][2][JFB_FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<span class="show">{$smdr_info[2]['JFB_FIX_FEE']|setMoney=###, '2', '2'}</span>　元/笔
+				<else />
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="1" checked node-type="disable-checkbox" data-target="smdr[mdr][2][JFB_FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<span class="show">{$smdr_info[2]['JFB_FIX_FEE']|setMoney=###, '2', '2'}</span>　元/笔
+				</empty>
+			</p>
+		</div>
+	</div>
+	<p class="ic_line"></p>
+	<div style="width:100%;color: red" class="remark">
+		<p style="width:100%;text-align:left;">
+			<label style="font-size:14px;width:100%;text-align:left;">1，积分宝扣率</label>
+		</p>
+		<p style="width:100%;">
+			<label style="width:100px;">积分宝扣率：</label>
+			<span>为积分宝业务的扣率（积分宝与商户签约时的统一扣率）。</span>	
+		</p>
+		<p style="width:100%;">
+			<label style="width:100px;">积分宝封顶金额：</label>
+			<span>积分封顶金额（积分宝与商户签约时的统一封顶额）。</span>	
+		</p>
+		<p></p>
+		<p style="width:100%;text-align:left;">
+			<label style="font-size:14px;width:100%;text-align:left;">2，银行卡扣率部分：涉及所有银联卡交易（与现金消费无关）的扣率。</label>
+		</p>
+		<p style="width:100%;">
+			<label style="width:100px;">商户收单扣率：</label>
+			<span>标准银联卡收单扣率（参见mcc码）；（例如：批发类的商户收单扣率0.78%）。</span>	
+		</p>
+		<p style="width:100%;">
+			<label style="width:100px;">收单封顶金额：</label>
+			<span>银联手续费封顶金额，（例如：一般类的商户收单封顶为26元）。。</span>	
+		</p>
+		<p style="width:100%;">
+			<label style="width:100px;">积分宝扣率：</label>
+			<span>为积分宝业务的扣率（积分宝与商户签约时的统一扣率减去银行卡收单扣率（如：与一般类商户签约统一扣率为1，则积分宝扣率应设置为1-0.78=0.22）。</span>	
+		</p>
+		<p style="width:100%;">
+			<label style="width:100px;">积分宝封顶金额：</label>
+			<span>积分封顶金额（积分宝与商户签约时的统一封顶额减去银行卡收单的封顶额（如：与一般类商户签约统一封顶额300，则积分宝封顶金额应设置为300-26=274）。</span>	
+		</p>
+
+		<p></p>
+		<p style="width:100%;text-align:left;">
+			<label style="font-size:14px;width:100%;text-align:left;">3，积分宝卡扣率部分： 为积分宝卡成为充值卡时而设。</label>
+		</p>
+		<!-- <p style="width:100%;">
+			<label style="width:100px;">收单封顶金额：</label>
+			<span>填0 （为积分宝卡以后成为充值卡时而设的项目）。</span>	
+		</p> -->
+		<p style="width:100%;">
+			<label style="width:100px;">积分宝扣率：</label>
+			<span>积分宝卡（充值卡）的扣率。</span>	
+		</p>
+		<p style="width:100%;">
+			<label style="width:100px;">积分宝封顶金额：</label>
+			<span>为积分宝卡（充值卡）业务的封顶金额。</span>	
+		</p>
+		<!-- <p style="width:100%;">
+			<label style="width:100px;">商户收单扣率：</label>
+			<span>积分封顶金额（例如：积分宝封顶金额500元/笔）。</span>	
+		</p> -->
+		<div class="clear"></div>
+	</div>
+	<if condition="(__ACTNAME__ eq 'smdr_check') or (__ACTNAME__ eq 'smdr_recheck') or (__ACTNAME__ eq 'shop_check') or (__ACTNAME__ eq 'shop_recheck')">
+		<p class="ic_line"></p>
+		<p>
+			<label>审阅标志：</label>
+			<span class="show"><label style="text-align:left;"><input type="checkbox" name="is_pass" value="1" node-type="check_flag">已审阅</label></span>
+		</p>
+		<div class="clear"></div>
+	</if>
+	<div class="clear"></div>
+	<script type="text/javascript">
+		//勾选激活输入框
+		$('input[node-type="disable-checkbox"]').on('click',function(){
+			var param = $(this).attr('data-target');
+			var is_check = $(this).is(':checked');
+			if (is_check) {
+				$('input[name="'+ param +'"]').removeAttr("disabled").css({ background: "#fff" });
+			}else{
+				$('input[name="'+ param +'"]').attr("disabled","disabled").css({ background: "#eee" });
+			};
+		})
+	</script>
+</div>

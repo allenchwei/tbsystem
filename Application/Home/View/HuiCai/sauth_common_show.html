@@ -1,0 +1,45 @@
+<div class="pageFormContent">
+	<div class="content100">
+		<p>
+			<label>日均限额：</label>
+			<span class="show">{$sauth_info.DAY_MAXAMT|setMoney=###,'6','2'}　万元</span>
+		</p>
+		<div class="clear"></div>
+	</div>
+	<div class="content50">
+		<p>
+			<label>日均现金限额：</label>
+			<span class="show">{$sauth_info.DAY_CASH_MAXAMT|setMoney=###,'6','2'}　万元</span>
+		</p>
+		<p>
+			<label>单笔现金限额：</label>
+			<span class="show">{$sauth_info.CASH_MAXAMT|setMoney=###,'6','2'}　万元</span>
+		</p>
+		<div class="clear"></div>
+	</div>
+	<div class="content100">
+		<p>
+			<label>交易开通：</label>
+			<volist name="t_list" id="vo">
+				<eq name="auth_trans_checked[$vo['TRANS_MAP_ID']-1]" value="1">
+					<span class="show">{$vo.TRANS_NAME} &nbsp;</span>
+				</eq>
+			</volist>
+		</p>
+		<p class="ic_line"></p>
+		<p class="remark" style="height:14px;">
+			<label>备注：</label>
+			1，日均限额：为银行卡、信用卡及现金每日交易额的总和，推荐填写【3.0】。如为流水较多的大型商户与总部对接人沟通后可加大。
+		</p>
+		<p class="remark" style="height:14px;"><label>　</label>2，日均现金限额：推荐填写【2.0】； 单笔现金限额：推荐填写【0.5】。同样，如为流水较多的大型商户与总部对接人沟通后可加大。</p>
+		<div class="clear"></div>
+	</div>
+	<if condition="(__ACTNAME__ eq 'sauth_check') or (__ACTNAME__ eq 'sauth_recheck') or (__ACTNAME__ eq 'shop_check') or (__ACTNAME__ eq 'shop_recheck')">
+		<p class="ic_line"></p>
+		<p>
+			<label>审阅标志：</label>
+			<span class="show"><label style="text-align:left;"><input type="checkbox" name="is_pass" value="1" node-type="check_flag">已审阅</label></span>
+		</p>
+		<div class="clear"></div>
+	</if>
+</div>

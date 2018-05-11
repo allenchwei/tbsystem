@@ -1,0 +1,58 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="broad_info"/>
+	<input type="hidden" name="post[POS_NO]" value="{$postdata.POS_NO}"/>
+	<input type="hidden" name="post[SHOP_NO]" value="{$postdata.SHOP_NO}"/>
+	<input type="hidden" name="post[SHOP_NAME]" value="{$postdata.SHOP_NAME}"/>
+	<input type="hidden" name="post[bid]" value="{$postdata.bid}"/>
+	<input type="hidden" name="post[pid]" value="{$postdata.pid}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="{:U('/Home/Shop/broad_info')}" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="broad_info">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>文本类别：</label>
+					<select class="combox" name="post[category]">
+						<option value="" selected="selected">请选择</option>
+						<volist name="TEXT_CATEGORY" id="vo">
+							<option value="{$key}">{$vo}</option>
+						</volist>
+					</select>
+				</p>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="141">
+		<thead>
+			<tr>
+				<th width="8%" align='center'>类别</th>
+				<th width="15%" align='center'>文本内容</th>
+				<th width="6%" align='center'>APP包名</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$TEXT_CATEGORY[$vo['APP_CATEGORY']]}</td>
+					<td>{$vo.CONTENT}</td>
+					<td>{$host_result[$vo['CHANNEL_MAP_ID']]}</td>
+				</tr>
+			</volist> 
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

@@ -1,0 +1,52 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<input type="hidden" name="post[submit]" value="__ACTNAME__">
+	<gt name="info.RULE_ID" value="0">		
+		<input type="hidden" name="post[RULE_ID]" value="{$info.RULE_ID}">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>规则名称：</label>
+					<input type="text" value="{$info.RULE_NAME}" class="required" name="post[RULE_NAME]" maxlength="20"/>
+				</p>
+				<p class="ic_line"></p>
+				<p>
+					<label>规则类型：</label>
+					<select class="combox" name="post[RULE_TYPE]">
+						<volist name="rule_type" id="vo">
+							<option value="{$key}" <eq name="info['RULE_TYPE']" value="$key">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>规则模式：</label>
+					<select class="combox" name="post[RULE_MODE]">
+						<volist name="rule_mode" id="vo">
+							<option value="{$key}" <eq name="info['RULE_MODE']" value="$key">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>规则状态：</label>
+					<select class="combox" name="post[RULE_STATUS]">
+						<volist name="rule_status" id="vo">
+							<option value="{$key}" <eq name="info['RULE_STATUS']" value="$key">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>备注：</label>
+					<textarea style="width:450px;height:65px;" name="post[RULE_REMARK]">{$info.RULE_REMARK}</textarea>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>

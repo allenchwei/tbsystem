@@ -1,0 +1,74 @@
+<style>
+.cinfo_l{width:50%;float:left;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.VIP_ID" value="0">		
+			<input type="hidden" name="post[VIP_ID]" value="{$info.VIP_ID}">
+			<input type="hidden" name="post[VIP_NAME]" value="{$info.VIP_NAME}">
+			<input type="hidden" name="post[V_VIP_CARD_FLAG]" value="{$info.VIP_CARD_FLAG}">
+			<input type="hidden" name="post[V_BRANCH_MAP_ID]" value="{$info.BRANCH_MAP_ID}">
+			<input type="hidden" name="post[V_PARTNER_MAP_ID]" value="{$info.PARTNER_MAP_ID}">
+		</gt>
+		<div class="pageFormContent" layoutH="88" style="padding:15px 28px;">
+			<include file="Member/vinfo_common_top" />			
+			<div class="content50">				
+				<p class="ic_line"></p>
+				<p>
+					<label>绑实体卡：</label>
+					<input type="hidden" value="" name="post[VIP_CARD_FLAG]"/>	<!-- 卡类型 -->
+					<input type="hidden" value="" name="post[BRANCH_MAP_ID]"/>	<!-- 卡归属 -->
+					<input type="hidden" value="" name="post[PARTNER_MAP_ID]"/>	<!-- 卡归属 -->
+					<input type="text" value="" class="required ws18" name="post[CARD_NO]" maxlength="19"/>
+					<font class="message">(输入实体卡卡号)</font>
+				</p>
+				<p>
+					<label>校验码：</label>
+					<input type="text" value="" class="digits required" name="post[CARD_CHECK]" maxlength="6"/>
+				</p>
+				<p>
+					<label>卡费：</label>
+					<span class="show" note-type="kafei">--</span>
+				</p>
+				<p style="width:100%;"></p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		//卡号检测
+		$('input[name="post[CARD_NO]"]').on('blur', function(){
+			var pare 	= $(this);
+			var card_no = pare.val();			
+			if(!!card_no) {
+				$.ajax({
+					type: "POST",
+					url: "__MODULE__/Public/getvipcard_data",
+					data: {card_no:card_no},
+					success: function(_data){
+						if(_data.state == 0){
+							$('input[name="post[VIP_CARD_FLAG]"]').val(_data.result.CARD_P_MAP_ID);
+							$('input[name="post[BRANCH_MAP_ID]"]').val(_data.result.BRANCH_MAP_ID);
+							$('input[name="post[PARTNER_MAP_ID]"]').val(_data.result.PARTNER_MAP_ID);
+							$('span[note-type="kafei"]').html(_data.result.CARD_OPENFEE+' 元');
+						}else{
+							alertMsg.error(_data.msg);
+							$('input[name="post[VIP_CARD_FLAG]"]').val('');
+							$('input[name="post[BRANCH_MAP_ID]"]').val('');
+							$('input[name="post[PARTNER_MAP_ID]"]').val('');
+							$('span[note-type="kafei"]').html('--');
+							pare.val('');
+						}
+				   }
+				});
+			}		
+		});	
+	</script>
+</div>

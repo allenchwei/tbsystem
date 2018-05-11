@@ -1,0 +1,1136 @@
+<div class="pageFormContent shop_scert err_offset_2">
+	<div class="content100">
+		<p style="width:100%;color: red">
+			<label>提示：</label>
+			如使用中出现点击上传按钮无效的情况, 建议升级当前浏览器,推荐使用火狐, 360等浏览器
+		</p>
+		<p>
+			<label>合同编号：</label>
+			<input type="text" class="required" name="scert[AGREEMENT_NO]" value="{$scert_info.AGREEMENT_NO}" maxlength="20"/>
+		</p>
+		<empty name="scert_info['SHOP_MAP_ID']">
+			<p class="err_offset_4_4">
+				<label>注册地址：</label>
+					{$scert_info[CITY_NO]|getcity_select=###,'scert[CITY_NO]'}
+				<input type="text" class="required" name="scert[REG_ADDR]" value="{$scert_info.REG_ADDR}" style="width:250px;" maxlength="30"/>
+			</p>
+		<else />
+			<p>
+				<label>注册地址：</label>
+				<input type="text" class="required" name="scert[REG_ADDR]" value="{$scert_info.REG_ADDR}" style="width:250px;" maxlength="80"/>
+			</p>
+		</empty>
+		<p>
+			<label>营业有效期：</label>
+			<span note-type="yytime" class="f_l" <eq name="scert_info[REG_EXP]" value="99999999">style="display:none;"<else/>style="display:block;"</eq>>
+				<input type="text" readonly="true" minDate="{:date('Y-m-d')}" name="scert[REG_EXP]" value="<?php echo date('Y-m-d', strtotime($scert_info['REG_EXP']?$scert_info['REG_EXP']:'now'));?>" class="date ws40" datefmt="yyyy-MM-dd" />
+				<a class="inputDateButton f_l" href="#">选择</a>　
+			</span>
+			<span><input type="checkbox" name="scert[REG_EXP_FLAG]" <eq name="scert_info[REG_EXP]" value="99999999">checked</eq> value="1">长期</span>
+			<script type="text/javascript">
+				$('input[name="scert[REG_EXP_FLAG]"]').on('click', function(){
+					var check = $(this).attr('checked');
+					if(check){
+						$('span[note-type="yytime"]').hide();
+					}else{
+						$('span[note-type="yytime"]').show();			
+					}
+				});
+			</script>
+		</p>
+		<div class="clear"></div>
+	</div>
+	<div class="content50">
+		<div class="p_img_2">
+			<label>营业执照号码：</label>
+			<input type="text" name="scert[REG_ID]" value="{$scert_info.REG_ID}" class="required" maxlength="32">
+			<span class="error" for="scert[REG_ID]" style="top: 30px;display: none;">必填字段</span>
+			<input type="hidden" name="scert[REGID_PHOTO]" value="{$scert_info.REGID_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='REGID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$scert_info[REGID_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[REGID_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[REGID_PHOTO]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>组织机构代码：</label>
+			<input type="text" name="scert[ORG_ID]" value="{$scert_info.ORG_ID}" maxlength="32">
+			<span class="error" for="scert[ORG_ID]" style="top: 30px;display: none;">必填字段</span>
+			<input type="hidden" name="scert[ORGID_PHOTO]" value="{$scert_info.ORGID_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='ORGID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$scert_info[ORGID_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[ORGID_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[ORGID_PHOTO]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>税务登记证：</label>
+			<input type="text" name="scert[TAX_ID]" value="{$scert_info.TAX_ID}" maxlength="32">
+			<span class="error" for="scert[TAX_ID]" style="top: 30px;display: none;">必填字段</span>
+			<input type="hidden" name="scert[TAXID_PHOTO]" value="{$scert_info.TAXID_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='TAXID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$scert_info[TAXID_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[TAXID_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[TAXID_PHOTO]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>商户协议照片：</label>
+			<input type="hidden" name="scert[AGREEMENTID_PHOTO1]" value="{$scert_info.AGREEMENTID_PHOTO1}">
+			<input type="hidden" name="scert[AGREEMENTID_PHOTO2]" value="{$scert_info.AGREEMENTID_PHOTO2}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='AGREEMENTID_PHOTO' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb" node-type="AGREEMENTID_1">
+				<img src="{$scert_info[AGREEMENTID_PHOTO1]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[AGREEMENTID_PHOTO1]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[AGREEMENTID_PHOTO1]"></a>
+			</div>
+			<div class="tp_gb" node-type="AGREEMENTID_2">
+				<img src="{$scert_info[AGREEMENTID_PHOTO2]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[AGREEMENTID_PHOTO2]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[AGREEMENTID_PHOTO2]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>授权函照片：</label>
+			<input type="hidden" name="scert[GRANTID_PHOTO1]" value="{$scert_info.GRANTID_PHOTO1}">
+			<input type="hidden" name="scert[GRANTID_PHOTO2]" value="{$scert_info.GRANTID_PHOTO2}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='GRANTID_PHOTO' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb" node-type="GRANTID_1">
+				<img src="{$scert_info[GRANTID_PHOTO1]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[GRANTID_PHOTO1]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[GRANTID_PHOTO1]"></a>
+			</div>
+			<div class="tp_gb" node-type="GRANTID_2">
+				<img src="{$scert_info[GRANTID_PHOTO2]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[GRANTID_PHOTO2]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[GRANTID_PHOTO2]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>经营许可证照片：</label>
+			<input type="hidden" name="scert[LICENSEID_PHOTO]" value="{$scert_info.LICENSEID_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='LICENSEID_PHOTO' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$scert_info[LICENSEID_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[LICENSEID_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[LICENSEID_PHOTO]"></a>
+			</div>
+		</div>
+		<div class="p_img_2" style="height: 55px">
+			<label>法人姓名：</label>
+			<input type="text" name="scert[LP_NAME]" value="{$scert_info.LP_NAME}" class="required" maxlength="20">
+			<span class="error" for="scert[LP_NAME]" style="top: 30px;display: none;">必填字段</span>
+		</div>
+		<div class="clear"></div>
+		<div class="p_img_2">
+			<label>身份证号码：</label>
+			<input type="text" name="scert[LP_ID]" value="{$scert_info.LP_ID}" class="required idcard" maxlength="18">
+			<input type="hidden" name="scert[LP_D_PHOTO]" value="{$scert_info.LP_D_PHOTO}">
+			<input type="hidden" name="scert[LP_R_PHOTO]" value="{$scert_info.LP_R_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='LP_ID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb" node-type="LP_1">
+				<img src="{$scert_info[LP_D_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" flag="1" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[LP_D_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[LP_D_PHOTO]"></a>
+			</div>
+			<div class="tp_gb" node-type="LP_2">
+				<img src="{$scert_info[LP_R_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" flag="1" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[LP_R_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[LP_R_PHOTO]"></a>
+			</div>
+		</div>
+		<p>
+			<label>身份证有效期：</label>
+			<span note-type="yytime" class="f_l" <eq name="scert_info[LP_EXP]" value="99999999">style="display:none;"<else/>style="display:block;"</eq>>
+				<input type="text" readonly="true" minDate="2000-1-1" maxDate="{:date('Y-m-d',strtotime('+20 years'))}" name="scert[LP_EXP]" value="<?php echo date('Y-m-d', strtotime($scert_info['LP_EXP']?$scert_info['LP_EXP']:'now'));?>" class="date ws40" datefmt="yyyy-MM-dd" />
+				<a class="inputDateButton f_l" href="#">选择</a>　
+			</span>
+			<span><input type="checkbox" name="scert[LP_EXP_FLAG]" <eq name="scert_info[LP_EXP]" value="99999999">checked</eq> value="1">长期</span>
+			<script type="text/javascript">
+				$('input[name="scert[LP_EXP_FLAG]"]').on('click', function(){
+					var check = $(this).attr('checked');
+					if(check){
+						$('span[note-type="yytime"]').hide();
+					}else{
+						$('span[note-type="yytime"]').show();			
+					}
+				});
+			</script>
+		</p>
+		<div class="p_img_2">
+			<label>银行卡照片：</label>
+			<input type="hidden" name="scert[BANK_D_PHOTO]" value="{$scert_info.BANK_D_PHOTO}">
+			<input type="hidden" name="scert[BANK_R_PHOTO]" value="{$scert_info.BANK_R_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='BANK_ID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb" node-type="BANK_1">
+				<img src="{$scert_info[BANK_D_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" flag="1" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[BANK_D_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[BANK_D_PHOTO]"></a>
+			</div>
+			<div class="tp_gb" node-type="BANK_2">
+				<img src="{$scert_info[BANK_R_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" flag="1" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[BANK_R_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[BANK_R_PHOTO]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>法人委托入账授权说明照片：</label>
+			<input type="hidden" name="scert[LP_GRANTID_PHOTO]" value="{$scert_info.LP_GRANTID_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='LP_GRANTID_PHOTO' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$scert_info[LP_GRANTID_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" flag="1" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[LP_GRANTID_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[LP_GRANTID_PHOTO]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>入账人身份证照片：</label>
+			<input type="hidden" name="scert[BANK_LP_D_PHOTO]" value="{$scert_info.BANK_LP_D_PHOTO}">
+			<input type="hidden" name="scert[BANK_LP_R_PHOTO]" value="{$scert_info.BANK_LP_R_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='BANK_LP_ID' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb" node-type="BANK_LP_1">
+				<img src="{$scert_info[BANK_LP_D_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" flag="1" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[BANK_LP_D_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[BANK_LP_D_PHOTO]"></a>
+			</div>
+			<div class="tp_gb" node-type="BANK_LP_2">
+				<img src="{$scert_info[BANK_LP_R_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" flag="1" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[BANK_LP_R_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[BANK_LP_R_PHOTO]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>开户许可证：</label>
+			<input type="hidden" name="scert[BANK_PHOTO]" value="{$scert_info.BANK_PHOTO}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='BANK_PHOTO' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$scert_info[BANK_PHOTO]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[BANK_PHOTO]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[BANK_PHOTO]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>房屋租赁合同照片：</label>
+			<input type="hidden" name="scert[REGADDR_PHOTO1]" value="{$scert_info.REGADDR_PHOTO1}">
+			<input type="hidden" name="scert[REGADDR_PHOTO2]" value="{$scert_info.REGADDR_PHOTO2}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='REGADDR_PHOTO' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb" node-type="REGADDR_1">
+				<img src="{$scert_info[REGADDR_PHOTO1]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[REGADDR_PHOTO1]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[REGADDR_PHOTO1]"></a>
+			</div>
+			<div class="tp_gb" node-type="REGADDR_2">
+				<img src="{$scert_info[REGADDR_PHOTO2]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[REGADDR_PHOTO2]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[REGADDR_PHOTO2]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>场所门头照片：</label>
+			<input type="hidden" name="scert[OFFICE_PHOTO1]" value="{$scert_info.OFFICE_PHOTO1}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='OFFICE_PHOTO1' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$scert_info[OFFICE_PHOTO1]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[OFFICE_PHOTO1]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[OFFICE_PHOTO1]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>场所场景照片：</label>
+			<input type="hidden" name="scert[OFFICE_PHOTO2]" value="{$scert_info.OFFICE_PHOTO2}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='OFFICE_PHOTO' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$scert_info[OFFICE_PHOTO2]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[OFFICE_PHOTO2]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[OFFICE_PHOTO2]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>收银台照片：</label>
+			<input type="hidden" name="scert[OFFICE_PHOTO3]" value="{$scert_info.OFFICE_PHOTO3}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='OFFICE_PHOTO3' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$scert_info[OFFICE_PHOTO3]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[OFFICE_PHOTO3]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[OFFICE_PHOTO3]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>室内照片：</label>
+			<input type="hidden" name="scert[OFFICE_PHOTO4]" value="{$scert_info.OFFICE_PHOTO4}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='OFFICE_PHOTO4' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$scert_info[OFFICE_PHOTO4]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[OFFICE_PHOTO4]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[OFFICE_PHOTO4]"></a>
+			</div>
+		</div>
+		<div class="p_img_2">
+			<label>室内照片：</label>
+			<input type="hidden" name="scert[OFFICE_PHOTO5]" value="{$scert_info.OFFICE_PHOTO5}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='OFFICE_PHOTO5' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb">
+				<img src="{$scert_info[OFFICE_PHOTO5]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info[OFFICE_PHOTO5]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[OFFICE_PHOTO5]"></a>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="p_img_2" style="width:100%;">
+			<label>其他：</label>
+			<input type="hidden" name="scert[OTHER_PHOTOS]" value="{$scert_info.OTHER_PHOTOS}">
+			<div class="upimgbtndiv">
+				<a href="javascript:;" id='OTHER' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+			</div>
+			<div class="tp_gb" node-type="OTHER_1">
+				<img src="{$scert_info['OTHER'][0]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info['OTHER'][0]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="del_other_pic" target_name="scert[OTHER1]"></a>
+			</div>
+			<div class="tp_gb" node-type="OTHER_2">
+				<img src="{$scert_info['OTHER'][1]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info['OTHER'][1]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="del_other_pic" target_name="scert[OTHER2]"></a>
+			</div>
+			<div class="tp_gb" node-type="OTHER_3">
+				<img src="{$scert_info['OTHER'][2]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info['OTHER'][2]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="del_other_pic" target_name="scert[OTHER3]"></a>
+			</div>
+			<div class="tp_gb" node-type="OTHER_4">
+				<img src="{$scert_info['OTHER'][3]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info['OTHER'][3]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="del_other_pic" target_name="scert[OTHER4]"></a>
+			</div>
+			<div class="tp_gb" node-type="OTHER_5">
+				<img src="{$scert_info['OTHER'][4]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+				<a href="javascript:;" <empty name="scert_info['OTHER'][4]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="del_other_pic" target_name="scert[OTHER5]"></a>
+			</div>
+		</div>
+		<div class="p_img_2" style="width:100%;">
+			<label>备注：</label>
+			<textarea style="width:600px;height:60px;" name="scert[RES]">{$scert_info.RES}</textarea>
+		</div>
+		<div class="clear"></div>
+	</div>
+		<script>
+		//删除图片
+		$('img[node-type="delpic"]').on('click',function(){
+			var param1 = $(this).closest('div.p_img_2'),
+				param2 = $(this).closest('div.tp_gb'),
+				target_name = $(this).attr('target_name');
+			param1.find('input[name="'+target_name+'"]').val('');
+			param2.find('img[node-type="pic"]').attr('src','../../../Public/home/images/gszp.png');
+			$(this).closest('a').hide();
+		})
+		//删除其他图片
+		$('img[node-type="del_other_pic"]').on('click',function(){
+			var param1 = $(this).closest('div.p_img_2'),
+				param2 = $(this).closest('div.tp_gb'),
+				target_name = $(this).attr('target_name');
+				param2.find('img[node-type="pic"]').attr('src','../../../Public/home/images/gszp.png');
+				$(this).closest('a').hide();
+			//param1.find('input[name="'+target_name+'"]').val('');
+		 	var img_arr = param1.find('img[node-type="pic"]');
+			//拼装图片路径字串
+ 			var img_url = '';
+ 			$.each(img_arr, function(i) {
+			     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+			     if(flag == '../../../Public/home/images/gszp.png'){
+			     	img_url+=',';
+			     }else{
+			     	img_url+=','+flag;
+			     }
+			});
+			console.log(img_url);
+			var img_path = img_url.substring(1);
+			param1.find('input[name="scert[OTHER_PHOTOS]"]').val(img_path);
+		})
+		var uploadify_onSelectError = function(file, errorCode, errorMsg) {
+	        var msgText = "上传失败\n";
+	        switch (errorCode) {
+	            case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
+	                //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+	                msgText += "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+	                msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+	                msgText += "文件大小为0";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+	                msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
+	                break;
+	            default:
+	                msgText += "错误代码：" + errorCode + "\n" + errorMsg;
+	        }
+	        alert(msgText);
+	    };
+		 
+		var uploadify_onUploadError = function(file, errorCode, errorMsg, errorString) {
+	        // 手工取消不弹出提示
+	        if (errorCode == SWFUpload.UPLOAD_ERROR.FILE_CANCELLED
+	                || errorCode == SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED) {
+	            return;
+	        }
+	        var msgText = "上传失败\n";
+	        switch (errorCode) {
+	            case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
+	                msgText += "HTTP 错误\n" + errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.MISSING_UPLOAD_URL:
+	                msgText += "上传文件丢失，请重新上传";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.IO_ERROR:
+	                msgText += "IO错误";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
+	                msgText += "安全性错误\n" + errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
+	                msgText += "每次最多上传 " + this.settings.uploadLimit + "个";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
+	                msgText += errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.SPECIFIED_FILE_ID_NOT_FOUND:
+	                msgText += "找不到指定文件，请重新操作";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
+	                msgText += "参数错误";
+	                break;
+	            default:
+	                msgText += "文件:" + file.name + "\n错误码:" + errorCode + "\n"
+	                        + errorMsg + "\n" + errorString;
+	        }
+	        alert(msgText);
+	    }
+		//图片上传
+		$('#REGID').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#REGID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#REGID').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('flag',"1");
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="scert[REGID_PHOTO]"]').val(resjson.result);
+	        }
+        });
+		$('#ORGID').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#ORGID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#ORGID').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="scert[ORGID_PHOTO]"]').val(resjson.result);
+	        }
+        });
+        $('#TAXID').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#TAXID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#TAXID').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="scert[TAXID_PHOTO]"]').val(resjson.result);
+	        }
+        });
+        $('#LP_ID').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'hideButton' 	: true,
+            'auto'	   		: true,
+            'multi'       	: true,
+            'queueSizeLimit': 2,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'overrideEvents' : [ 'onDialogClose', 'onUploadError', 'onSelectError' ],
+            'onInit': function () {                        //隐藏进度条
+               $("#LP_ID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#LP_ID').closest('div.p_img_2');
+		 		var img_arr = param.find('img[node-type="pic"]'),
+		 			file_index = 0;
+				$.each(img_arr, function(i) {
+				     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+				     if(flag == '../../../Public/home/images/gszp.png'){
+				     	file_index = i;
+				     	return false; 					//跳出循环
+				     }
+				});
+		 		//file_index = file.index%2;
+		 		switch (file_index) {
+		 			case 0:
+			 			param.find('div[node-type="LP_1"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="LP_1"] a').show();
+		 				param.find('input[name="scert[LP_D_PHOTO]"]').val(resjson.result);
+		 			break;
+		 			case 1:
+			 			param.find('div[node-type="LP_2"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="LP_2"] a').show();
+			 			param.find('input[name="scert[LP_R_PHOTO]"]').val(resjson.result);
+		 			break;
+		 		};
+	        },
+	        'onUploadError' : uploadify_onUploadError,
+	        'onSelectError' : uploadify_onSelectError
+        });
+        $('#BANK_PHOTO').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#BANK_PHOTO-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#BANK_PHOTO').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="scert[BANK_PHOTO]"]').val(resjson.result);
+	        }
+        });
+		//经营许可证照片
+		$('#LICENSEID_PHOTO').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#LICENSEID_PHOTO-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#LICENSEID_PHOTO').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="scert[LICENSEID_PHOTO]"]').val(resjson.result);
+	        }
+        });
+
+
+		/* 房屋合同租赁照片 */
+  		$('#REGADDR_PHOTO').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'hideButton' 	: true,
+            'auto'	   		: true,
+            'multi'       	: true,
+            'queueSizeLimit': 2,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'overrideEvents' : [ 'onDialogClose', 'onUploadError', 'onSelectError' ],
+            'onInit': function () {                        //隐藏进度条
+               $("#REGADDR_PHOTO-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#REGADDR_PHOTO').closest('div.p_img_2');
+		 			//file_index = file.index%2;
+		 		var img_arr = param.find('img[node-type="pic"]'),
+		 			file_index = 0;
+				$.each(img_arr, function(i) {
+				     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+				     if(flag == '../../../Public/home/images/gszp.png'){
+				     	file_index = i;
+				     	return false; 					//跳出循环
+				     }
+				});
+		 		switch (file_index) {
+		 			case 0:
+		 				param.find('div[node-type="REGADDR_1"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="REGADDR_1"] a').show();
+		 				param.find('input[name="scert[REGADDR_PHOTO1]"]').val(resjson.result);
+		 			break;
+		 			case 1:
+		 				param.find('div[node-type="REGADDR_2"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="REGADDR_2"] a').show();
+			 			param.find('input[name="scert[REGADDR_PHOTO2]"]').val(resjson.result);
+		 			break;
+		 		};
+	        },
+	        'onUploadError' : uploadify_onUploadError,
+	        'onSelectError' : uploadify_onSelectError
+        });
+		/* 商户协议照片 */
+  		$('#AGREEMENTID_PHOTO').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'hideButton' 	: true,
+            'auto'	   		: true,
+            'multi'       	: true,
+            'queueSizeLimit': 2,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'overrideEvents' : [ 'onDialogClose', 'onUploadError', 'onSelectError' ],
+            'onInit': function () {                        //隐藏进度条
+               $("#AGREEMENTID_PHOTO-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#AGREEMENTID_PHOTO').closest('div.p_img_2');
+		 			//file_index = file.index%2;
+		 		var img_arr = param.find('img[node-type="pic"]'),
+		 			file_index = 0;
+				$.each(img_arr, function(i) {
+				     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+				     if(flag == '../../../Public/home/images/gszp.png'){
+				     	file_index = i;
+				     	return false; 					//跳出循环
+				     }
+				});
+		 		switch (file_index) {
+		 			case 0:
+		 				param.find('div[node-type="AGREEMENTID_1"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="AGREEMENTID_1"] a').show();
+		 				param.find('input[name="scert[AGREEMENTID_PHOTO1]"]').val(resjson.result);
+		 			break;
+		 			case 1:
+		 				param.find('div[node-type="AGREEMENTID_2"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="AGREEMENTID_2"] a').show();
+			 			param.find('input[name="scert[AGREEMENTID_PHOTO2]"]').val(resjson.result);
+		 			break;
+		 		};
+	        },
+	        'onUploadError' : uploadify_onUploadError,
+	        'onSelectError' : uploadify_onSelectError
+        });
+		/* 银行卡照片 */
+  		$('#BANK_ID').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'hideButton' 	: true,
+            'auto'	   		: true,
+            'multi'       	: true,
+            'queueSizeLimit': 2,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'overrideEvents' : [ 'onDialogClose', 'onUploadError', 'onSelectError' ],
+            'onInit': function () {                        //隐藏进度条
+               $("#BANK_ID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#BANK_ID').closest('div.p_img_2');
+		 			//file_index = file.index%2;
+		 		var img_arr = param.find('img[node-type="pic"]'),
+		 			file_index = 0;
+				$.each(img_arr, function(i) {
+				     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+				     if(flag == '../../../Public/home/images/gszp.png'){
+				     	file_index = i;
+				     	return false; 					//跳出循环
+				     }
+				});
+		 		switch (file_index) {
+		 			case 0:
+		 				param.find('div[node-type="BANK_1"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="BANK_1"] a').show();
+		 				param.find('input[name="scert[BANK_D_PHOTO]"]').val(resjson.result);
+		 			break;
+		 			case 1:
+		 				param.find('div[node-type="BANK_2"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="BANK_2"] a').show();
+			 			param.find('input[name="scert[BANK_R_PHOTO]"]').val(resjson.result);
+		 			break;
+		 		};
+	        },
+	        'onUploadError' : uploadify_onUploadError,
+	        'onSelectError' : uploadify_onSelectError
+        });
+		/* 入账人身份证照片 */
+  		$('#BANK_LP_ID').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'hideButton' 	: true,
+            'auto'	   		: true,
+            'multi'       	: true,
+            'queueSizeLimit': 2,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'overrideEvents' : [ 'onDialogClose', 'onUploadError', 'onSelectError' ],
+            'onInit': function () {                        //隐藏进度条
+               $("#BANK_LP_ID-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#BANK_LP_ID').closest('div.p_img_2');
+		 			//file_index = file.index%2;
+		 		var img_arr = param.find('img[node-type="pic"]'),
+		 			file_index = 0;
+				$.each(img_arr, function(i) {
+				     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+				     if(flag == '../../../Public/home/images/gszp.png'){
+				     	file_index = i;
+				     	return false; 					//跳出循环
+				     }
+				});
+		 		switch (file_index) {
+		 			case 0:
+		 				param.find('div[node-type="BANK_LP_1"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="BANK_LP_1"] a').show();
+		 				param.find('input[name="scert[BANK_LP_D_PHOTO]"]').val(resjson.result);
+		 			break;
+		 			case 1:
+		 				param.find('div[node-type="BANK_LP_2"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="BANK_LP_2"] a').show();
+			 			param.find('input[name="scert[BANK_LP_R_PHOTO]"]').val(resjson.result);
+		 			break;
+		 		};
+	        },
+	        'onUploadError' : uploadify_onUploadError,
+	        'onSelectError' : uploadify_onSelectError
+        });
+		/* 授权函照片 */
+  		$('#GRANTID_PHOTO').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'hideButton' 	: true,
+            'auto'	   		: true,
+            'multi'       	: true,
+            'queueSizeLimit': 2,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'overrideEvents' : [ 'onDialogClose', 'onUploadError', 'onSelectError' ],
+            'onInit': function () {                        //隐藏进度条
+               $("#GRANTID_PHOTO-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#GRANTID_PHOTO').closest('div.p_img_2');
+		 			//file_index = file.index%2;
+		 		var img_arr = param.find('img[node-type="pic"]'),
+		 			file_index = 0;
+				$.each(img_arr, function(i) {
+				     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+				     if(flag == '../../../Public/home/images/gszp.png'){
+				     	file_index = i;
+				     	return false; 					//跳出循环
+				     }
+				});
+		 		switch (file_index) {
+		 			case 0:
+		 				param.find('div[node-type="GRANTID_1"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="GRANTID_1"] a').show();
+		 				param.find('input[name="scert[GRANTID_PHOTO1]"]').val(resjson.result);
+		 			break;
+		 			case 1:
+		 				param.find('div[node-type="GRANTID_2"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="GRANTID_2"] a').show();
+			 			param.find('input[name="scert[GRANTID_PHOTO2]"]').val(resjson.result);
+		 			break;
+		 		};
+	        },
+	        'onUploadError' : uploadify_onUploadError,
+	        'onSelectError' : uploadify_onSelectError
+        });
+		/* 法人委托入账授权说明照片 */
+ 		$('#LP_GRANTID_PHOTO').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#LP_GRANTID_PHOTO-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#LP_GRANTID_PHOTO').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="scert[LP_GRANTID_PHOTO]"]').val(resjson.result);
+	        }
+        });
+		/* 场所门头照片 */
+ 		$('#OFFICE_PHOTO1').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#OFFICE_PHOTO1-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#OFFICE_PHOTO1').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="scert[OFFICE_PHOTO1]"]').val(resjson.result);
+	        }
+        });
+
+		/* 场所场景照片 */
+ 		/* 房屋合同租赁照片 */
+  		$('#OFFICE_PHOTO').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'hideButton' 	: true,
+            'auto'	   		: true,
+            'multi'       	: true,
+            'queueSizeLimit': 3,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'overrideEvents' : [ 'onDialogClose', 'onUploadError', 'onSelectError' ],
+            'onInit': function () {                        //隐藏进度条
+               $("#OFFICE_PHOTO-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#OFFICE_PHOTO').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+			 		param.find('input[name="scert[OFFICE_PHOTO2]"]').val(resjson.result);
+		 		/*	file_index = file.index%3;
+		 		switch (file_index) {
+		 			case 0:
+			 			param.find('img[id="OFFICE_PHOTO2"]').attr('src',resjson.result);
+			 			param.find('input[name="scert[OFFICE_PHOTO2]"]').val(resjson.result);
+		 			break;
+		 			case 1:
+			 			param.find('img[id="OFFICE_PHOTO3"]').attr('src',resjson.result);
+			 			param.find('input[name="scert[OFFICE_PHOTO3]"]').val(resjson.result);
+		 			break;
+		 			case 2:
+		 				param.find('img[id="OFFICE_PHOTO4"]').attr('src',resjson.result);
+		 				param.find('input[name="scert[OFFICE_PHOTO4]"]').val(resjson.result);
+		 			break;
+		 		};*/
+	        },
+	        'onUploadError' : uploadify_onUploadError,
+	        'onSelectError' : uploadify_onSelectError
+        });
+		//收银台照片
+		$('#OFFICE_PHOTO3').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#OFFICE_PHOTO3-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#OFFICE_PHOTO3').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="scert[OFFICE_PHOTO3]"]').val(resjson.result);
+	        }
+        });
+		//室内照片
+		$('#OFFICE_PHOTO4').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#OFFICE_PHOTO4-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#OFFICE_PHOTO4').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="scert[OFFICE_PHOTO4]"]').val(resjson.result);
+	        }
+        });
+		//室内照片
+		$('#OFFICE_PHOTO5').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#OFFICE_PHOTO5-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#OFFICE_PHOTO5').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="scert[OFFICE_PHOTO5]"]').val(resjson.result);
+	        }
+        });
+		//其他
+  		$('#OTHER').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'hideButton' 	: true,
+            'auto'	   		: true,
+            'multi'       	: true,
+            'queueSizeLimit': 5,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'overrideEvents' : [ 'onDialogClose', 'onUploadError', 'onSelectError' ],
+            'onInit': function () {                        //隐藏进度条
+               $("#OTHER-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#OTHER').closest('div.p_img_2');
+		 		var img_arr = param.find('img[node-type="pic"]'),
+		 			file_index = 0;
+				$.each(img_arr, function(i) {
+				     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+				     if(flag == '../../../Public/home/images/gszp.png'){
+				     	file_index = i;
+				     	return false; 					//跳出循环
+				     }
+				});
+		 		//file_index = file.index%2;
+		 		switch (file_index) {
+		 			case 0:
+			 			param.find('div[node-type="OTHER_1"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="OTHER_1"] a').show();
+		 			break;
+		 			case 1:
+		 				param.find('div[node-type="OTHER_2"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="OTHER_2"] a').show();
+		 			break;
+		 			case 2:
+			 			param.find('div[node-type="OTHER_3"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="OTHER_3"] a').show();
+		 			break;
+		 			case 3:
+			 			param.find('div[node-type="OTHER_4"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="OTHER_4"] a').show();
+		 			break;
+		 			case 4:
+			 			param.find('div[node-type="OTHER_5"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="OTHER_5"] a').show();
+		 				
+		 			break;
+		 		};
+		 		//拼装图片路径字串
+	 			var img_url = '';
+	 			$.each(img_arr, function(i) {
+				     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+				     if(flag == '../../../Public/home/images/gszp.png'){
+				     	img_url+=',';
+				     }else{
+				     	img_url+=','+flag;
+				     }
+				});
+				var img_path = img_url.substring(1);
+				param.find('input[name="scert[OTHER_PHOTOS]"]').val(img_path);
+	        },
+	        'onUploadError' : uploadify_onUploadError,
+	        'onSelectError' : uploadify_onSelectError
+        });
+	</script>
+</div>

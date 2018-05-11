@@ -1,0 +1,65 @@
+<style>
+.err_offset_1 .error{left:100px;}
+.err_offset_2 .error{left:125px;}
+.err_offset_3 .error{left:255px;}
+.err_offset_4 .error{left:230px;}
+.err_offset_4_4 .error{left:548px;}
+.err_offset_5 .error{left:151px;}
+.err_offset_5_1 .error{left:115px;}
+.err_offset_5_2 .error{left:501px;}
+.err_offset_5_3 .error{left:241px;}
+.err_offset_6 .error{left:180px;}
+.err_offset_6_1 .error{left:55px;}
+.other p label{width:110px;}
+.other p code{width:55px;display: inline-block;}
+/* 图片上传中的样式 */
+div.upimgbtndiv{width:100px;float:left; margin: 0 10px;}
+.uploadify-button{background-image: none;}
+.uploadify:hover .uploadify-button{background-image: none;background-color: #324e75;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="shop_info.SHOP_MAP_ID" value="0">
+		<input type="hidden" name="shop[submit]" value="shop_edit">
+		<input type="hidden" name="shop[SHOP_MAP_ID]" value="{$shop_info.SHOP_MAP_ID}">
+		<input type="hidden" name="shop[SHOP_STATUS]" value="{$shop_info.SHOP_STATUS}">
+	<else />
+		<input type="hidden" name="shop[submit]" value="shop_add">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<include file="shop_common_edit" />
+				
+			<div class="tabs">
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>证照信息</span></a></li>
+							<li><a href="javascript:;"><span>权限开通</span></a></li>
+							<li><a href="javascript:;"><span>扣率信息</span></a></li>
+							<li><a href="javascript:;"><span>银行账户</span></a></li>
+							<!--<li><a href="javascript:;"><span>代扣账户</span></a></li>
+							<li><a href="javascript:;"><span>其他设置</span></a></li>-->
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">
+					<!-- 商户证照信息 -->
+					<include file="scert_common_edit" />
+					<!-- 商户权限信息 -->
+					<include file="sauth_common_edit" />
+					<!-- 商户扣率信息 -->
+					<include file="smdr_common_add" />
+					<!-- 商户银行信息 -->
+					<include file="sbact_common_edit" />
+					
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<a href="javascript:;" class="anniu ch-btn-skin ch-btn-small ch-icon-ok" onclick="checkSubmit()">确 定</a>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

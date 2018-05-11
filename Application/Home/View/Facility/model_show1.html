@@ -1,0 +1,49 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="kuai">
+			<div class="new_01">
+				<div class="m">
+					<p>
+						<label>厂商名称：</label>
+						<span class="show">{$info.FACTORY_NAME}</span>
+					</p>
+					<p>
+						<label>型号名称：</label>
+						<span class="show">{$info.MODEL_NAME}</span>
+					</p>
+					<p class="inputcheck">
+						<label>型号状态：</label>
+						<span class="show">{$model_type['MODEL_STATUS'][$info['MODEL_STATUS']]}</span>
+					</p>
+					<p class="inputcheck">
+						<label>型号类型：</label>
+						<span class="show">{$model_type['MODEL_TYPE'][$info['MODEL_TYPE']]}</span>
+					</p>
+					<p class="inputcheck">
+						<label>通讯方式：</label>
+						<span class="show">{$model_type['MODEL_COMM'][$info['MODEL_COMM']]}</span>
+					</p>
+					<p class="inputcheck">
+						<label>密码键盘：</label>
+						<span class="show">{$model_type['MODEL_PINPAD'][$info['MODEL_PINPAD']]}</span>
+					</p>
+					<p class="inputcheck">
+						<label>打印机：</label>
+						<span class="show">{$model_type['MODEL_PRINTER'][$info['MODEL_PRINTER']]}</span>
+					</p>
+					<p>
+						<label>进价：</label>
+						<span class="show">{$info.MODEL_PRICE|setMoney=###,2,2} 元</span>
+					</p>
+					<p>
+						<label>备注：</label>
+						<span class="show">{$info.MODEL_REMARK}</span>
+					</p>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="formBar">
+	</div>
+</div>

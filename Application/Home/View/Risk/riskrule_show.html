@@ -1,0 +1,37 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>规则ID：</label>
+				<span class="show">{$info.RULE_ID}</span>
+			</p>
+			<p>
+				<label>规则名称：</label>
+				<span class="show">{$info.RULE_NAME}</span>
+			</p>
+			<p class="ic_line"></p>
+			<p>
+				<label>规则类型：</label>
+				<span class="show">{$rule_type[$info[RULE_TYPE]]}</span>
+			</p>
+			<p>
+				<label>规则模式：</label>
+				<span class="show">{$rule_mode[$info[RULE_MODE]]}</span>
+			</p>
+			<p>
+				<label>规则状态：</label>
+				<span class="show">{$rule_status[$info[RULE_STATUS]]}</span>
+			</p>
+			<p>
+				<label>备注：</label>
+				<span class="show" style="width:450px;">{$info.RULE_REMARK}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

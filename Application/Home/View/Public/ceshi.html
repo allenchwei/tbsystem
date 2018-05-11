@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>测试接口</title>
+	<script src="/Public/home/js/jquery-1.7.2.min.js"></script>
+	<link href="__PUBLIC__/home/css/base.css" rel="stylesheet" type="text/css" media="screen"/>
+	<style>
+		.clear{clear:both;}
+		.content{margin:12px 12px 0px;width:500px;}
+		.content input{height: 35px;width: 496px;border: 1px solid #ccc;text-indent: 5px;border-radius: 3px;font-size: 16px;}
+		.content textarea{float: left;height: 120px;width: 400px;margin-top: 5px;border: 1px solid #ccc;text-indent: 5px;border-radius: 3px;}
+		.content a{ background-color: #004cc5;border-radius: 3px;color: #fff;float: right;height: 120px;line-height: 120px;margin-top: 5px;text-align: center;text-decoration: none;width: 90px;}
+		.content a:active{background-color:#003ea0;}
+	</style>
+</head>
+<body>
+	<div class="content">
+		<input data-type="url" type="text" value="/index.php/Home/Apiserver/">
+		<textarea data-type="text">{"user_id":"1001272016","access_token":"BC17063FD87BBA012EFB14963353136C"}</textarea>
+		<a note-type="send" href="javascript:;"> 发送 </a>
+		<div class="clear"></div>
+		{"user_id":"100127","access_token":"BC17063FD87BBA012EFB14963353136C"}
+	</div>
+	
+	<br/>
+	<form id="upload" method='post' action="/index.php/Hud/Public/uploadimg" enctype="multipart/form-data" style="margin-left:12px;">
+		<input type="hidden" name="userid" value="31"/>
+		<input type="hidden" name="keyword" value="aace5f8e7d95fe2e01784b3138dcbfa2"/>
+		<input name="image" type="file" />
+		<input type="submit" value="提交" class="button" >
+	</form>
+	
+	<br/>
+	<style>.anniu{margin-left:12px;}.anniu button{margin-bottom:10px;width:50px;}</style>
+	<div class="anniu">
+		<button class="ch-btn-skin ch-btn-small ch-icon-search"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-heart"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-star"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-star-empty"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-user"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-th-large"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-th"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-th-list"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-ok"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-remove"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-zoom-in"></button>
+		<br/>
+		<button class="ch-btn-skin ch-btn-small ch-icon-zoom-out"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-cog"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-trash"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-time"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-repeat"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-refresh"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-print"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-camera"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-pencil"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-map-marker"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-move"></button>
+		<br/>
+		<button class="ch-btn-skin ch-btn-small ch-icon-chevron-left"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-chevron-right"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-plus-sign"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-minus-sign"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-remove-sign"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-ok-sign"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-question-sign"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-info-sign"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-ban-circle"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-arrow-left"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-arrow-right"></button>
+		<br/>
+		<button class="ch-btn-skin ch-btn-small ch-icon-arrow-up"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-arrow-down"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-plus"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-minus"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-exclamation-sign"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-warning-sign"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-calendar"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-comment"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-chevron-up"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-chevron-down"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-key"></button>
+		<br/>
+		<button class="ch-btn-skin ch-btn-small ch-icon-comments"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-lock"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-unlock"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-wrench"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-group"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-copy"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-paper-clip"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-reorder"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-truck"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-caret-down"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-caret-up"></button>
+		<br/>
+		<button class="ch-btn-skin ch-btn-small ch-icon-caret-left"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-caret-right"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-sort"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-sort-down"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-sort-up"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-envelope-alt"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-undo"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-comment-alt"></button>
+		<button class="ch-btn-skin ch-btn-small ch-icon-comments-alt"></button>
+	</div>
+	
+	<script type="text/javascript">
+		$('a[note-type="send"]').on('click', function(){
+			var url = $('input[data-type="url"]').val(),
+				data = $('textarea[data-type="text"]').val();
+			if( url!="" && data!="" ){
+				data = $.parseJSON(data);
+				$.ajax({
+					url: url,
+					type:'POST',
+					dataType:'JSON',
+					data: data,
+					success:function(res) {
+						console.log(res);
+					}
+				});
+			}else
+			{
+				alert('缺少请求链接、json数据');
+			}	
+		});
+	</script>
+</body>
+</html>

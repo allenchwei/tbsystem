@@ -1,0 +1,231 @@
+<div class="content100">
+	<p><label style="font-size:16px;">| 基本信息<label></p>
+	<div class="clear"></div>
+</div>
+<div class="content25">
+	<p style="width:35%;">
+		<label>商户名称：</label>
+		<input type="text" name="shop[SHOP_NAME]" value="{$shop_info.SHOP_NAME}" class="required ws23" maxlength="26"/>
+	</p>
+	<p style="width:20%;">
+		<label>简称：</label>
+		<input type="text" name="shop[SHOP_NAMEABCN]" value="{$shop_info.SHOP_NAMEABCN}" class="required ws13" maxlength="13"/>
+	</p>
+	<p class="maxcombox err_offset_5_3" style="width:75%;">
+		<label>商户地址：</label>
+		{$shop_info[CITY_NO]|getcity_select=###,'shop[CITY_NO]'}
+		<input type="text" class="required" name="shop[ADDRESS]" value="{$shop_info.ADDRESS}" style="width:220px;"/>
+		<span class="error" for="shop[ADDRESS]" style="left: 501px; display: none;">必填字段</span>
+		<input type="text" class="required digits wid87" name="shop[ZIP]" value="{$shop_info.ZIP}" maxlength="6"/>
+		<span class="error" for="shop[ZIP]" style="left: 727px; display: none;">必填字段</span>
+	</p>
+	<p class="err_offect_1">
+		<label>联系手机：</label>
+		<input type="text" class="required digits ws40" name="shop[MOBILE]" value="{$shop_info.MOBILE}" maxlength="11" title="只能输入整数"/>
+	</p>
+	<p style="width:75%;" class="maxcombox">
+		<label>商户归属：</label>
+		{:get_level_sel($shop_info['BRANCH_MAP_ID'],'-1','plv[]',$shop_info['PARTNER_MAP_ID'],2)}
+	</p>
+	<p>
+		<label>联系电话：</label>
+		<input type="text" class="required ws40" name="shop[TEL]" value="{$shop_info.TEL}" maxlength="15"/>
+	</p>
+	<p style="width:75%;" class="maxcombox">
+		<label>推荐个创：</label>
+		<span class="show">
+			<label style="text-align:left;width:60px;"><input type="checkbox" <notempty name="shop_info['PARTNER_MAP_ID_R']">checked</notempty> name="shop[is_pr]" value="1" node-type="isshow" data-target="pr_box"> 是/否</label>
+		</span>
+		<span class="show pr_box" <empty name="shop_info['PARTNER_MAP_ID_R']">style="display:none;"</empty>>
+			{:get_level_sel('','all','plv_r[]',$shop_info['PARTNER_MAP_ID_R'],3)}
+		</span>
+	</p>
+	<p class="err_offect_1">
+		<label>邮箱地址：</label>
+		<input type="text" class="email ws40" name="shop[EMAIL]" value="{$shop_info.EMAIL}" title="请输入正确的邮箱格式"/>
+	</p>
+	<div class="clear"></div>
+</div>
+<div class="content25">
+	<p style="width:35%;">
+		<label>商户类型：</label>
+		<select class="combox" name="shop[SHOP_LEVEL]" node-type="shoplv">
+			<volist name="Think.config.SHOP_LEVEL" id="vo">
+				<option value="{$key}" <if condition="$shop_info.SHOP_LEVEL eq $key">selected</if>>{$vo}</option>
+			</volist>
+		</select>
+	</p>
+	<p style="width:40%;" class="maxcombox">
+		<span node-type="getgpsel" <neq name='shop_info["SHOP_LEVEL"]' value='3'>style="display:none;"</neq>>
+			<label>归属集团：</label>
+			{:get_shopp_level($shop_info['SHOP_MAP_ID_P'],'shop[SHOP_MAP_ID_P]')}
+		</span>
+	</p>
+	<div class="clear"></div>
+	<p style="width:72%;" class="maxcombox">
+		<eq name="shop_info['SHOP_STATUS']" value="0">
+			<label>MCC类：</label>
+			<span class="show">{$shop_info['MCC_CODE']|getmcc_name=###}</span>
+		<else />
+			<label>MCC类：</label>
+			{:getmcc_select($shop_info['MCC_TYPE'],$shop_info['MCC_CODE'],'shop[MCC_TYPE]','shop[MCC_CODE]')}<span class="notice">&nbsp;*</span>
+		</eq>
+	</p>
+	<p style="width:28%;">
+		<label>营业时间：</label>
+		<input type="text" readonly="true" name="shop[SHOP_OPENTIME]" value="{$shop_info.SHOP_OPENTIME|default='09:00:00'}" class="date wid65" datefmt="HH:mm:ss" />
+		<code class="code"> ~ </code>
+		<input type="text" readonly="true" name="shop[SHOP_CLOSETIME]" value="{$shop_info.SHOP_CLOSETIME|default='21:00:00'}" class="date wid65" datefmt="HH:mm:ss" />
+	</p>
+	<div class="clear"></div>
+	<p class="maxcombox">
+		<label>分类：</label>
+		<span class="show">{:getkind_select($shop_info['SHOP_KIND'])}</span>
+	</p>
+	<div class="clear"></div>
+	<p style="width:72%;" class="maxcombox">
+		<label>行业类目：</label>
+		<span class="show">{:getcate_select($shop_info['THR_NAME'],$shop_info['CATEID'])}</span>
+	</p>
+	<div class="clear"></div>
+	<p class="maxcombox">
+		<label>第三方渠道：</label>
+		<select class="combox" name="shop[CHANNEL_MAP_ID]" node-type="chennel">
+			<volist name="channel_list" id="vo">
+				<option value="{$vo.CHANNEL_MAP_ID}" <eq name="shop_info['CHANNEL_MAP_ID']" value="$vo.CHANNEL_MAP_ID">selected</eq>>{$vo.CHANNEL_NAME}</option>
+			</volist>
+		</select>
+	</p>
+	<!-- <if condition="($shop_info['SHOP_STATUS'] eq 0)">
+		<p style="width:40%;" class="maxcombox">
+			<span node-type="getchennel">
+				<label>自定义商户编号：</label>
+				<span class="show">{$shop_info.SHOP_NO}</span>
+			</span>
+		</p>
+	<else />
+		<p style="width:40%;" class="maxcombox">
+			<span node-type="getchennel">
+				<label>自定义商户编号：</label>
+				<input type="text" class="digits ws40" name="shop[SHOP_NO]" value="{$shop_info.SHOP_NO}" maxlength="15"/>
+			</span>
+		</p>
+	</if> -->
+	
+	<div class="clear"></div>
+	<script type="text/javascript">
+	//通过user_no获得用户名
+	$('input[node-type="getusername"]').on('blur',function(){
+		var user_no = $(this).val(),
+			target  = $(this).attr('data-target');
+		$.ajax({
+		   type: "POST",
+		   url: "__MODULE__/Public/getusername",
+		   data: "user_no="+user_no,
+		   success: function(data){
+		   		if (data.state != 0) {
+		   			$("input[name='"+ target +"']").val('');
+		   		}else{
+					$("input[name='"+ target +"']").val(data.data.USER_NAME);
+		   		}
+		   }
+		});
+	})
+	//通过地区自动获取邮编
+	$('select[name="shop[CITY_NO]').on('change',function(){
+		var city_code = $(this).val();
+		$.ajax({
+		   type: "POST",
+		   url : "/index.php/Home/Public/ajaxgetcode",
+		   data: "city_no="+ city_code,
+		   success: function(data){
+		   		if(!data) return;
+		   		$('input[name="shop[ZIP]"]').val(data.CITY_ZIP_CODE);
+		   }
+		});
+	})
+	//通过选择商户类别显示/隐藏集团公司下拉
+	$('select[node-type="shoplv"]').on('change',function(){
+		var glv = $(this).val();
+		if (glv == '3') {
+			$('span[node-type="getgpsel"]').show();
+		}else{
+			$('span[node-type="getgpsel"]').hide();
+		}
+	})
+
+	//通过选择商户类别显示/隐藏集团公司下拉
+	$('select[node-type="shoplv"]').on('click',function(){
+		var glv = $(this).val();
+		if (glv == '3') {
+			$('span[node-type="getgpsel"]').show();
+		}else{
+			$('span[node-type="getgpsel"]').hide();
+		}
+	})
+	//通过选择第三方渠道显示/隐藏可修改的商户号
+	/*$('select[node-type="chennel"]').on('change',function(){
+		var chennel_id = $(this).val();
+		if (chennel_id != '100002') {
+			$('span[node-type="getchennel"]').show();
+		}else{
+			$('span[node-type="getchennel"]').hide();
+		}
+	})*/
+	//勾选显示隐藏
+	$('input[node-type="isshow"]').on('click',function(){
+		var param = $(this).attr('data-target');
+		var is_check = $(this).is(':checked');
+		if (is_check) {
+			$('span.'+ param).show();
+		}else{
+			$('span.'+ param).hide();
+		};
+	})
+	$(".email_auto").mailAutoComplete({
+			boxClass: "out_box", //外部box样式
+			listClass: "list_box", //默认的列表样式
+			focusClass: "focus_box", //列表选样式中
+			markCalss: "mark_box", //高亮样式
+			autoClass: false,
+			textHint: true //提示文字自动隐藏
+		});
+	$('select[name="fir_name"]').on('change',function(){
+		var name = $(this).val();
+		var level = $(this).attr('level');
+		$.ajax({
+		   type: "POST",
+		   url : "/index.php/Home/Public/ajaxgetcate",
+		   data: "name="+ name+"&level="+level,
+		   success: function(data){
+				$('select[name="sec_name"]').html(data);
+				$('a[name="sec_name"]').html($('select[name="sec_name"]').val());
+				name = $('select[name="sec_name"]').val();
+				level = 2;
+				var fir_name = $('select[name="fir_name"]').val();
+				$.ajax({
+				   type: "POST",
+				   url : "/index.php/Home/Public/ajaxgetcate",
+				   data: "name="+ name+"&level="+level+"&fir_name="+fir_name,
+				   success: function(data){
+						$('select[name="thr_name"]').html(data);
+				   }
+				});
+		   }
+		});
+	})
+	$('select[name="sec_name"]').on('change',function(){
+		var name = $(this).val();
+		var level = $(this).attr('level');
+		var fir_name = $('select[name="fir_name"]').val();
+		$.ajax({
+		   type: "POST",
+		   url : "/index.php/Home/Public/ajaxgetcate",
+		   data: "name="+ name+"&level="+level+"&fir_name="+fir_name,
+		   success: function(data){
+				$('select[name="thr_name"]').html(data);
+		   }
+		});
+	})
+	</script>
+</div>

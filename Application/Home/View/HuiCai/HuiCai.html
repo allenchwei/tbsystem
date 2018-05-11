@@ -1,0 +1,103 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="HuiCai"/>
+	<input type="hidden" name="post[SHOP_STATUS]" value="{$postdata.SHOP_STATUS}"/>
+	<input type="hidden" name="post[SHOP_NO]" value="{$postdata.SHOP_NO}"/>
+	<input type="hidden" name="post[SHOP_NAME]" value="{$postdata.SHOP_NAME}"/>
+	<input type="hidden" name="post[SHOP_MAP_ID]" value="{$postdata.SHOP_MAP_ID}"/>
+	<input type="hidden" id="exportdata" value="{$exportdata}"/><!-- Excel导出 -->
+</form>
+<div class="pageHeader">
+	<form method="post" action="{:U('/Home/HuiCai/HuiCai')}" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="HuiCai">
+		<div class="searchBar">
+			<div class="header">
+				<p class="maxcombox">
+					<label>推荐人：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.SHOP_NAME}" name="post[SHOP_NAME]">
+				</p>
+				<p class="maxcombox">
+					<label>商户身份证号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.LP_ID}" name="post[LP_ID]">
+				</p>
+				<p class="maxcombox3">
+					<label>商户状态：</label>
+					<select class="combox" name="post[SHOP_STATUS]">
+						<option value="">请选择</option>
+						<volist name="shop_status" id="vo">
+							<option value="{$key}" <if condition="($postdata.SHOP_STATUS eq $key) and ($postdata.SHOP_STATUS neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p class="maxcombox">
+					<label>&nbsp;商户ID：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.SHOP_MAP_ID}" name="post[SHOP_MAP_ID]">
+				</p>
+				<p class="maxcombox">
+					<label>商户手机：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.MOBILE}" name="post[MOBILE]">
+				</p>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="175">
+		<thead>
+			<tr>
+				<th width="4%" align='center'>ID</th>
+				<if condition="$home['CHANNEL_MAP_ID'] eq 0"><th width="4%" align='center'>商户名称</th></if>
+				<th width="12%" align='center'>商户号</th>
+				<th width="10%" align="center">商户名称</th>
+				<th width="13%" align="center">商户手机号</th>
+				<if condition="$home['CHANNEL_MAP_ID'] eq 0"><th width="10%" align="center">所在城市</th></if>
+				<th width="5%" align="center">商户状态</th>
+				<th width="12%" align='center'>开通日期</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.SHOP_MAP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.SHOP_MAP_ID}</td>
+					<if condition="$home['CHANNEL_MAP_ID'] eq 0"><td>{$vo.CHANNEL_MAP_ID|get_channel_name=###}</td></if>
+					<td>{$vo.SHOP_NO}</td>
+					<td>{$vo.SHOP_NAME}</td>
+					<td>{$vo.MOBILE}</td>
+					<if condition="$home['CHANNEL_MAP_ID'] eq 0"><td>{$vo.CITY_NO|getcity_name=###}</td></if>
+					<td>{$shop_status[$vo['SHOP_STATUS']]}</td>
+					<td>{$vo.CREATE_TIME}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+	<script type="text/javascript">		
+		//页面加载执行
+		$(document).ready(function(){
+			var	navsnum     = $('.tabsPageHeader .navTab-tab .selected').index();
+			var tabscontent = $('.tabsPageContent .unitBox:eq('+navsnum+')');
+			//点击查看统计
+			tabscontent.find('a[note-type="getstatis"]').on('click',  function(){
+				tabscontent.find('.pages').html('<span><img class="loading" src="__PUBLIC__/home/images/loading.gif">统计中...</span>');
+				
+				var	exportdata  = tabscontent.find('#exportdata').val();
+				var url 	    = exportdata ? '__ACTION__' + exportdata + '&submit=__ACTNAME__&ajax=loading' : '__ACTION__?submit=__ACTNAME__&ajax=loading';
+				$.ajaxSettings.global = false;		//关闭框架loading	
+				$.getJSON(url, {}, function(_data) {
+					tabscontent.find('.pages').html('<span>共 '+ _data.count +' 条</span>');
+					$.ajaxSettings.global = true;	//开启框架loading	
+				});
+			});
+		});
+	</script>
+</div>

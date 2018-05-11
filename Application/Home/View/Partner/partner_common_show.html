@@ -1,0 +1,74 @@
+<div class="content25">
+	<p class="label_100" style="width:50%;">
+		<label>合作伙伴名称：</label>
+		<span class="show">{$partner_info.PARTNER_NAME}</span>
+		<span class="remark">（营业执照名称）</span>
+	</p>
+	<p class="label_100">
+		<label>简称：</label>
+		<span class="show">{$partner_info.PARTNER_NAMEAB|subtext=###,8}</span>
+	</p>
+	<p class="label_30">
+		<label>协议到期：</label>
+		<span class="show">{$partner_info.END_TIME}</span>
+	</p>
+</div>
+<div class="content25">
+	<p class="label_100 maxcombox" style="width:75%;">
+		<label>所在地址：</label>
+		<span class="show">
+			{$partner_info[CITY_NO]|getcity_name=###} 
+			{$partner_info.ADDRESS}
+			{$partner_info.ZIP}
+		</span>
+	</p>
+	<p class="label_30">
+		<label>联系人员：</label>
+		<span class="show">{$partner_info.MANAGER}</span>
+	</p>
+	<p class="label_100 maxcombox">
+		<label>合作伙伴级别：</label>
+		<span class="show">{:C('PLEVEL_NAME')[$partner_info['PARTNER_LEVEL']]}</span>
+	</p>
+	<p class="label_100 maxcombox" style="width:50%;">
+		<label>角色：</label>
+		<eq name='partner_info.PARTNER_LEVEL' value='3'>
+			<span class="show">{:C('PLEVEL_ROLE_NAME')[$partner_info['PLEVEL_MAP_ID']]}</span>
+		</eq>
+	</p>
+	<p class="err_offect_1 label_30">
+		<label>联系手机：</label>
+		<span class="show">{$partner_info.MOBILE}</span>
+	</p>
+	<p class="label_100 maxcombox levelsel" style="width:75%;padding:5px 0;">
+		<label>归属上级：</label>
+		<span class="show">{$partner_info.PARTNER_MAP_ID|get_level_name=###,$partner_info['BRANCH_MAP_ID'],1}</span>
+	</p>
+	<p class="label_30">
+		<label>联系电话：</label>
+		<span class="show">{$partner_info.TEL}</span>
+	</p>
+	<p class="label_100 maxcombox">
+		<label>合作伙伴类别：</label>
+		<span class="show">{:C('PARTNER_G_FLAG')[$partner_info['PARTNER_G_FLAG']]}</span>
+	</p>
+	<p class="label_100 maxcombox" style="width:50%;">
+		<label>归属集团公司：</label>
+		<eq name='partner_info.PARTNER_G_FLAG' value='3'>
+			<span class="show">{$partner_info.PARTNER_MAP_ID_G|get_partner_name=###}</span>
+		</eq>
+	</p>
+	<p class="err_offect_1 label_30">
+		<label>联系邮箱：</label>
+		<span class="show">{$partner_info.EMAIL}</span>
+	</p>
+	<p class="label_100 maxcombox" style="width:75%;">
+		<label>养老险承保公司：</label>
+		<span class="show">{$partner_info.SECURITY_MAP_ID1|get_security_name}</span>
+	</p>
+	<p class="label_100 maxcombox" style="width:75%;">
+		<label>意外险承保公司：</label>
+		<span class="show">{$partner_info.SECURITY_MAP_ID2|get_security_name}</span>
+	</p>
+	<div class="clear"></div>
+</div>

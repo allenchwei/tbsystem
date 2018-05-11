@@ -1,0 +1,60 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[CHANNEL_NAME]" value="{$postdata.CHANNEL_NAME}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>名称：</label>
+					<input class="input01 textInput ws23" type="text" value="{$postdata.CHANNEL_NAME}" name="post[CHANNEL_NAME]" maxlength="40">
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="141">
+		<thead>
+			<tr>
+				<th width="8%" align='center'>ID</th>
+				<th width="20%" align='center'>渠道名称</th>
+				<th width="22%" align='center'>地址</th>
+				<th width="10%" align='center'>T0余额</th>
+				<th width="10%" align='center'>T1余额</th>
+				<th width="10%" align='center'>联系人</th>
+				<th width="10%" align='center'>联系人手机</th>
+				<th width="10%" align='center'>状态</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.CHANNEL_MAP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.CHANNEL_MAP_ID}</td>
+					<td>{$vo.CHANNEL_NAME}</td>
+					<td>{$vo.CITY_NO|getcity_name=###}{$vo.ADDRESS}</td>
+					<td>{$vo.ACCOUNT_AMT_T0|setMoney=###,2,2}</td>
+					<td>{$vo.ACCOUNT_AMT_T1|setMoney=###,2,2}</td>
+					<td>{$vo.MANAGER}</td>
+					<td>{$vo.MOBILE}</td>
+					<td>{$channel_status[$vo[CHANNEL_STATUS]]}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

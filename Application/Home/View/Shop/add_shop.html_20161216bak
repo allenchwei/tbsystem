@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<!-- <form method="post" action="{:U('/Home/Shop/do_add_shop')}"> -->
+<table>
+	<tr>
+		<td>商户号</td>
+		<td>银行名称</td>
+		<td>操作用户</td>
+	</tr>
+	<tr>
+		<td><input type="text" value="{$shop_no}" name="shop_no"></td>
+		<td><input class="bank_name" type="text" value="" name="bank_name"></td>
+		<td><input type="text" value="{$uname}" name="uname" readonly="true"></td>
+	</tr>
+</table>
+<a class="btn_name_val" warn="请选择一条记录" mask="true" check="true" target="dialog" height="550" width="900" href="javascript:;">
+<button class="ch-btn-skin ch-btn-small ch-icon-wrench btn_click" onclick="doExec();">执 行 </button></a>
+<!-- </form> -->
+<script type="text/javascript">
+
+	function NewWindow(mypage,myname='',w,h,toolbar = 'no',scroll='yes',menubar='no',resizable='no',location = 'no'){
+	var win = null;
+	var winH = h ? h : 600;
+	var winW = w ? w : 600;
+	var winToolbar = (toolbar == 'yes') ? toolbar : 'no';
+	var winScroll  = (scroll  == 'yes') ? scroll : 'no';
+	var winMenubar = (menubar == 'yes') ? menubar : 'no';
+	var winResizable = (resizable == 'yes') ? resizable : 'no';
+	var winLocation	 = (location == 'yes') ? location : 'no';
+	var LeftPosition = (window.screen.width) ? (window.screen.width-w)/2 : 0;
+	var TopPosition = (window.screen.height) ? (window.screen.height-h)/2-50 : 0;
+	var settings ='height='+winH+',width='+winW+',top='+TopPosition+',left='+LeftPosition+',toolbar='+winToolbar+',menubar='+winMenubar+',scrollbars='+winScroll+',resizable='+winResizable+',location='+winLocation+',status=no';
+	win = window.open(mypage,myname,settings);
+	win.focus();
+}
+
+function doExec(){
+	var bank_name = $(".bank_name").val();
+	var unames = "{$uname}";
+	var shopnos = "{$shop_no}";
+	if (bank_name =="") {
+		alert("银行号空!");
+		return false;
+	}else{
+		var url ="/index.php/Home/Shop/do_add_shop/navTabId/Shop?shop_no="+shopnos+"&uname="+unames+"&bank_name="+bank_name;
+		var pagename = "编辑信息";
+		NewWindow(url,pagename,900,550);
+	}	
+}
+	// var bank_name=$(".bank_name").val();
+	// var unames = "{$uname}";
+	// var shopnos = "{$shop_no}";
+	// $(".btn_click").click(function(){
+	// 	$(".btn_name_val").attr('href',"/index.php/Home/Shop/do_add_shop/navTabId/Shop?shop_no="+shopnos+"&uname="+unames+"&bank_name="+bank_name);
+	// })
+</script>
+</body>
+</html>

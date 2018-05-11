@@ -1,0 +1,77 @@
+<!-- 商户其他配置信息 -->
+<div class="pageFormContent other err_offset_2">
+	<!-- <div class="content100">
+		<p>
+			<label>积分兑换比例：</label>
+			<span class="show">100元 = {$scfg_info.BOUND_RATE} 积分</span>
+		</p>
+		<div class="clear"></div>
+	</div> -->
+	<p>
+		<label>运营分润是否特殊：</label>
+		<span class="show">
+			<eq name="scfg_info[RAKE_FLAG]" value="0">
+					否
+				<else />
+					是
+			</eq>
+		</span>
+	</p>
+	<div class="clear"></div>
+	<div class="content50 err_offset_6">
+		<if condition="($scfg_info[RAKE_FLAG] eq 1)">
+			<div class="other_box">
+				<p class="p_11">
+					<label>运营分润比例：</label>
+					<span>
+						<code>会员比例</code>　{$scfg_info.CON_PER_RAKE|setMoney=###,2,2}%
+					</span>
+				</p>
+				<p class="p_11 err_offset_6_1">
+					<span>
+						<code>平台比例</code>　{$scfg_info.PLAT_PER_RAKE|setMoney=###,2,2}%
+					</span>
+				</p>
+			</div>
+		</if>
+		
+		<p>
+			<label>区县服务分润转赠：</label>
+			<eq name="scfg_info[DONATE_FLAG]" value="0">
+					否
+				<else />
+					是
+			</eq>
+		</p>
+		<div class="clear"></div>
+	</div>
+	<if condition="($scfg_info[DONATE_FLAG] eq 1)">
+		<div class="content100 other_box1">
+			<p>
+				<label>转赠产品：</label>
+				<span class="show">{:C('DONATE_TYPE')[$scfg_info['DONATE_TYPE']]}</span>
+			</p>
+			<p>
+				<label>转赠比例：</label>
+				<span class="show">{$scfg_info.DONATE_RATE}</span>%
+			</p>
+			<p>
+				<label>受赠合作伙伴：</label>
+				<span class="show">{$scfg_info.PARTNER_MAP_ID|get_level_name=###,$scfg_info['BRANCH_MAP_ID']}</span>
+			</p>
+			<p>
+				<label>转赠备注：</label>
+				<span class="show">{$scfg_info.DONATE_RES}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</if>
+	<if condition="(__ACTNAME__ eq 'ssett_check') or (__ACTNAME__ eq 'ssett_recheck') or (__ACTNAME__ eq 'shop_check') or (__ACTNAME__ eq 'shop_recheck')">
+		<p class="ic_line"></p>
+		<p>
+			<label>审阅标志：</label>
+			<span class="show"><label style="text-align:left;"><input type="checkbox" name="is_pass" value="1" node-type="check_flag">是否已审阅</label></span>
+		</p>
+		<div class="clear"></div>
+	</if>
+</div>

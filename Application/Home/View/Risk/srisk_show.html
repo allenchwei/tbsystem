@@ -1,0 +1,63 @@
+<style>.pageFormContent .bili p label{width:125px;}</style>
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>商户编号：</label>
+				<span class="show">{$info.SHOP_NO}</span>
+			</p>
+			<p>
+				<label>商户名称：</label>
+				<span class="show">{$info.SHOP_NAME}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="content50">
+			<p>
+				<label>商户等级：</label>
+				<span class="show">{$shop_grade[$info[SHOP_GRADE]]}</span>
+			</p>
+			<p>
+				<label>风险积数：</label>
+				<span class="show">{$info.SHOP_RISKBOUND}</span>
+			</p>
+			<p class="ic_line"></p>
+		</div>
+		<div class="content50 bili">
+			<p style="width:100%;">
+				<label>手输比例：</label>
+				<span class="show">{$info.POSMODE_PER}　%</span>
+			</p>
+			<p style="width:100%;">
+				<label>退货比例：</label>
+				<span class="show">{$info.REFUND_PER}　%</span>
+			</p>
+			<p>
+				<label>调单比例：</label>
+				<span class="show">{$info.CBREQ_PER}　%</span>
+			</p>
+			<p>
+				<label>退单比例：</label>
+				<span class="show">{$info.CBBACK_PER}　%</span>
+			</p>
+			<p>
+				<label>非营业时间交易比例：</label>
+				<span class="show">{$info.BUSITIME_ABS}　%</span>
+			</p>
+			<p>
+				<label>查询交易比例：</label>
+				<span class="show">{$info.BALANCE_PER}　%</span>
+			</p>
+			<p style="width:100%;">
+				<label>备注：</label>
+				<span class="show" style="width:536px;height:80px;">{$info.RES}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

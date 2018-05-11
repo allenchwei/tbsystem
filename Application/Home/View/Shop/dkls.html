@@ -1,0 +1,113 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="sbact"/>
+	<input type="hidden" name="post[SHOP_MAP_ID]" value="{$postdata.SHOP_MAP_ID}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="{:U('/Home/Shop/sbact')}" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="cardbin">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>　&nbsp;归属：</label>
+					<select class="combox" name="post[BRANCH_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="branch_list" id="vo">
+							<option value="{$key}" <if condition="$vo.BRANCH_MAP_ID eq $key">selected</if>>{$vo.BRANCH_NAME}</option>
+						</volist>
+					</select>
+					<select class="combox" name="post[BRANCH_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="branch_list" id="vo">
+							<option value="{$key}" <if condition="$vo.BRANCH_MAP_ID eq $key">selected</if>>{$vo.BRANCH_NAME}</option>
+						</volist>
+					</select>
+					<select class="combox" name="post[BRANCH_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="branch_list" id="vo">
+							<option value="{$key}" <if condition="$vo.BRANCH_MAP_ID eq $key">selected</if>>{$vo.BRANCH_NAME}</option>
+						</volist>
+					</select>
+					<select class="combox" name="post[BRANCH_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="branch_list" id="vo">
+							<option value="{$key}" <if condition="$vo.BRANCH_MAP_ID eq $key">selected</if>>{$vo.BRANCH_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>MCC类：</label>
+					<select class="combox" name="post[MCC_TYPE]">
+						<option value="">请选择</option>
+						<volist name="shop_status" id="vo">
+							<option value="{$key}" <if condition="$shop_info.SHOP_STATUS eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+					<select class="combox" name="post[MCC_TYPE]">
+						<option value="">请选择</option>
+						<volist name="shop_status" id="vo">
+							<option value="{$key}" <if condition="$shop_info.SHOP_STATUS eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>状态：</label>
+					<select class="combox" name="post[SHOP_STATUS]">
+						<option value="">请选择</option>
+						<volist name="shop_status_check" id="vo">
+							<option value="{$key}" <if condition="$shop_info.SHOP_STATUS eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>&nbsp;商户号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.HSHOP_NO}" name="post[HSHOP_NO]">
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="175">
+		<thead>
+			<tr>
+				<th width="3%" align='center'><input type="checkbox" class="checkboxCtrl" group="SHOP_MAP_ID[]"></th>
+				<th width="10%">商户号</th>
+				<th width="15%">商户名称</th>
+				<th width="12%">所在城市</th>
+				<th width="10%" align='center'>变更日期</th>
+				<th width="12%" align="center">状态</th>
+				<th width="13%" align='center'>归属分公司</th>
+				<th width="12%" align="center">归属合作伙伴</th>
+				<th width="13%" align="center">备注</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.SHOP_MAP_ID}_<gt name='vo.TMP_ID' value='0'>1<else/>0</gt>" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td><input type="checkbox" value="{$vo.SHOP_MAP_ID}_<gt name='vo.TMP_ID' value='0'>1<else/>0</gt>" class="checkboxval" name="SHOP_MAP_ID[]"></td>
+					<td>{$vo.SHOP_NO}</td>
+					<td>{$vo.SHOP_NAME}</td>
+					<td>{$vo.CITY_NAME}</td>
+					<td>{$vo.CREATE_TIME}</td>
+					<td>{$shop_status[$vo['SHOP_STATUS']]}</td>
+					<td>{$vo.BRANCH_NAME}</td>
+					<td>{$vo.PARTNER_NAME}</td>
+					<td><gt name='vo.TMP_ID' value='0'>有更新【{$partner_status_check[$vo[TMP_STATUS]]}】<else/> 无 </gt></td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

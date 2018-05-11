@@ -1,0 +1,99 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__">
+	<input type="hidden" name="post[CARD_STATUS]" value="{$postdata.CARD_STATUS}"/>
+	<input type="hidden" name="post[CARD_P_MAP_ID]" value="{$postdata.CARD_P_MAP_ID}"/>
+	<input type="hidden" name="post[VIP_IDNO]" value="{$postdata.VIP_IDNO}"/>
+	<input type="hidden" name="post[VIP_MOBILE]" value="{$postdata.VIP_MOBILE}"/>
+	<input type="hidden" name="post[bid]" value="{$postdata.bid}"/>
+	<input type="hidden" name="post[pid]" value="{$postdata.pid}"/>
+	<input type="hidden" name="post[CARD_NO]" value="{$postdata.CARD_NO}"/>
+	<input type="hidden" id="exportdata" value="{$exportdata}"/><!-- Excel导出 -->
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>　　卡套餐：</label>
+					<select class="combox" name="post[CARD_P_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="cproduct" id="vo">
+							<option value="{$key}" <if condition="$postdata.CARD_P_MAP_ID eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>卡片卡号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.CARD_NO}" name="post[CARD_NO]">
+				</p>
+				<p>
+					<label>会员身份证：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.VIP_IDNO}" name="post[VIP_IDNO]" maxlength="18">
+				</p>
+				<p>
+					<label>会员手机号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.VIP_MOBILE}" name="post[VIP_MOBILE]" maxlength="11">
+				</p>
+				<p class="maxcombox4">
+					<label>　卡片归属：</label>
+					{:get_level_sel($postdata['bid'],'-1','faplv[]',$postdata['pid'],3)}
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+		<a href="/index.php/Home/Jfbcard/changecard_show/navTabId/Jfbcard?id={sid_target}" width="900" height="550" target="dialog" mask="true" warn="请选择需要查看的记录">
+		<button class="ch-btn-skin ch-btn-small ch-icon-zoom-in">详 情</button>
+		</a>
+	</div>
+	<table class="table" width="100%" layoutH="179">
+		<thead>
+			<tr>
+				<th width="3%" align='center'><input type="checkbox" class="checkboxCtrl" group="CARD_NO_STR[]"></th>
+				<th width="10%" align='center'>卡号</th>
+				<th width="15%">归属</th>
+				<th width="5%" align='center'>卡片状态</th>
+				<th width="7%" align='center'>卡片校验码</th>
+				<th width="5%" align='center'>卡套餐</th>
+				<th width="5%" align='center'>会员</th>
+				<th width="10%" align='center'>会员手机</th>
+				<th width="10%" align='center'>所在城市</th>
+				<th width="4%" align='center'>性别</th>
+				<th width="7%" align='center'>生日</th>
+				<th width="9%" align='center'>创建日期</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.CARD_NO}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td><input name="CARD_NO_STR[]" value="{$vo['CARD_NO']}" type="checkbox"></td>
+					<td>{$vo.CARD_NO}</td>
+					<td>{$vo.BRANCH_MAP_ID|get_branch_name=###,$vo['PARTNER_MAP_ID']}</td>
+					<td>{:C('CARD_STATUS')[$vo['CARD_STATUS']]}</td>
+					<td>{$vo['CARD_CHECK']}</td>
+					<td>{:C('CARD_P_MAP_ID')[$vo['CARD_P_MAP_ID']]}</td>
+					<td>{$vo.VIP_NAME}</td>
+					<td>{$vo.VIP_MOBILE}</td>
+					<td>{$vo.VIP_CITY|getcity_name=###}</td>
+					<td>{:C('VIP_SEX')[$vo['VIP_SEX']]}</td>
+					<td>{$vo.VIP_BIRTHDAY}</td>
+					<td>{$vo.CREATE_TIME}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

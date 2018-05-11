@@ -1,0 +1,47 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="info.DEVICE_ID" value="0">
+		<input type="hidden" name="post[submit]" value="device_edit">
+		<input type="hidden" name="post[DEVICE_ID]" value="{$info.DEVICE_ID}">
+	<else />
+		<input type="hidden" name="post[submit]" value="device_add">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>厂商：</label>
+					<select class="combox" name="post[FACTORY_MAP_ID]" ref="combox_model_add" refUrl="__MODULE__/Public/ajaxgetmodel/f_id/{value}">
+						<option value="">请选择</option>
+						<volist name="factorysel" id="vo">
+							<option value="{$vo.FACTORY_MAP_ID}" <if condition="$vo['FACTORY_MAP_ID'] eq $info['FACTORY_MAP_ID']">selected</if>>{$vo.FACTORY_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>型号：</label>
+					<select class="combox" name="post[MODEL_MAP_ID]" id="combox_model_add">
+						<option value="">请选择</option>
+						<volist name="modelsel" id="vo">
+							<option value="{$vo.MODEL_MAP_ID}" <if condition="$vo['MODEL_MAP_ID'] eq $info['MODEL_MAP_ID']">selected</if>>{$vo.MODEL_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>设备序列号：</label>
+					<input type="text" value="{$info.DEVICE_SN}" class="required ws18" name="post[DEVICE_SN]" maxlength="20"/>
+				</p>
+				<p>
+					<label>备注：</label>
+					<textarea class="textInput" style="width:400px;height:60px;" name="post[REMARK]">{$info.REMARK}</textarea>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

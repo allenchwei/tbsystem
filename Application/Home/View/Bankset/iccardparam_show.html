@@ -1,0 +1,77 @@
+<div class="pageContent">	
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content50 iccardparam">
+			<p>
+				<label>IC参数AID：</label>
+				<span class="show">{$info.IC_AID}</span>
+			</p>
+			<p>
+				<label>缺省TAC：</label>
+				<span class="show">{$info.IC_TAC_DEFAULT}</span>
+			</p>
+			<p>
+				<label>IC参数ASI应用指示符：</label>
+				<span class="show">{$info.IC_ASI}</span>
+			</p>
+			<p>
+				<label>联机TAC：</label>
+				<span class="show">{$info.IC_TAC_ONLINE}</span>
+			</p>
+			<p>
+				<label>参数版本号：</label>
+				<span class="show">{$info.IC_APP_VER}</span>
+			</p>
+			<p>
+				<label>拒绝TAC：</label>
+				<span class="show">{$info.IC_TAC_REFUSE}</span>
+			</p>
+			<p class="ic_line"></p>
+			<p>
+				<label>终端脱机最低限额：</label>
+				<span class="show">{$info.IC_LEAST_AMT|setMoney=###,2,2}</span>　元
+			</p>
+			<p>
+				<label>电子现金交易限额：</label>
+				<span class="show">{$info.IC_CASH_LIMIT_AMT|setMoney=###,2,2}</span>　元
+			</p>
+			<p>
+				<label>偏置随机选择阀值：</label>
+				<span class="show">{$info.IC_RAND_OFFSET}</span>
+			</p>
+			<p>
+				<label>非接交易最低限额：</label>
+				<span class="show">{$info.IC_NFC_LEAST_AMT|setMoney=###,2,2}</span>　元
+			</p>
+			<p>
+				<label>偏置随机选择最大目标百分数：</label>
+				<span class="show">{$info.IC_RAND_MAX_PER}</span>　%
+			</p>
+			<p>
+				<label>非接交易最大限额：</label>
+				<span class="show">{$info.IC_NFC_LIMIT_AMT|setMoney=###,2,2}</span>　元
+			</p>
+			<p>
+				<label>随机选择目标百分数：</label>
+				<span class="show">{$info.IC_RAND_PER}</span>　%
+			</p>
+			<p>
+				<label>CVM 所需限额：</label>
+				<span class="show">{$info.IC_NFC_CVM|setMoney=###,2,2}</span>　元
+			</p>
+			<p style="width:100%;">
+				<label>联机PIN 支持能力：</label>
+				<span class="show">{$ic_online_pin[$info[IC_ONLINE_PIN]]}</span>
+			</p>
+			<p style="width:100%;">
+				<label>缺省DDOL：</label>
+				<span class="show" style="width:558px;">{$info.IC_DDOL_DEFAULT}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

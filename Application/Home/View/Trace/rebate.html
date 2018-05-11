@@ -1,0 +1,100 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[SETTLE_DATE]" value="{$postdata.SETTLE_DATE}"/>
+	<input type="hidden" name="post[CON_AMT_A]" value="{$postdata.CON_AMT_A}"/>
+	<input type="hidden" name="post[CON_AMT_B]" value="{$postdata.CON_AMT_B}"/>
+	<input type="hidden" name="post[SHOP_NAME]" value="{$postdata.SHOP_NAME}"/>
+	<input type="hidden" name="post[CHANNEL_MAP_ID]" value="{$postdata.CHANNEL_MAP_ID}"/>
+	<input type="hidden" id="exportdata" value="{$exportdata}"/><!-- Excel导出 -->
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">				
+				<p>
+					<label>商户ID：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.SHOP_MAP_ID}" name="post[SHOP_MAP_ID]" maxlength="12">
+				</p>
+				<p>
+					<label>商户名称：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.SHOP_NAME}" name="post[SHOP_NAME]" maxlength="12">
+				</p>
+				<p>
+					<label>手机号码：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.MOBILE}" name="post[MOBILE]" maxlength="12">
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+		<div class="f_r">
+			<span class="remark">备注：该功能用于查询涉及到登录者区域内商户的佣金统计。</span>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<table class="table" width="100%" layoutH="140">
+		<thead>
+			<tr>
+				<th width="6%" align='center'>商户ID</th>
+				<th width="6%" align='center'>商户名称</th>
+				<th width="6%" align='center'>手机号码</th>
+				<th width="6%" align='center'>累计返佣</th>
+				<th width="6%" align='center'>已提佣金</th>
+				<th width="6%" align='center'>可提佣金</th>
+				<th width="6%" align='center'>冻结佣金</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.SHOP_MAP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.SHOP_MAP_ID}</td>
+					<td>{$vo.SHOP_NAME}</td>
+					<td>{$vo.MOBILE}</td>
+					<td>{$vo.AMT_SUM|setMoney=###,2,2}</td>
+					<td>{$vo.ACCT_SUM|setMoney=###,2,2}</td>
+					<td>{$vo.ACCT_CVBAL|setMoney=###,2,2}</td>
+					<td>{$vo.ACCT_DJ|setMoney=###,2,2}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span><!-- <span>　提现总额 {$amt|setMoney=###,2,2} 元</span> --></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+	<script type="text/javascript">		
+		//页面加载执行
+		$(document).ready(function(){
+			var	navsnum     = $('.tabsPageHeader .navTab-tab .selected').index();
+			var tabscontent = $('.tabsPageContent .unitBox:eq('+navsnum+')');
+			//点击查看统计
+			tabscontent.find('a[note-type="getstatis"]').on('click',  function(){
+				tabscontent.find('.pages').html('<span><img class="loading" src="__PUBLIC__/home/images/loading.gif">统计中...</span>');
+				
+				var	exportdata  = tabscontent.find('#exportdata').val();
+				var url 	    = exportdata ? '__ACTION__' + exportdata + '&submit=__ACTNAME__&ajax=loading' : '__ACTION__?submit=__ACTNAME__&ajax=loading';
+				$.ajaxSettings.global = false;		//关闭框架loading	
+				$.getJSON(url, {}, function(_data) {
+					tabscontent.find('.pages').html('<span>共 '+ _data.count +' 条</span><span>　交易总额 '+ _data.amt +' 元</span>');
+					$.ajaxSettings.global = true;	//开启框架loading	
+				});
+			});
+			//日期选择
+			tabscontent.find('a[note-type="seltime"]').on('click',  function(){
+				var begin = $(this).attr('begin'),end = $(this).attr('end');
+				tabscontent.find('input[name="post[SYSTEM_DATE_A]"]').val(begin);
+				tabscontent.find('input[name="post[SYSTEM_DATE_B]"]').val(end);
+			});
+		});
+	</script>
+</div>

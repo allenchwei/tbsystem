@@ -1,0 +1,52 @@
+<style>
+.cinfo_l{width:50%;float:left;}
+</style>
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="88" style="padding:15px 28px;">
+		<include file="Member/vinfo_common_top" />			
+		<eq name="info[IS_BANG]" value="1">		
+			<div class="content100">
+				<p>
+					<label>绑实体卡：</label>
+					<span class="show">{$info.CARD_NO}</span>
+				</p>
+				<p>
+					<label>卡费：</label>
+					<span class="show">{$info.CARD_OPENFEE} 元</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+		<else/>
+			<div class="content50">
+				<p>
+					<label>绑卡情况：</label>
+					<span class="show">未绑定实体卡</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</eq>
+		
+		<eq name="info[VIP_DONATE]" value="1">
+			<div class="content50">
+				<p class="ic_line"></p>
+				<p style="width:100%;">
+					<label>子母卡</label>
+				</p>
+				<p>
+					<label style="width:133px;">收益转赠母卡比例：</label>
+					<span class="show">{$info.VIP_DONATE_PER}</span>　%
+				</p>
+				<p>
+					<label>母卡卡号：</label>
+					<span class="show">{$info.CARD_NO_M}　{$info.VIP_ID_M}</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</eq>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

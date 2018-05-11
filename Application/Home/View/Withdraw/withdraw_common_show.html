@@ -1,0 +1,87 @@
+<div class="tabs" style="margin-top:0px;">
+	<div class="tabsHeader">
+		<div class="tabsHeaderContent">
+			<ul>
+				<li><a href="javascript:;"><span>提现记录</span></a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="tabsContent">
+		<div class="pageFormContent">
+			<div class="content50">
+				<p>
+					<label>提现时间：</label>
+					<span class="show">{$info.CREATE_TIME}</span>
+				</p>
+				<p class="ic_line"></p>
+				<div class="clear"></div>
+			</div>
+			<div class="content25">
+				<p>
+					<label>处理结果：</label>
+					<span class="show"><font color="red">{$status[$info[STATUS]]}</font></span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content100">
+				<p class="ic_line"></p>
+				<p style="width:25%;">
+					<label>提现金额：</label>
+					<span class="show"><font color="red">{$info.AMOUNT|setMoney=###,2,2}　元</font></span>
+				</p>
+				<p class="ic_line"></p>
+				<div class="clear"></div>
+			</div>
+			<div class="content50">
+				<p>
+					<label>户名：</label>
+					<span class="show">{$info.BANKACCT_NAME}</span>
+				</p>
+				<p>
+					<label>银行卡号：</label>
+					<span class="show">{$info.BANKACCT_NO}</span>
+				</p>
+				<p>
+					<label>支行：</label>
+					<span class="show">{$info.BANK_NAME}-{$info.BANKBRA_NAME}</span>
+				</p>
+				<p class="ic_line"></p>
+			</div>
+			<div class="content50">
+				<p>
+					<label>商户ID：</label>
+					<span class="show">{$info.SHOP_MAP_ID}</span>
+				</p>
+				<p>
+					<label>商户名称：</label>
+					<span class="show">{$info.SHOP_NAME}</span>
+				</p>
+				<p>
+					<label>可用余额：</label>
+					<span class="show"><font color="red">{$lap.ACCT_VBAL|setMoney=###,2,2} 元</font></span>
+				</p>
+				<p>
+					<label>实际余额：</label>
+					<span class="show"><font color="red">{$lap.ACCT_TBAL|setMoney=###,2,2} 元</font></span>
+				</p>
+				<p class="ic_line"></p>
+			</div>
+			<div class="content100">
+				<p style="width:100%">
+					<label>审核人：</label>
+					<span class="show">{$info.OPERATE_USERNAME}</span>
+				</p>
+				<p style="width:100%">
+					<label>处理时间：</label>
+					<span class="show">{$info.UPDATE_TIME}</span>
+				</p>
+				<p style="width:100%">
+					<label>处理意见：</label>
+					<span class="show">{$info.NOTE}</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+</div>
+	

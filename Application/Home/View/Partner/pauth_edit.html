@@ -1,0 +1,72 @@
+<style>
+.pageFormContent .label_100 label{width:125px;}
+.pageFormContent .label_30 label{width:100px;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="pauth[submit]" value="__ACTNAME__">
+		<gt name="partner_info.PARTNER_MAP_ID" value="0">
+			<input type="hidden" name="pauth[PARTNER_MAP_ID]" value="{$pauth_info.PARTNER_MAP_ID}">
+			<input type="hidden" name="pauth[flag]" value="{$pauth_info.flag}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<include file="partner_common_show" />	
+			<div class="tabs">
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>权限</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">
+					<div class="pageFormContent">
+						<div class="content100">
+							<p class="qxjy">
+								<label>交易开通：</label>
+								<input type="hidden" value="" name="pauth[AUTH_TRANS_MAP]"/>
+								<span style="width:85%;float:left;">
+									<volist name="Think.session.HOME.AUTH_TRANS_MAP" id="vo">
+										<span><label><input type="checkbox" value="{$vo.TRANS_SUBID}" <eq name="auth_trans_checked[$key]" value="0">checked="checked"</eq>>{$vo.TRANS_NAME}</label></span>
+									</volist>
+								</span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<a href="javascript:;" class="anniu ch-btn-skin ch-btn-small ch-icon-ok" onclick="checkSubmit()">确 定</a>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+			function checkSubmit(){
+				/*
+				* 获取交易方式、支付方式
+				**/
+				var tstr	 = '',
+					trans    = $('input[name="pauth[AUTH_TRANS_MAP]"]'),
+					pstr	 = '',
+					paytype  = $('input[name="pauth[AUTH_PAYS_MAP]"]'),				
+				trans_list	 = trans.parent().find('input[type="checkbox"]');
+				paytype_list = paytype.parent().find('input[type="checkbox"]');
+				//交易方式
+				$.each( trans_list, function(i, n){
+					var checked = $(this).attr('checked') ? 0 : 1;
+					tstr += checked;
+				});
+				trans.val(tstr);
+				//支付方式
+				$.each( paytype_list, function(i, n){
+					var checked = $(this).attr('checked') ? 0 : 1;
+					pstr += checked;
+				});
+				paytype.val(pstr);
+				$('form[name="form"]').submit();
+			}
+		</script>
+</div>

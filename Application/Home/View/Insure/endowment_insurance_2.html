@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="gbk"?>
+<TXLife>
+    <TXLifeRequest>
+        <TransRefGUID>{$data.TB_ID}</TransRefGUID>
+        <TransType tc="104">Policy Change</TransType>
+        <TransMode tc="51">Additional Premium</TransMode>
+        <OLifE>
+            <Holding>
+                <Policy>
+                    <PolNumber>{$data.TB_NO}</PolNumber>
+                </Policy>
+                <Change>
+                    <ChangeType tc="436">万能险追加保费</ChangeType>
+                    <AdditionalPremium>{$data.TB_AMT|setMoney=###,'2','2'}</AdditionalPremium>
+                    <ProposerType tc="1">投保人</ProposerType>
+                    <Proposer>
+                        <FullName>{$data.VIP_NAME}</FullName>
+                        <GovtIDTC tc="1">中华人民共和国身份证</GovtIDTC>
+                        <GovtID>{$data.VIP_IDNO}</GovtID>
+                        <Phone>
+                            <PhoneTypeCode tc="12">12</PhoneTypeCode>
+                            <DialNumber>{$vipdata.VIP_MOBILE}</DialNumber>
+                        </Phone>
+                        <BankName>00030000000000</BankName>
+                        <BankAccountNumber>33001617027053017852</BankAccountNumber>
+                        <BankAcctType tc="7">普通卡</BankAcctType>
+                        <AcctHolderName>浙江积分宝控股有限公司消费养老保险专户</AcctHolderName>
+                        <AcctGovtIDTC tc="1">中华人民共和国身份证</AcctGovtIDTC>
+                        <AcctGovtID>330725196710076114</AcctGovtID>
+                        <AcctPubPri tc="2">对公账户</AcctPubPri>
+                    </Proposer>
+                    <ApplyMethod tc="9">在线自助</ApplyMethod>
+                    <PaymentMethod tc="3">客户银行转账</PaymentMethod>
+                    <ApplyDate />
+                    <EffDate>{:date('Y-m-d H:i:s',(strtotime($data['TB_TIME'])+86400))}</EffDate>
+                </Change>
+            </Holding>
+        </OLifE>
+        <OLifEExtension VendorCode="1">
+            <CarrierCode>PICC</CarrierCode>
+            <Branch>1940303</Branch>
+            <AgencyCode>19410215</AgencyCode>
+            <Teller></Teller>
+            <BankCode>ZJJFB</BankCode>
+        </OLifEExtension>
+    </TXLifeRequest>
+</TXLife>

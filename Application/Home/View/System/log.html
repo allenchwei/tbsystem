@@ -1,0 +1,132 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[LOG_DATE_A]" value="{$postdata.LOG_DATE_A}"/>
+	<input type="hidden" name="post[LOG_DATE_B]" value="{$postdata.LOG_DATE_B}"/>
+	<input type="hidden" name="post[LOG_TIME_A]" value="{$postdata.LOG_TIME_A}"/>
+	<input type="hidden" name="post[LOG_TIME_B]" value="{$postdata.LOG_TIME_B}"/>
+	<input type="hidden" name="post[USER_NAME]" value="{$postdata.USER_NAME}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>日期区间：</label>
+					<span>
+						<input class="input01 textInput date f_l" type="text" readonly="true" name="post[LOG_DATE_A]" value="{$postdata.LOG_DATE_A}">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+					<code class="code"> ~ </code>
+					<span>
+						<input class="input01 textInput date f_l" type="text" readonly="true" name="post[LOG_DATE_B]" value="{$postdata.LOG_DATE_B}">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+				</p>
+				<p>
+					<label>时段区间：</label>					
+					<select class="combox" name="post[LOG_TIME_A]">
+						<option value="">请选择</option>
+						<option value="000000" <if condition="$postdata[LOG_TIME_A] eq '000000'">selected</if>>00:00:00</option>
+						<option value="010000" <if condition="$postdata[LOG_TIME_A] eq '010000'">selected</if>>01:00:00</option>
+						<option value="020000" <if condition="$postdata[LOG_TIME_A] eq '020000'">selected</if>>02:00:00</option>
+						<option value="030000" <if condition="$postdata[LOG_TIME_A] eq '030000'">selected</if>>03:00:00</option>
+						<option value="040000" <if condition="$postdata[LOG_TIME_A] eq '040000'">selected</if>>04:00:00</option>
+						<option value="050000" <if condition="$postdata[LOG_TIME_A] eq '050000'">selected</if>>05:00:00</option>
+						<option value="060000" <if condition="$postdata[LOG_TIME_A] eq '060000'">selected</if>>06:00:00</option>
+						<option value="070000" <if condition="$postdata[LOG_TIME_A] eq '070000'">selected</if>>07:00:00</option>
+						<option value="080000" <if condition="$postdata[LOG_TIME_A] eq '080000'">selected</if>>08:00:00</option>
+						<option value="090000" <if condition="$postdata[LOG_TIME_A] eq '090000'">selected</if>>09:00:00</option>
+						<option value="100000" <if condition="$postdata[LOG_TIME_A] eq '100000'">selected</if>>10:00:00</option>
+						<option value="110000" <if condition="$postdata[LOG_TIME_A] eq '110000'">selected</if>>11:00:00</option>
+						<option value="120000" <if condition="$postdata[LOG_TIME_A] eq '120000'">selected</if>>12:00:00</option>
+						<option value="130000" <if condition="$postdata[LOG_TIME_A] eq '130000'">selected</if>>13:00:00</option>
+						<option value="140000" <if condition="$postdata[LOG_TIME_A] eq '140000'">selected</if>>14:00:00</option>
+						<option value="150000" <if condition="$postdata[LOG_TIME_A] eq '150000'">selected</if>>15:00:00</option>
+						<option value="160000" <if condition="$postdata[LOG_TIME_A] eq '160000'">selected</if>>16:00:00</option>
+						<option value="170000" <if condition="$postdata[LOG_TIME_A] eq '170000'">selected</if>>17:00:00</option>
+						<option value="180000" <if condition="$postdata[LOG_TIME_A] eq '180000'">selected</if>>18:00:00</option>
+						<option value="190000" <if condition="$postdata[LOG_TIME_A] eq '190000'">selected</if>>19:00:00</option>
+						<option value="200000" <if condition="$postdata[LOG_TIME_A] eq '200000'">selected</if>>20:00:00</option>
+						<option value="210000" <if condition="$postdata[LOG_TIME_A] eq '210000'">selected</if>>21:00:00</option>
+						<option value="220000" <if condition="$postdata[LOG_TIME_A] eq '220000'">selected</if>>22:00:00</option>
+						<option value="230000" <if condition="$postdata[LOG_TIME_A] eq '230000'">selected</if>>23:00:00</option>
+					</select>
+					<code class="code"> ~ </code>		
+					<select class="combox" name="post[LOG_TIME_B]">
+						<option value="">请选择</option>
+						<option value="005959" <if condition="$postdata[LOG_TIME_B] eq '005959'">selected</if>>00:59:59</option>
+						<option value="015959" <if condition="$postdata[LOG_TIME_B] eq '015959'">selected</if>>01:59:59</option>
+						<option value="025959" <if condition="$postdata[LOG_TIME_B] eq '025959'">selected</if>>02:59:59</option>
+						<option value="035959" <if condition="$postdata[LOG_TIME_B] eq '035959'">selected</if>>03:59:59</option>
+						<option value="045959" <if condition="$postdata[LOG_TIME_B] eq '045959'">selected</if>>04:59:59</option>
+						<option value="055959" <if condition="$postdata[LOG_TIME_B] eq '055959'">selected</if>>05:59:59</option>
+						<option value="065959" <if condition="$postdata[LOG_TIME_B] eq '065959'">selected</if>>06:59:59</option>
+						<option value="075959" <if condition="$postdata[LOG_TIME_B] eq '075959'">selected</if>>07:59:59</option>
+						<option value="085959" <if condition="$postdata[LOG_TIME_B] eq '085959'">selected</if>>08:59:59</option>
+						<option value="095959" <if condition="$postdata[LOG_TIME_B] eq '095959'">selected</if>>09:59:59</option>
+						<option value="159590" <if condition="$postdata[LOG_TIME_B] eq '159590'">selected</if>>10:59:59</option>
+						<option value="115959" <if condition="$postdata[LOG_TIME_B] eq '115959'">selected</if>>11:59:59</option>
+						<option value="125959" <if condition="$postdata[LOG_TIME_B] eq '125959'">selected</if>>12:59:59</option>
+						<option value="135959" <if condition="$postdata[LOG_TIME_B] eq '135959'">selected</if>>13:59:59</option>
+						<option value="145959" <if condition="$postdata[LOG_TIME_B] eq '145959'">selected</if>>14:59:59</option>
+						<option value="155959" <if condition="$postdata[LOG_TIME_B] eq '155959'">selected</if>>15:59:59</option>
+						<option value="165959" <if condition="$postdata[LOG_TIME_B] eq '165959'">selected</if>>16:59:59</option>
+						<option value="175959" <if condition="$postdata[LOG_TIME_B] eq '175959'">selected</if>>17:59:59</option>
+						<option value="185959" <if condition="$postdata[LOG_TIME_B] eq '185959'">selected</if>>18:59:59</option>
+						<option value="195959" <if condition="$postdata[LOG_TIME_B] eq '195959'">selected</if>>19:59:59</option>
+						<option value="259590" <if condition="$postdata[LOG_TIME_B] eq '259590'">selected</if>>20:59:59</option>
+						<option value="215959" <if condition="$postdata[LOG_TIME_B] eq '215959'">selected</if>>21:59:59</option>
+						<option value="225959" <if condition="$postdata[LOG_TIME_B] eq '225959'">selected</if>>22:59:59</option>
+						<option value="235959" <if condition="$postdata[LOG_TIME_B] eq '235959'">selected</if>>23:59:59</option>
+					</select>
+				</p>
+				<p>
+					<label>操作人员：</label>
+					<input class="input01 textInput" type="text" name="post[USER_NAME]" value="{$postdata.USER_NAME}" maxlength="10">
+				</p>
+				<p>
+					<label>操作内容：</label>
+					<input class="input01 textInput ws23" type="text" name="post[LOG_DESC]" value="{$postdata.LOG_DESC}" maxlength="40">
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="175">
+		<thead>
+			<tr>
+				<th width="3%" align='center'><input type="checkbox" class="checkboxCtrl" group="LOG_ID[]"></th>
+				<th width="15%" align='center'>发生时间</th>
+				<th width="15%" >用户归属</th>
+				<th width="10%" align='center'>操作类型</th>
+				<th width="57%">操作内容</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.LOG_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td><input type="checkbox" value="{$vo.LOG_ID}" class="checkboxval" name="LOG_ID[]"></td>
+					<td>{$vo.CREATR_TIME}</td>
+					<td>{$vo.USER_NAME}</td>
+					<td>{$log_types[$vo[LOG_TYPE]]}</td>
+					<td title="{$vo.LOG_DESC}">{$vo.LOG_DESC}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

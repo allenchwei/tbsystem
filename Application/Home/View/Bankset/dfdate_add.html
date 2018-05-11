@@ -1,0 +1,48 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.DATE_ID" value="0">
+			<input type="hidden" name="post[DATE_ID]" value="{$info.DATE_ID}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>时间段：</label>
+					<select class="combox" name="post[START_TIME]">
+						<option value="">请选择</option>
+						<volist name="time_list" id="vo">
+							<option value="{$vo}" <eq name="postdata['START_TIME']" value="$vo">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+					<code class="code"> ~ </code>
+					<select class="combox" name="post[END_TIME]">
+						<option value="">请选择</option>
+						<volist name="time_list" id="vo">
+							<option value="{$vo}" <eq name="postdata['END_TIME']" value="$vo">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>代付公司：</label>
+					<select class="combox" name="post[DFCO_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="dfco_list" id="vo">
+							<option value="{$vo.DFCO_MAP_ID}" <eq name="postdata['DFCO_MAP_ID']" value="$vo.DFCO_MAP_ID">selected</eq>>{$vo.DFCO_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>备注：</label>
+					<textarea class="textInput required" style="width:440px;height:60px;" name="post[RES]" maxlength="60">{$info.RES}</textarea>
+				<p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

@@ -1,0 +1,71 @@
+<div class="pageFormContent">
+	<div class="jies1">
+		<div class="content100 err_offset_2">
+			<p>
+				<label>结算周期：</label>
+				<span>
+					<label>
+						<input type="radio" class="settle_t" value="1" name="pcls[SETTLE_T_UNIT]" <eq name="pcls_info.SETTLE_T_UNIT" value="1">checked</eq>>日结
+					</label>
+					<label>
+						<input type="radio" class="settle_t" value="2" name="pcls[SETTLE_T_UNIT]" <if condition="$pcls_info['SETTLE_T_UNIT'] eq 2">checked<elseif condition="$pcls_info['SETTLE_T_UNIT'] eq ''"/> checked </if>>月结
+					</label>
+				</span>	
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="jies2">
+		<div class="content100 err_offset_3">
+			<p class="err_offset_3_1">
+				<span class="t_flag" <eq name="pcls_info.SETTLE_T_UNIT" value="1">style="display:show;"<else /> style="display:none;"</eq>>T + </span>
+				<input type="text" value="{$pcls_info.SETTLE_T|default=1}" name="pcls[SETTLE_T]" class="required digits host_input ws10">
+				<span class="settle_t_unit">
+					<if condition="$pcls_info['SETTLE_T_UNIT'] eq 1"> 天 <elseif condition="($pcls_info['SETTLE_T_UNIT'] eq 2) or ($pcls_info['SETTLE_T_UNIT'] eq '')"/> 月 <else /> 月 </if>
+				</span>
+			</p>
+		</div>
+	</div>
+	
+	<div style="width:100%" class="remark">
+		<p style="width:100%">
+			<label style="width:100px;">备注：</label>
+			<span>结算周期：收益结算周期，一般填【1】,日结为次日结算前一日的；月结为次月结算前一月的。有特殊情况请与对接人沟通。</span>	
+		</p>
+		<div class="clear"></div>
+	</div>
+	
+	<div class="clear"></div>
+</div>
+<script type="text/javascript">
+	function checkSubmit(){
+		$('form[name="form"]').submit();		
+	}
+	//切换结算周期
+	$('.settle_t').click(function(){
+		switch($(this).val()){
+			case '1' :
+				$('.settle_t_unit').html('天');
+				$('.t_flag').show();
+			break;
+			case '2' :
+				$('.settle_t_unit').html('月');
+				$('.t_flag').hide();
+			break;
+			default :
+				$('.settle_t_unit').html('未知');
+			break;
+		}
+	})
+	//勾选激活输入框
+	$('input[node-type="disable-checkbox"]').on('click',function(){
+		var param = $(this).attr('data-target');
+		var is_check = $(this).is(':checked');
+		if (is_check) {
+			$('input[name="'+ param +'"]').removeAttr("disabled").css({ background: "#fff" });
+		}else{
+			$('input[name="'+ param +'"]').attr("disabled","disabled").css({ background: "#eee" });
+		};
+		$('input[name="'+ param +'"]').val(0);
+	})
+</script>

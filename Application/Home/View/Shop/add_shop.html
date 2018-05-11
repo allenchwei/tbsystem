@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>返回结果</title>
+	<link rel="stylesheet" type="text/css" href="http://wx.ruiyit.com/Admin/Home/View/Public/css/select_business.css">
+</head>
+<body>
+	<header class="shop_nav">
+	</header>		      
+    <table class="table_main">
+    	<tr class="table_head">
+    		<td >执行参数</td>
+    		<td >返回结果</td>
+    	</tr>
+		<tr>
+    		<td>{$cmd}</td>
+    		<td>
+    			<volist name='rs' id='vo'>
+				{$vo}
+				</volist>
+    		</td>
+    	</tr>
+    </table> 	
+</body>
+</html>

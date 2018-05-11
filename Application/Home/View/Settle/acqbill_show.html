@@ -1,0 +1,24 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="jfbmake" style="padding:10px 20px;">
+			<div class="title"><font color="red">平台收单分润</font>　结算单</div>
+			<div class="content100">
+				<p>结算单位：平台收单分润<span class="show" style="float:right;">结算日期：{$info.SETTLE_DATE}</span></p>
+				<div class="clear"></div>
+			</div>
+			<include file="Settle/settle_common_top" />
+			<div class="content100">
+				<p>
+					<label>备注：</label>
+					<span class="show" style="float:left;width:577px">{$info.ACCT_DESC}</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

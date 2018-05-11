@@ -1,0 +1,66 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[HOST_NAME]" value="{$postdata.HOST_NAME}"/>
+	<input type="hidden" name="post[HOST_STATUS]" value="{$postdata.HOST_STATUS}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>通道名称：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.HOST_NAME}" name="post[HOST_NAME]">
+				</p>
+				<p>
+					<label>状态：</label>
+					<select class="combox" name="post[HOST_STATUS]">
+						<option value="">请选择</option>
+						<volist name="host_status_check" id="vo">
+							<option value="{$key}" <if condition="($postdata['HOST_STATUS'] eq $key) and ($postdata['HOST_STATUS'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="141">
+		<thead>
+			<tr>
+				<th width="12%" align='center'>通道ID</th>
+				<th width="22%" align='center'>通道名称</th>
+				<th width="12%" align='center'>控制器</th>
+				<th width="12%" align="center">协议到期日</th>
+				<th width="12%" align='center'>状态</th>
+				<th width="30%" align='center'>备注</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.HOST_MAP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.HOST_MAP_ID}</td>
+					<td>{$vo.HOST_NAME}</td>
+					<td>{$vo.CONTROLLER_NAME}</td>
+					<td>{$vo.END_TIME}</td>
+					<td>{$host_status[$vo[HOST_STATUS]]}</td>
+					<td title="{$vo[HOST_MAP_ID]|getCheck_desc=###,'1',$vo[HOST_STATUS]}">{$vo[HOST_MAP_ID]|getCheck_desc=###,'1',$vo[HOST_STATUS]}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

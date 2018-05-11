@@ -1,0 +1,97 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[pid]" value="{$postdata.pid}"/>
+	<input type="hidden" name="post[bid]" value="{$postdata.bid}"/>
+	<input type="hidden" name="post[JFB_SECU_REF]" value="{$postdata.JFB_SECU_REF}"/>
+	<input type="hidden" name="post[SECURITY_MAP_ID]" value="{$postdata.SECURITY_MAP_ID}"/>
+	<input type="hidden" name="post[TB_STATUS]" value="{$postdata.TB_STATUS}"/>
+	<input type="hidden" name="post[SYSTEM_DATE_A]" value="{$postdata.SYSTEM_DATE_A}"/>
+	<input type="hidden" name="post[SYSTEM_DATE_B]" value="{$postdata.SYSTEM_DATE_B}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<span>
+						<label>投保日期：</label>
+						<input class="input01 textInput date f_l readonly ws14" type="text" value="{$postdata.SYSTEM_DATE_A}" name="post[SYSTEM_DATE_A]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+					<code class="code"> ~ </code>
+					<span>
+						<input class="input01 textInput date f_l readonly ws14" type="text" value="{$postdata.SYSTEM_DATE_B}" name="post[SYSTEM_DATE_B]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+				</p>
+				<p>
+					<label>保险公司：</label>
+					<select class="combox" name="post[SECURITY_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="sec_sel" id="vo">
+							<option value="{$vo.SECURITY_MAP_ID}" <eq name="postdata['SECURITY_MAP_ID']" value="$vo['SECURITY_MAP_ID']">selected</eq>>{$vo.SECURITY_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>投保状态：</label>
+					<select class="combox" name="post[TB_STATUS]">
+						<option value="">请选择</option>
+						<volist name="TB_STATUS" id="vo">
+							<option value="{$key}" <if condition="($postdata['TB_STATUS'] eq $key) and ($postdata['TB_STATUS'] neq '') " >selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>投保批次：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.JFB_SECU_REF}" name="post[JFB_SECU_REF]">
+				</p>
+				<p class="maxcombox">
+					<label>归属：</label>
+					{:get_level_sel($postdata['bid'],'-1','soplv[]',$postdata['pid'],2)}
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="175">
+		<thead>
+			<tr>
+				<th width="15%" align='center'>批次号</th>
+				<th width="20%">归属</th>
+				<th width="15%" align='center'>投保人数</th>
+				<th width="15%" align='center'>投保总金额</th>
+				<th width="20%">保险公司</th>
+				<th width="15%" align='center'>状态</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.TBBILL_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.JFB_SECU_REF}</td>
+					<td>{$vo.BRANCH_MAP_ID|get_branch_name=###,$vo['PARTNER_MAP_ID']}</td>
+					<td>{$vo.TB_CNT}</td>
+					<td>{$vo.TB_AMT|setMoney=###,2,2}</td>
+					<td>{$vo.SECURITY_MAP_ID|get_security_name=###}</td>
+					<td>{:C('CHECK_POINT.all')[$vo['TB_STATUS']]}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

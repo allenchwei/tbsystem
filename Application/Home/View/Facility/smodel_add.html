@@ -1,0 +1,76 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="info.FACTORY_MAP_ID" value="0">
+		<input type="hidden" name="post[submit]" value="factory_edit">
+		<input type="hidden" name="post[FACTORY_MAP_ID]" value="{$info.FACTORY_MAP_ID}">
+	<else />
+		<input type="hidden" name="post[submit]" value="factory_add">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content50">
+				<p>
+					<label>商户编号：</label>
+					<span class="show">23561245</span>
+				</p>
+				<p>
+					<label>商户名称：</label>
+					<span class="show">一见你就笑餐厅</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content100">
+				<p>
+					<label>商户归属：</label>
+					<span class="show">北京市  丰台区服务中心</span>
+				</p>
+				<p>
+					<label>设备机型：</label>
+					<span class="show">北京朝阳POS厂商  XXXX-01  <font color="red">1</font> 台</span>
+				</p>
+				<p>
+					<label>　</label>
+					<span class="show">北京朝阳POS厂商  XXXX-02  <font color="red">1</font> 台</span>
+				</p>
+				<p>
+					<label>商户地址：</label>
+					<span class="show">北京市朝阳区东三环XX路188号</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content50">
+				<p>
+					<label>联系人：</label>
+					<span class="show">王鑫</span>
+				</p>
+				<p>
+					<label>联系电话：</label>
+					<span class="show">13000000000</span>
+				</p>
+				<p class="ic_line"></p>
+				<p>
+					<label>1.终端号：</label>
+					<span class="show">122356457889</span>
+				</p>
+				<p>
+					<label>设备序列号：</label>
+					<input type="text" value="{$info.MODEL_PRICE}" class="doubles" name="post[MODEL_PRICE]" maxlength="10"/>
+				</p>
+				<p>
+					<label>2.终端号：</label>
+					<span class="show">122356457889</span>
+				</p>
+				<p>
+					<label>设备序列号：</label>
+					<input type="text" value="{$info.MODEL_PRICE}" class="doubles" name="post[MODEL_PRICE]" maxlength="10"/>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

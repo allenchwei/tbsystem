@@ -1,0 +1,36 @@
+[ 2018-02-02T10:53:21+08:00 ] 116.62.209.27 /phpmyadmin/explicit_not_exist_path
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000042s ]
+ERR: 无法加载模块:Phpmyadmin
+
+[ 2018-02-02T10:53:22+08:00 ] 116.62.209.27 /phpmyadmin/static/.gitignore
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000040s ]
+ERR: 无法加载模块:Phpmyadmin
+
+[ 2018-02-02T10:53:22+08:00 ] 116.62.209.27 /phpmyadmin/4e5e5d7364f443e28fbf0d3ae744a59a
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000007s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000039s ]
+ERR: 无法加载模块:Phpmyadmin
+
+[ 2018-02-02T10:53:22+08:00 ] 116.62.209.27 /phpmyadmin/Documentation.html
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000042s ]
+ERR: 无法加载模块:Phpmyadmin
+
+[ 2018-02-02T10:53:22+08:00 ] 116.62.209.27 /pma/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000045s ]
+ERR: 无法加载模块:Pma
+
+[ 2018-02-02T10:53:22+08:00 ] 116.62.209.27 /solr/
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000040s ]
+ERR: 无法加载模块:Solr
+

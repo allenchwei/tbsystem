@@ -1,0 +1,85 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<input type="hidden" name="post[HOST_MAP_ID]" value="{$info.HOST_MAP_ID}">
+		<input type="hidden" name="post[flag]" value="{$info.flag}">
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<include file="Gallery/host_common_top" />
+			<div class="tabs">
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>权限开通</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">
+					<div class="pageFormContent">
+						<div class="content100">
+							<div class="content50">
+								<p>
+									<label>日均限额：</label>
+									<input type="text" class="doubles required" name="post[DAY_MAXAMT]" value="{$info.DAY_MAXAMT|setMoney=###, '6', '2'}">　万元
+								</p>
+								<p>
+									<label>单笔限额：</label>
+									<input type="text" class="doubles required" name="post[SIGN_MAXAMT]" value="{$info.SIGN_MAXAMT|setMoney=###, '6', '2'}">　万元
+								</p>
+								<div class="clear"></div>
+							</div>
+							<p class="rad">
+								<label>映射规则：</label>
+								<select class="combox" name="post[HOST_PPP_FLAG]">
+									<volist name="host_ppp_flag" id="vo">
+										<option value="{$key}" <if condition="$info['HOST_PPP_FLAG'] eq $key">selected</if>>{$vo}</option>
+									</volist>
+								</select>
+							</p>
+							<p class="qxjy">
+								<label>交易开通：</label>
+								<input type="hidden" value="" name="post[AUTH_TRANS_MAP]"/>								
+								<span style="width:85%;float:left;">
+									<volist name="trans_list" id="vo">
+										<span><label><input type="checkbox" value="{$vo.TRANS_MAP_ID}" <eq name="auth_trans_checked[$vo['TRANS_MAP_ID']-1]" value="1">checked="checked"</eq>>{$vo.TRANS_NAME}</label></span>
+									</volist>
+								</span>
+							</p>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<a href="javascript:;" class="anniu ch-btn-skin ch-btn-small ch-icon-ok" onclick="checkSubmit()">确 定</a>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		function checkSubmit(){
+			/*
+			* 获取交易方式
+			**/
+			var tarr	 = [],
+				trans    = $('input[name="post[AUTH_TRANS_MAP]"]'),			
+			trans_list	 = trans.parent().find('input[type="checkbox"]');
+			//交易方式
+			$.each( trans_list, function(i, n){
+				var transdata = {};
+				var checked = $(this).attr('checked') ? 1 : 0;
+				//组装对象
+				transdata.trans_id = $(this).val();
+				transdata.is_check = checked;
+				//组装数组
+				tarr.push(transdata);
+				//json转成字符串
+				tjsonstr = JSON.stringify(tarr);
+			});
+			trans.val(tjsonstr);
+			
+			$('form[name="form"]').submit();		
+		}
+	</script>
+</div>

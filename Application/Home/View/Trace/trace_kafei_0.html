@@ -1,0 +1,29 @@
+	
+	<div class="content50 traces">
+		<p class="ic_line"></p>
+		<p>
+			<label>总部分润：</label>
+			<span class="show"><font color="red">{$kfls_info.BRANCH_FEE1|setMoney=###,2,2} 元</font></span>
+		</p>
+		<p class="t2">
+			<label>服务中心分润：</label>
+			<span class="show"><font color="red">{$kfls_info.PARTNER_FEE2|setMoney=###,2,2} 元</font></span>
+			<notempty name="kfls_info['PARTNER_NAMEAB2']"><span class="name">（{$kfls_info.PARTNER_NAMEAB2}）</span></notempty>
+		</p>
+		<p>
+			<label>省公司分润：</label>
+			<span class="show"><font color="red">{$kfls_info.BRANCH_FEE2|setMoney=###,2,2} 元</font></span>
+			<notempty name="kfls_info['BRANCH_NAMEAB2']"><span class="name">（{$kfls_info.BRANCH_NAMEAB2}）</span></notempty>
+		</p>
+		<p class="t2">
+			<label>创业合伙人分润：</label>
+			<span class="show"><font color="red">{$kfls_info.PARTNER_FEE3|setMoney=###,2,2} 元</font></span>
+			<notempty name="kfls_info['PARTNER_NAMEAB3']"><span class="name">（{$kfls_info.PARTNER_NAMEAB3}）</span></notempty>
+		</p>
+		<p>
+			<label>地市子公司分润：</label>
+			<span class="show"><font color="red">{$kfls_info.PARTNER_FEE1|setMoney=###,2,2} 元</font></span>
+			<notempty name="kfls_info['PARTNER_NAMEAB1']"><span class="name">（{$kfls_info.PARTNER_NAMEAB1}）</span></notempty>
+		</p>
+		<div class="clear"></div>
+	</div>

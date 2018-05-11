@@ -1,0 +1,106 @@
+<style>
+.er2 p{text-align:right;}
+.er2 p label{float:none;}
+</style>
+<div class="pageContent">	
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<input type="hidden" name="post[HMDR_ID]" value="{$info.HMDR_ID}">	
+		<input type="hidden" name="post[HOST_MAP_ID]" value="{$info.HOST_MAP_ID}">	
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">		
+			<include file="Gallery/host_common_top" />
+			<div class="tabs">
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>结算方式</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">
+					<include file="Gallery/host_common_bottom3" />
+				</div>
+			</div>
+			<if condition="__ACTNAME__ eq 'hcls_recheck'">
+				<div class="tabs">
+					<div class="tabsHeader">
+						<div class="tabsHeaderContent">
+							<ul>
+								<li><a href="javascript:;"><span>结算方式初审</span></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="tabsContent">
+						<div class="pageFormContent">
+							<div class="content30">
+								<p>
+									<label>初审结果：</label>
+									<span class="show">通过</span>
+								</p>
+								<p>
+									<label>初审人：</label>
+									<span class="show">{$check_data.USER_NAME}</span>
+								</p>
+								<p>
+									<label>初审日期：</label>
+									<span class="show">{$check_data.CHECK_TIME}</span>
+								</p>
+								<div class="clear"></div>
+							</div>
+							<div class="content100">
+								<p>
+									<label>初审意见：</label>
+									<span class="show">{$check_data.CHECK_DESC}</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</if>			
+				<div class="tabs">
+					<div class="tabsHeader">
+						<div class="tabsHeaderContent">
+							<ul>
+								<li><a href="javascript:;"><span>结算方式{$check_title}</span></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="tabsContent">
+						<div class="pageFormContent">
+							<div class="content30">
+								<p>
+									<label>{$check_title}结果：</label>
+									<span class="show check_font">
+										<input type="radio" name="post[CHECK_F]" value="0" checked>通过
+										<input type="radio" name="post[CHECK_F]" value="1">不通过
+									</span>
+								</p>
+								<p>
+									<label>{$check_title}人：</label>
+									<span class="show">{$Think.session.HOME.USER_NAME}</span>
+								</p>
+								<p>
+									<label>{$check_title}日期：</label>
+									<span class="show">{:date('Y-m-d H:i:s')}</span>
+								</p>
+								<div class="clear"></div>
+							</div>
+							<div class="content100">
+								<p>
+									<label>{$check_title}意见：</label>
+									<textarea style="width:640px;height:95px;" name="post[CHECK_DESC]"></textarea>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	</div>
+</div>

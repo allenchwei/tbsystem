@@ -1,0 +1,58 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.PBOCKEY_ID" value="0">
+			<input type="hidden" name="post[PBOCKEY_ID]" value="{$info.PBOCKEY_ID}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>公钥索引值：</label>
+					<input type="text" name="post[IC_PUBKEY_INDEX]" value="{$info.IC_PUBKEY_INDEX}" class="hexadecimal required" maxlength="2" />
+					<font class="message">（2位数字或大写字母 A-F 十六进制组成）</font>
+				</p>
+				<p>
+					<label>公钥RID 值：</label>
+					<input type="text" name="post[IC_PUBKEY_RID]" value="{$info.IC_PUBKEY_RID}" class="hexadecimal required" maxlength="10" />
+					<font class="message">（最多10位数字或大写字母 A-F 十六进制组成）</font>
+				</p>
+				<p>
+					<label>公钥有效期：</label>
+					<input type="text" name="post[IC_PUBKEY_EXP]" value="{$info.IC_PUBKEY_EXP}" class="required" maxlength="8"/>
+					<font class="message">（YYYYMMDD）</font>
+				</p>
+				<p>
+					<label>公钥哈希值：</label>
+					<input type="text" name="post[IC_PUBKEY_HASH]" value="{$info.IC_PUBKEY_HASH}" class="hexadecimal required" maxlength="2"/>
+					<font class="message">（2位数字或大写字母 A-F 十六进制组成）</font>
+				</p>
+				<p>
+					<label>公钥算法值：</label>
+					<input type="text" name="post[IC_PUBKEY_ALG]" value="{$info.IC_PUBKEY_ALG}" class="hexadecimal required" maxlength="2">
+					<font class="message">（2位数字或大写字母 A-F 十六进制组成）</font>
+				</p>
+				<p>
+					<label>公钥指数值：</label>
+					<input type="text" name="post[IC_PUBKEY_POINT]" value="{$info.IC_PUBKEY_POINT}" class="hexadecimal required" maxlength="6">
+					<font class="message">（最多6位数字或大写字母 A-F 十六进制数组成）</font>
+				</p>
+				<p>
+					<label>公钥校验值：</label>
+					<input type="text" name="post[IC_PUBKEY_CHECK]" value="{$info.IC_PUBKEY_CHECK}" class="hexadecimal required ws51" maxlength="80">
+					<!-- <font class="message">（最多80 位数字或大写字母 A-F 十六进制数组成）</font> -->
+				</p>
+				<p>
+					<label>公钥模数据：</label>
+					<textarea name="post[IC_PUBKEY_MODE]" style="width:500px;height:80px;" class="required" maxlength="496">{$info.IC_PUBKEY_MODE}</textarea>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

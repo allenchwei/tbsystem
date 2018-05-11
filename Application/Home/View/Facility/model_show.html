@@ -1,0 +1,39 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>厂商名称：</label>
+				<span class="show">{$info.FACTORY_NAME}</span>
+			</p>
+			<p>
+				<label>设备型号：</label>
+				<span class="show">{$info.MODEL_NAME}</span>
+			</p>
+			<p class="inputcheck">
+				<label>设备型号：</label>
+				<span class="show">{$model_type['MODEL_TYPE'][$info['MODEL_TYPE']]}</span>
+			</p>
+			<p class="inputcheck">
+				<label>通讯方式：</label>
+				<span class="show">{$model_type['MODEL_COMM'][$info['MODEL_COMM']]}</span>
+			</p>
+			<p class="inputcheck">
+				<label>打印方式：</label>
+				<span class="show">{$model_type['MODEL_PRINTER'][$info['MODEL_PRINTER']]}</span>
+			</p>
+			<p>
+				<label>进价：</label>
+				<span class="show">{$info.MODEL_PRICE|setMoney=###,2,2} 元</span>
+			</p>
+			<p>
+				<label>备注：</label>
+				<span class="show">{$info.MODEL_REMARK}</span>
+			</p>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

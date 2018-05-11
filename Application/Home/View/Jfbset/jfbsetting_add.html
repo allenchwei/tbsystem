@@ -1,0 +1,64 @@
+<style>.pageFormContent label{width:95px;}</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.CARD_P_MAP_ID" value="0">
+			<input type="hidden" name="post[CARD_P_MAP_ID]" value="{$info.CARD_P_MAP_ID}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<!-- <p>
+					<label>卡BIN码：</label>
+					<input type="text" value="{$info.CARD_BIN}" class="digits required" name="post[CARD_BIN]" maxlength="8"/>
+				</p> -->
+				<p>
+					<label>卡套餐名称：</label>
+					<input type="text" value="{$info.CARD_NAME}" class="required" name="post[CARD_NAME]" maxlength="20"/>
+				</p>
+				<p>
+					<label>卡级别：</label>
+					<select class="combox" name="post[CARD_LEVEL]">
+						<volist name="card_level" id="vo">
+							<option value="{$vo.CLEVEL_ID}" <if condition="$info['CARD_LEVEL'] eq $vo['CLEVEL_ID']">selected</if>>{$vo.CLEVEL_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>卡权限：</label>
+					<select class="combox" name="post[CARD_TYPE]">
+						<volist name="card_type" id="vo">
+							<option value="{$vo.CTYPE_ID}" <if condition="$info['CARD_TYPE'] eq $vo['CTYPE_ID']">selected</if>>{$vo.CTYPE_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>面值/余额上限：</label>
+					<input type="text" value="{$info.CARD_BALANCE|setMoney=###,2,2}" class="digits required" name="post[CARD_BALANCE]" maxlength="14"/>　元
+				</p>
+				<p>
+					<label>有限期限：</label>
+					<input type="text" value="{$info.CARD_EXP_NUM}" class="digits required" name="post[CARD_EXP_NUM]" maxlength="2"/>　年
+				</p>
+				<p>
+					<label>工本费：</label>
+					<input type="text" value="{$info.USER_OPENFEE|setMoney=###,2,2}" class="digits required" name="post[USER_OPENFEE]" maxlength="4"/>　元
+				</p>
+				<p>
+					<label>押金费：</label>
+					<input type="text" value="{$info.USER_DEPFEE|setMoney=###,2,2}" class="digits required" name="post[USER_DEPFEE]" maxlength="4"/>　元
+				</p>
+				<p style="width:100%;">
+					<label>备注：</label>
+					<textarea name="post[CARD_DESC]" style="width:458px;height:80px;">{$info.CARD_DESC}</textarea>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

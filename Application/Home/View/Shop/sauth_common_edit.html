@@ -1,0 +1,62 @@
+<div class="pageFormContent">
+	<div class="content100">
+		<p class="err_offset_1">
+			<label>日均限额：</label>
+			<input type="text" class="doubles required" name="sauth[DAY_MAXAMT]" value="{$sauth_info.DAY_MAXAMT|setMoney=###, '6', '2'}">　万元
+		</p>
+		<div class="content50">
+			<p>
+				<label>日均现金限额：</label>
+				<input type="text" class="doubles required" name="sauth[DAY_CASH_MAXAMT]" value="{$sauth_info.DAY_CASH_MAXAMT|setMoney=###, '6', '2'}">　万元
+			</p>
+			<p>
+				<label>单笔现金限额：</label>
+				<input type="text" class="doubles required" name="sauth[CASH_MAXAMT]" value="{$sauth_info.CASH_MAXAMT|setMoney=###, '6', '2'}">　万元
+			</p>
+			<div class="clear"></div>
+		</div>
+		<p class="qxjy">
+			<label>交易开通：</label>
+			<input type="hidden" value="" name="sauth[AUTH_TRANS_MAP]"/>
+			<span style="width:85%;float:left;">
+				<volist name="t_list" id="vo">
+					<span><label><input type="checkbox" value="{$vo.TRANS_MAP_ID}" <eq name="auth_trans_checked[$vo['TRANS_MAP_ID']-1]" value="1">checked="checked"</eq>>{$vo.TRANS_NAME}</label></span>
+				</volist>
+			</span>
+		</p>
+		<p class="remark" style="height:14px;">
+			<label>备注：</label>
+			1，日均限额：为银行卡、信用卡及现金每日交易额的总和，推荐填写【3.0】。如为流水较多的大型商户与总部对接人沟通后可加大。
+		</p>
+		<p class="remark" style="height:14px;"><label>　</label>2，日均现金限额：推荐填写【2.0】； 单笔现金限额：推荐填写【0.5】。同样，如为流水较多的大型商户与总部对接人沟通后可加大。</p>
+	</div>
+	<script type="text/javascript">
+		function checkSubmit(){
+			/*
+			* 获取交易方式、支付方式
+			**/
+			var tarr	 = [],
+				trans    = $('input[name="sauth[AUTH_TRANS_MAP]"]'),			
+			trans_list	 = trans.parent().find('input[type="checkbox"]');
+			//交易方式
+			$.each( trans_list, function(i, n){
+				var transdata = {};
+				var checked = $(this).attr('checked') ? 1 : 0;
+				//组装对象
+				transdata.trans_id = $(this).val();
+				transdata.is_check = checked;
+				//组装数组
+				tarr.push(transdata);
+				//json转成字符串
+				tjsonstr = JSON.stringify(tarr);
+			});
+			trans.val(tjsonstr);
+			if(window.confirm('提交前请确认当前所填写信息是否准确, 否则将会造成审核失败!')){
+               	$('form[name="form"]').submit();
+            }else{
+                return false;
+            }
+			
+		}
+	</script>
+</div>

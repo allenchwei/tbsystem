@@ -1,0 +1,126 @@
+<div class="content100">
+	<p><label style="font-size:16px;">| 基本信息<label></p>
+	<div class="clear"></div>
+</div>
+<div class="content25">
+	<p style="width:35%;">
+		<label>商户编号：</label>
+		<span class="show">{$shop_info.SHOP_NO}</span>
+	</p>
+	<p style="width:40%;">
+		<label>商户名称：</label>
+		<span class="show">{$shop_info.SHOP_NAME}</span>
+	</p>
+	<if condition="$home['CHANNEL_MAP_ID'] eq 0">
+	<p style="width:20%;">
+		<label>简称：</label>
+		<span class="show" title="{$shop_info.SHOP_NAMEABCN}" >{$shop_info.SHOP_NAMEABCN|subtext=###,8}</span>
+	</p>
+	<p class="maxcombox" style="width:75%;">
+		<label>商户地址：</label>
+		<span class="show">{$shop_info[CITY_NO]|getcity_name=###,'shop[CITY_NO]'} {$shop_info.ADDRESS} {$shop_info.ZIP}</span>
+	</p>
+	</if>
+	<p class="err_offect_1">
+		<label>联系手机：</label>
+		<span class="show">{$shop_info.MOBILE}</span>
+	</p>
+	<if condition="$home['CHANNEL_MAP_ID'] eq 0">
+	<p style="width:75%;">
+		<label>商户归属：</label>
+		<span class="show">{$shop_info.PARTNER_MAP_ID|get_level_name=###,$shop_info['BRANCH_MAP_ID']}</span>
+	</p>
+	<p>
+		<label>联系电话：</label>
+		<span class="show">{$shop_info.TEL}</span>
+	</p>
+	<p style="width:75%;">
+		<label>推荐个创：</label>
+		<notempty name="shop_info['PARTNER_MAP_ID_R']">
+			<span class="show">{$shop_info.PARTNER_MAP_ID_R|get_partner_name=###}</span>
+		<else />
+			暂无
+		</notempty>
+	</p>
+	<p class="err_offect_1">
+		<label>邮件地址：</label>
+		<span class="show">{$shop_info.EMAIL}</span>
+	</p>
+	</if>
+	<div class="clear"></div>
+</div>
+<if condition="$home['CHANNEL_MAP_ID'] eq 0">
+<div class="content25">
+	<p style="width:35%;">
+		<label>商户类型：</label>
+		<span class="show">{:C('SHOP_LEVEL')[$shop_info['SHOP_LEVEL']]}</span>
+	</p>
+	<p style="width:40%;">
+		<label>归属集团商户：</label>
+		<neq name='shop_info["SHOP_LEVEL"]' value='3'>
+			<span class="show">暂无</span>
+			<else />
+			<span class="show">{$shop_info.SHOP_MAP_ID_P|get_shopp_name=###}</span>
+		</neq>
+	</p>
+	<p style="width:75%;">
+		<label>MCC类：</label>
+		<span class="show">{$shop_info['MCC_CODE']|getmcc_name=###}</span>
+	</p>
+	<p>
+		<label>营业时间：</label>
+		<span class="show">{$shop_info.SHOP_OPENTIME} ~ {$shop_info.SHOP_CLOSETIME}</span>
+	</p>
+	<p style="width:100%;">
+		<label>分类：</label>
+		<span class="show">{:C('SHOP_KIND')[$shop_info['SHOP_KIND']]}</span>
+	</p>
+	<p style="width:100%;">
+		<label>行业类目：</label>
+		<span class="show">{$shop_info.THR_NAME}</span>
+	</p>
+	<p>
+		<label>第三方渠道：</label>
+		<span class="show">{$shop_info.CHANNEL_MAP_ID|get_channel_name=###}</span>
+	</p>
+	<div class="clear"></div>
+</div>
+</if>
+<if condition="$home['ROLE_NAME'] eq OEM OR $home['CHANNEL_MAP_ID'] eq 0">
+	<div class="content25">
+		<p style="width:35%;">
+			<label>推荐人：</label>
+			<span class="show"><empty name="shop">暂时没有数据<else />{$shop.SHOP_NAME}</empty></span>
+		</p>
+		<p style="width:35%;">
+			<label>推荐人ID：</label>
+			<span class="show"><empty name="shop">暂时没有数据<else />{$shop.SHOP_MAP_ID}</empty></span>
+		</p>
+		<p style="width:35%;">
+			<label>推荐人手机号码：</label>
+			<span class="show"><empty name="shop">暂时没有数据<else />{$shop.MOBILE}</empty></span>
+		</p>
+		<p style="width:40%;">
+			<label>推荐人角色：</label>
+			<span class="show"><empty name="shop">暂时没有数据<else />{$Think.config.R_ID.$shop[R_ID]}</empty></span>
+		</p>
+		<p>
+			<label>发展人：</label>
+			<span class="show">
+			<volist name='shop_faz' key="k" id='vo' empty="暂时没有数据">
+			<!-- {$vo.SHOP_MAP_ID}， -->{$vo.SHOP_NAME}；
+			</volist>
+			</span>
+		</p>
+	</div>
+	<div class="clear"></div>
+</if>
+<if condition="$home['CHANNEL_MAP_ID'] eq 0">
+<div class="content25">
+	<p style="width:100%;" class="remark">
+		<label>备注：</label>
+		<span>商户类型：一般选【普通商户】。如果为加盟商户总店选【集团主商户】；如果为加盟商户分店选【集团子商户】。</span>
+	</p>
+	<div class="clear"></div>
+</div>
+</if>

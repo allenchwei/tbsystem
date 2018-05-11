@@ -1,0 +1,49 @@
+	<div class="pageFormContent">
+		<div class="content100">
+			<p class="p_11">
+				<label>清算模式：</label>
+				<span class="show">{$host_settle_flag[$info[HOST_SETTLE_FLAG]]}</span>
+			</p>
+			<p class="p_11">
+				<label>结算周期：</label>
+				<span class="show">T+　{$info.SETTLE_T}</span>	
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="jies1">
+			<div class="content100 er1">
+				<p>
+					<label>结算起始金额：</label>
+					<span class="show">{$info.SETTLE_OFF_AMT|setMoney=###,2,2}</span>
+					<code>　元/日</code>
+				</p>
+				<p>
+					<label>结算免手续费金额：</label>
+					<span class="show">{$info.SETTLE_FREE_AMT|setMoney=###,2,2}</span>
+					<code>　元/日</code>	
+				</p>
+				<p>
+					<label>结算最高金额：</label>
+					<span class="show">{$info.SETTLE_TOP_AMT|setMoney=###,2,2}</span>
+					<code>　元/日</code>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="jies2">
+			<div class="content100 er2">
+				<p>
+					<label>不足则顺延下个工作日，否则额外手续费</label>
+					<gt name='info.SETTLE_OFF_FEE' value='0'>{$info.SETTLE_OFF_FEE|setMoney=###,2,2}</gt>
+					<code>　元/次</code>
+				</p>
+				<p>
+					<label>超出则收取手续费</label>
+					<gt name='info.SETTLE_FEE' value='0'>{$info.SETTLE_FEE|setMoney=###,2,2}</gt>
+					<code>　元/次</code>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>

@@ -1,0 +1,263 @@
+<div class="pageFormContent">
+	<div class="content100">
+		<p class="p_label">
+			<label>合同编号：</label>
+			<span class="show">{$scert_info.AGREEMENT_NO}</span>
+		</p>
+		<p class="p_label">
+			<label style="width:110px;">注册地址：</label>
+			<span class="show">{$scert_info.REG_ADDR}</span>
+		</p>
+		<p class="p_label">
+			<label>营业有效期：</label>
+			<span class="show"><eq name="scert_info[REG_EXP]" value="99999999">长期<else/><?php echo date('Y-m-d', strtotime($scert_info['REG_EXP']));?></eq></span>
+		</p>
+		<p class="p_img p_label">
+			<label>营业执照号码：</label>
+			<span class="show">{$scert_info.REG_ID}</span>
+			<span class="show">
+				<if condition="($scert_info[REGID_PHOTO] neq null) && strpos($scert_info[REGID_PHOTO],'http://')===false">
+					<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url=http://wx.ruiyit.com/Uploads{$scert_info.REGID_PHOTO}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+						<img src="http://wx.ruiyit.com/Uploads{$scert_info.REGID_PHOTO}" width="65" height="50">
+					</a>
+				<else />
+					<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.REGID_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+						<img src="{$scert_info.REGID_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+					</a>
+				</if>
+			</span>
+		</p>
+		<p class="p_img p_label">
+			<label>税务登记证：</label>
+			<span class="show">{$scert_info.TAX_ID}</span>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.TAXID_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+					<img src="{$scert_info.TAXID_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>
+		<p class="p_img p_label">
+			<label>组织机构代码：</label>
+			<span class="show">{$scert_info.ORG_ID}</span>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.ORGID_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+					<img src="{$scert_info.ORGID_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>
+		<p class="p_img p_label">
+			<label>商户协议照片：</label>
+			<span class="show">
+				<if condition="($scert_info[AGREEMENTID_PHOTO1] neq null) && strpos($scert_info[AGREEMENTID_PHOTO1],'http://')===false">
+					<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url=http://wx.ruiyit.com/Uploads{$scert_info.AGREEMENTID_PHOTO1}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+						<img src="http://wx.ruiyit.com/Uploads{$scert_info.AGREEMENTID_PHOTO1}" width="65" height="50">
+					</a>
+				<else />
+					<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.AGREEMENTID_PHOTO1|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+						<img src="{$scert_info.AGREEMENTID_PHOTO1|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+					</a>
+				</if>
+				<if condition="($scert_info[AGREEMENTID_PHOTO2] neq null) && (strpos($scert_info[AGREEMENTID_PHOTO2],'http://') === false)">
+					<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url=http://wx.ruiyit.com/Uploads{$scert_info.AGREEMENTID_PHOTO2}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+						<img src="http://wx.ruiyit.com/Uploads{$scert_info.AGREEMENTID_PHOTO2}" width="65" height="50">
+					</a>
+				<else/>
+					<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.AGREEMENTID_PHOTO2|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+						<img src="{$scert_info.AGREEMENTID_PHOTO2|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+					</a>
+				</if>
+			</span>
+		</p>
+		<p class="p_img p_label">
+			<label>授权函照片：</label>
+			<span class="show">
+				<if condition="($scert_info[GRANTID_PHOTO1] neq null) and (strpos($scert_info[GRANTID_PHOTO1],'http://') === false)">
+					<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url=http://wx.ruiyit.com/Uploads{$scert_info.GRANTID_PHOTO1}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+						<img src="http://wx.ruiyit.com/Uploads{$scert_info.GRANTID_PHOTO1}" width="65" height="50">
+					</a>
+				<else/>
+					<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.GRANTID_PHOTO1|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+						<img src="{$scert_info.GRANTID_PHOTO1|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+					</a>
+				</if>
+				<if condition="($scert_info[GRANTID_PHOTO2] neq null) and (strpos($scert_info[GRANTID_PHOTO2],'http://') === false)">
+					<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url=http://wx.ruiyit.com/Uploads{$scert_info.GRANTID_PHOTO2}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+						<img src="http://wx.ruiyit.com/Uploads{$scert_info.GRANTID_PHOTO2}" width="65" height="50">
+					</a>
+				<else/>
+					<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.GRANTID_PHOTO2|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+						<img src="{$scert_info.GRANTID_PHOTO2|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+					</a>
+				</if>
+			</span>
+		</p>
+		<p class="p_img p_label">
+			<label>经营许可证照片：</label>
+			<span class="show">
+				<if condition="($scert_info[LICENSEID_PHOTO] neq null) && strpos($scert_info[LICENSEID_PHOTO],'http://')===false">
+					<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url=http://wx.ruiyit.com/Uploads{$scert_info.LICENSEID_PHOTO}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+						<img src="http://wx.ruiyit.com/Uploads{$scert_info.LICENSEID_PHOTO}" width="65" height="50">
+					</a>
+				<else />
+					<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.LICENSEID_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+						<img src="{$scert_info.LICENSEID_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+					</a>
+				</if>
+			</span>
+		</p>
+		<p class="p_img p_label">
+			<label>法人姓名：</label>
+			<span class="show">{$scert_info.LP_NAME}</span>
+			
+		</p>
+		<p class="p_img p_label">
+			<label>法人身份证号码：</label>
+			<span class="show">{$scert_info.LP_ID}</span>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.LP_D_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+					<img src="{$scert_info.LP_D_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.LP_R_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+					<img src="{$scert_info.LP_R_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.HANDIDIMG|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+					<img src="{$scert_info.HANDIDIMG|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>
+		<p class="p_label">
+			<label>身份证有效期：</label>
+			<span class="show"><eq name="scert_info[LP_EXP]" value="99999999">长期<else/><?php echo date('Y-m-d', strtotime($scert_info['LP_EXP']));?></eq></span>
+		</p>
+		<p class="p_img p_label">
+			<label>银行卡照片：</label>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.BANK_D_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+					<img src="{$scert_info.BANK_D_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.BANK_R_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+					<img src="{$scert_info.BANK_R_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>
+		<p class="p_img p_label">
+			<label>法人委托入账授权说明照片：</label>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.LP_GRANTID_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+					<img src="{$scert_info.LP_GRANTID_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>
+		<p class="p_img p_label">
+			<label>入账人身份证照片：</label>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.BANK_LP_D_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+					<img src="{$scert_info.BANK_LP_D_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.BANK_LP_R_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+					<img src="{$scert_info.BANK_LP_R_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>
+		<p class="p_img p_label">
+			<label>开户许可证：</label>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.BANK_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info.BANK_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>
+		
+		<p class="p_img p_label">
+			<label>房屋租赁合同照片：</label>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.REGADDR_PHOTO1|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info.REGADDR_PHOTO1|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.REGADDR_PHOTO2|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info.REGADDR_PHOTO2|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>
+
+		<p class="p_img p_label">
+			<label>场所门头照片：</label>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.OFFICE_PHOTO1|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info.OFFICE_PHOTO1|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>
+
+		<p class="p_img p_label">
+			<label>场所场景照片：</label>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.OFFICE_PHOTO2|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info.OFFICE_PHOTO2|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.OFFICE_PHOTO3|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info.OFFICE_PHOTO3|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.OFFICE_PHOTO4|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info.OFFICE_PHOTO4|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.OFFICE_PHOTO5|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info.OFFICE_PHOTO5|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>
+		<!--<p class="p_img p_label">
+			<label>收银台照片：</label>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.OFFICE_PHOTO3|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info.OFFICE_PHOTO3|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>
+		<p class="p_img p_label">
+			<label>室内照片：</label>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info.OFFICE_PHOTO4|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info.OFFICE_PHOTO4|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>-->
+		<p class="p_img p_label">
+			<label>其他：</label>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info['OTHER'][0]|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info['OTHER'][0]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info['OTHER'][1]|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info['OTHER'][1]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info['OTHER'][2]|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info['OTHER'][2]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info['OTHER'][3]|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info['OTHER'][3]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$scert_info['OTHER'][4]|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$scert_info['OTHER'][4]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>
+		<p class="p_label">
+			<label>备注信息：</label>
+			<span class="show">{$scert_info.RES}</span>
+		</p>
+		<if condition="(__ACTNAME__ eq 'scert_check') or (__ACTNAME__ eq 'scert_recheck') or (__ACTNAME__ eq 'shop_check') or (__ACTNAME__ eq 'shop_recheck')">
+			<p class="ic_line"></p>
+			<p>
+				<label>审阅标志：</label>
+				<span class="show"><label style="text-align:left;"><input type="checkbox" name="is_pass" value="1" node-type="check_flag">已审阅</label></span>
+			</p>
+			<div class="clear"></div>
+		</if>
+		<div class="clear"></div>
+	</div>
+</div>

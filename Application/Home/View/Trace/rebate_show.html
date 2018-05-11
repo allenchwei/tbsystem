@@ -1,0 +1,62 @@
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		<!-- {:getaction_select(__CONNAME__,__ACTNAME__)} -->
+		<!-- <div class="clear"></div> -->
+	</div>
+	<table class="table" width="100%" layoutH="120">
+		<thead>
+			<tr>
+				<th width="6%" align='center'>商户名称</th>
+				<th width="6%" align='center'>商户手机号</th>
+				<th width="6%" align='center'>金额</th>
+				<th width="6%" align='center'>交易时间</th>
+				<th width="6%" align='center'>返佣</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='info' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.SHOP_MAP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.userName}</td>
+					<td>{$vo.mobile}</td>
+					<td>{$vo.amount|setMoney=###,2,2}</td>
+					<td>{$vo.date1|date_create=###,timezone_open("Asia/Shanghai")|date_format="Y-m-d"} {$vo.date2|date='H:i:s',###}</td>
+					<td>{$vo.commissionAmount|setMoney=###,2,2}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<!-- <div class="panelBar">
+		<div class="pages"><span><a class="statis" href="javascript:;" note-type="getstatis">点击查看统计</a></span></div>
+		<div class="pagination" checkPage="1" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div> -->
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+	<script type="text/javascript">		
+		//页面加载执行
+		$(document).ready(function(){
+			var	navsnum     = $('.tabsPageHeader .navTab-tab .selected').index();
+			var tabscontent = $('.tabsPageContent .unitBox:eq('+navsnum+')');
+			//点击查看统计
+			tabscontent.find('a[note-type="getstatis"]').on('click',  function(){
+				tabscontent.find('.pages').html('<span><img class="loading" src="__PUBLIC__/home/images/loading.gif">统计中...</span>');
+				
+				var	exportdata  = tabscontent.find('#exportdata').val();
+				var url 	    = exportdata ? '__ACTION__' + exportdata + '&submit=__ACTNAME__&ajax=loading' : '__ACTION__?submit=__ACTNAME__&ajax=loading';
+				$.ajaxSettings.global = false;		//关闭框架loading	
+				$.getJSON(url, {}, function(_data) {
+					tabscontent.find('.pages').html('<span>共 '+ _data.count +' 条</span><span>　交易总额 '+ _data.amt +' 元</span>');
+					$.ajaxSettings.global = true;	//开启框架loading	
+				});
+			});
+			//日期选择
+			tabscontent.find('a[note-type="seltime"]').on('click',  function(){
+				var begin = $(this).attr('begin'),end = $(this).attr('end');
+				tabscontent.find('input[name="post[SYSTEM_DATE_A]"]').val(begin);
+				tabscontent.find('input[name="post[SYSTEM_DATE_B]"]').val(end);
+			});
+		});
+	</script>
+</div>

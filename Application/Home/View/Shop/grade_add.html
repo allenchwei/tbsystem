@@ -1,0 +1,40 @@
+<div class="pageContent" style="margin-left: 15%">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p style="margin-left: 3%">
+					<label>商户等级：</label>
+					<select class="combox" name="post[SHOP_GRADE]">
+						<volist name="GRADE_LEVEL" id="vo">
+							<option value="{$key}" <if condition="($scfg_info['SHOP_GRADE'] eq $key)">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p class="p_11 err_offset_6">
+					<label>通道名称：</label>
+					<select class="combox" name="post[HOST_MAP_ID]">
+						<volist name="host_result" id="vo">
+							<option value="{$key}" <if condition="($scfg_info['HOST_MAP_ID'] eq $key)">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="margin-left: 3%">
+					<label>状态：</label>
+					<select class="combox" name="post[STATUS]">
+						<volist name="GRADE_STATUS" id="vo">
+							<option value="{$key}" <if condition="($scfg_info['STATUS'] eq $key)">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>

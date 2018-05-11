@@ -1,0 +1,101 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="model"/>
+	<input type="hidden" name="post[MODEL_TYPE]" value="{$postdata.MODEL_TYPE}"/>
+	<input type="hidden" name="post[MODEL_COMM]" value="{$postdata.MODEL_COMM}"/>
+	<input type="hidden" name="post[MODEL_PRINTER]" value="{$postdata.MODEL_PRINTER}"/>
+	<input type="hidden" name="post[FACTORY_MAP_ID]" value="{$postdata.FACTORY_MAP_ID}"/>
+	<input type="hidden" name="post[MODEL_NAME]" value="{$postdata.MODEL_NAME}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="{:U('/Home/Facility/model')}" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="model">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>厂商名称：</label>
+					<select class="combox" name="post[FACTORY_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="factorysel" id="vo">
+							<option value="{$vo.FACTORY_MAP_ID}" <if condition="$vo['FACTORY_MAP_ID'] eq $postdata['FACTORY_MAP_ID']">selected</if>>{$vo.FACTORY_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>型号名称：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.MODEL_NAME}" name="post[MODEL_NAME]">
+				</p>
+				<p>
+					<label>设备类型：</label>
+					<select class="combox" name="post[MODEL_TYPE]">
+						<option value="">请选择</option>
+						<volist name="model_type['MODEL_TYPE']" id="vo">
+							<option value="{$key}" <if condition="($postdata['MODEL_TYPE'] eq $key) and ($postdata['MODEL_TYPE'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>打印方式：</label>
+					<select class="combox" name="post[MODEL_PRINTER]">
+						<option value="">请选择</option>
+						<volist name="model_type['MODEL_PRINTER']" id="vo">
+							<option value="{$key}" <if condition="($postdata['MODEL_PRINTER'] eq $key) and ($postdata['MODEL_PRINTER'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>通讯方式：</label>
+					<select class="combox" name="post[MODEL_COMM]">
+						<option value="">请选择</option>
+						<volist name="model_type['MODEL_COMM']" id="vo">
+							<option value="{$key}" <if condition="($postdata['MODEL_COMM'] eq $key) and ($postdata['MODEL_COMM'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="175">
+		<thead>
+			<tr>
+				<th width="10%" align='center'>厂商ID</th>
+				<th width="30%">厂商名称</th>
+				<th width="10%" align='center'>型号名称</th>
+				<th width="10%" align='center'>设备类型</th>
+				<th width="10%" align='center'>通讯方式</th>
+				<th width="10%" align='center'>打印方式</th>
+				<th width="20%">备注</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.MODEL_MAP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.MODEL_MAP_ID}</td>
+					<td>{$vo.FACTORY_NAME}</td>
+					<td>{$vo.MODEL_NAME}</td>
+					<td>{$model_type['MODEL_TYPE'][$vo['MODEL_TYPE']]}</td>
+					<td>{$model_type['MODEL_COMM'][$vo['MODEL_COMM']]}</td>
+					<td>{$model_type['MODEL_PRINTER'][$vo['MODEL_PRINTER']]}</td>
+					<td>{$vo.MODEL_REMARK}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+
+	
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

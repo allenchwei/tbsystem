@@ -1,0 +1,213 @@
+<style>
+
+.err_offset_1 .error{left:100px;}
+.err_offset_2 .error{left:125px;}
+.err_offset_3 .error{left:255px;}
+.err_offset_4 .error{left:230px;}
+.err_offset_4_4 .error{left:548px;}
+.err_offset_5 .error{left:151px;}
+.err_offset_5_1 .error{left:115px;}
+.err_offset_5_2 .error{left:501px;}
+.err_offset_6 .error{left:180px;}
+.err_offset_6_1 .error{left:55px;}
+.other p label{width:110px;}
+.other p code{width:55px;display: inline-block;}
+/* 图片上传中的样式 */
+div.upimgbtndiv{width:100px;float:left; margin: 0 10px;}
+.uploadify-button{background-image: none;}
+.uploadify:hover .uploadify-button{background-image: none;background-color: #324e75;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.AD_ID" value="0">
+			<input type="hidden" name="post[AD_ID]" value="{$info.AD_ID}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>广告名称：</label>
+					<input type="text" value="{$info.AD_NAME}" name="post[AD_NAME]" class="required ws416" maxlength="40"/>
+				</p>
+				<p>
+					<label>广告分类：</label>
+					<select class="combox" name="post[AD_TYPE]">
+						<volist name="ad_type_list" key="k" id="vo">
+							<option value="{$k}" <if condition="$info['AD_TYPE'] eq $vo">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content50">
+				<div class="p_img_2" style="width:100%">
+					<label>广告图片</label>
+					<input type="hidden" name="post[AD_PIC]" value="{$info.AD_PIC}">
+					<div class="upimgbtndiv">
+						<a href="javascript:;" id='AD_PIC' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+					</div>
+					<div class="tp_gb">
+						<img src="{$info[AD_PIC]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic" onerror="javascript:this.src='../../../Public/home/images/gszp.png'">
+						<a href="javascript:;" <empty name="scert_info[AD_PIC]">style="display:block;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="delpic" target_name="scert[AD_PIC]"></a>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			<div class="content100">
+				<p>
+					<label>链接地址</label>
+					<input type="text" value="{$info.AD_URL}" name="post[AD_URL]" class="ws416" maxlength="100"/>
+				</p>
+				<p>
+					<label>排序：</label>
+					<input type="text" value="{$info.AD_ORDER}" name="post[AD_ORDER]" class="digits" maxlength="6"/>
+				</p>
+				<p>
+					<label>渠道：</label>
+					<select class="combox" name="post[CHANNEL_MAP_ID]">
+						<volist name="channel_list" id="vo">
+							<option value="{$vo.CHANNEL_MAP_ID}" <if condition="$info['CHANNEL_MAP_ID'] eq $vo[CHANNEL_MAP_ID]">selected</if>>{$vo.CHANNEL_NAMEAB}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>状态：</label>
+					<select class="combox" name="post[STATUS]">
+						<volist name="status" id="vo">
+							<option value="{$key}" <if condition="$info['STATUS'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+	<script type="text/javascript">
+		//删除图片
+		$('img[node-type="delpic"]').on('click',function(){
+			var param1 = $(this).closest('div.p_img_2'),
+				param2 = $(this).closest('div.tp_gb'),
+				target_name = $(this).attr('target_name');
+			param1.find('input[name="'+target_name+'"]').val('');
+			param2.find('img[node-type="pic"]').attr('src','../../../Public/home/images/gszp.png');
+			$(this).closest('a').hide();
+		})
+		//删除其他图片
+		$('img[node-type="del_other_pic"]').on('click',function(){
+			var param1 = $(this).closest('div.p_img_2'),
+				param2 = $(this).closest('div.tp_gb'),
+				target_name = $(this).attr('target_name');
+				param2.find('img[node-type="pic"]').attr('src','../../../Public/home/images/gszp.png');
+				$(this).closest('a').hide();
+			//param1.find('input[name="'+target_name+'"]').val('');
+		 	var img_arr = param1.find('img[node-type="pic"]');
+			//拼装图片路径字串
+ 			var img_url = '';
+ 			$.each(img_arr, function(i) {
+			     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+			     if(flag == '../../../Public/home/images/gszp.png'){
+			     	img_url+=',';
+			     }else{
+			     	img_url+=','+flag;
+			     }
+			});
+			console.log(img_url);
+			var img_path = img_url.substring(1);
+			param1.find('input[name="scert[OTHER_PHOTOS]"]').val(img_path);
+		})
+		var uploadify_onSelectError = function(file, errorCode, errorMsg) {
+	        var msgText = "上传失败\n";
+	        switch (errorCode) {
+	            case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
+	                //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+	                msgText += "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+	                msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+	                msgText += "文件大小为0";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+	                msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
+	                break;
+	            default:
+	                msgText += "错误代码：" + errorCode + "\n" + errorMsg;
+	        }
+	        alert(msgText);
+	    };
+		 
+		var uploadify_onUploadError = function(file, errorCode, errorMsg, errorString) {
+	        // 手工取消不弹出提示
+	        if (errorCode == SWFUpload.UPLOAD_ERROR.FILE_CANCELLED
+	                || errorCode == SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED) {
+	            return;
+	        }
+	        var msgText = "上传失败\n";
+	        switch (errorCode) {
+	            case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
+	                msgText += "HTTP 错误\n" + errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.MISSING_UPLOAD_URL:
+	                msgText += "上传文件丢失，请重新上传";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.IO_ERROR:
+	                msgText += "IO错误";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
+	                msgText += "安全性错误\n" + errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
+	                msgText += "每次最多上传 " + this.settings.uploadLimit + "个";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
+	                msgText += errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.SPECIFIED_FILE_ID_NOT_FOUND:
+	                msgText += "找不到指定文件，请重新操作";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
+	                msgText += "参数错误";
+	                break;
+	            default:
+	                msgText += "文件:" + file.name + "\n错误码:" + errorCode + "\n"
+	                        + errorMsg + "\n" + errorString;
+	        }
+	        alert(msgText);
+	    }
+		//广告图片
+		$('#AD_PIC').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'onInit': function () {                        //隐藏进度条
+               $("#AD_PIC-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#AD_PIC').closest('div.p_img_2');
+		 			param.find('div.tp_gb img[node-type="pic"]').attr('src',resjson.result);
+		 			param.find('div.tp_gb a').show();
+		 			param.find('input[name="post[AD_PIC]"]').val(resjson.result);
+	        }
+        });
+	</script>
+</div> 

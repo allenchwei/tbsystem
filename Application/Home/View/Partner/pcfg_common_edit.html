@@ -1,0 +1,46 @@
+<!-- 合作伙伴其他配置 -->
+	<div class="pageFormContent err_offset_4_1">
+		<div class="content100">
+			<p>
+				<label style="width:160px;">预免卡是否按特殊比例回收：</label>
+				<span>
+					<label style="width: 35px"><input type="radio" node-type="other_flag" value="0" name="pcfg[DIV_FLAG]" <if condition="$pcfg_info['DIV_FLAG'] eq 0">checked<elseif condition="$pcfg_info['DIV_FLAG'] eq ''"/> checked </if>>否</label>
+					<label style="width: 50px"><input type="radio" node-type="other_flag" value="1" name="pcfg[DIV_FLAG]" <eq name="pcfg_info.DIV_FLAG" value="1">checked</eq>>是</label>
+				</span>	
+			</p>
+			<div class="other_box" <if condition="$pcfg_info['DIV_FLAG'] neq 1"> style="display:none;"</if>>
+				<p class="label_100">
+					<label style="width:160px;">卡费金额：</label>
+					<empty name="pcfg_info['CARD_OPENFEE']">
+						<input type="text" name="pcfg[CARD_OPENFEE]" value="{$pcfg_info.CARD_OPENFEE|default='30.00'}" class="doubles ws13" min="0" max="10000" maxlength="8"/>　元
+						<else />
+						<input type="text" name="pcfg[CARD_OPENFEE]" value="{$pcfg_info.CARD_OPENFEE|setMoney=###,2,2}" class="doubles ws13" min="0" max="10000" maxlength="8"/>　元
+					</empty>
+				</p>
+				<p class="label_100">
+					<label style="width:160px;">预免卡分期回收比例：</label>
+					<input type="text" name="pcfg[DIV_PER]" value="{$pcfg_info.DIV_PER|default='20'}" class="doubles ws13" min="1" max="100" maxlength="6"/>　%
+				</p>
+			</div>
+			<div class="other_box1" <if condition="$pcfg_info['DIV_FLAG'] neq 0"> style="display:none;"</if>>
+				<p>（默认回收规则，卡费金额30元，回收比例20%）</p>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		//其他配置切换
+		$('input[node-type="other_flag"]').on('click',function(){
+			switch($(this).val()){
+				case '0' :
+					$('.other_box').hide();
+					$('.other_box1').show();
+					$('.other_box').find('input').removeClass('required');
+				break;
+				case '1' :
+					$('.other_box').show();
+					$('.other_box1').hide();
+					$('.other_box').find('input').addClass('required');
+				break;
+			}
+		})
+	</script>

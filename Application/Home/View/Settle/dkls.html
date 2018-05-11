@@ -1,0 +1,246 @@
+<style>
+	div.upimgbtndiv{cursor: pointer;display: inline-block;vertical-align:top;}
+	div.upimgbtndiv .uploadify{margin-bottom:0;}
+	.uploadify-button{background-image: none;background-color: #324e75;}
+	div.upimgbtndiv .uploadify-button{height: 17px;}
+	.uploadify:hover .uploadify-button{background-image: none;background-color: #324e75;}
+</style>
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[BRANCH_MAP_ID]" value="{$postdata.BRANCH_MAP_ID}"/>
+	<input type="hidden" name="post[PARTNER_MAP_ID]" value="{$postdata.PARTNER_MAP_ID}"/>
+	<input type="hidden" name="post[SETTLE_DATE_A]" value="{$postdata.SETTLE_DATE_A}"/>
+	<input type="hidden" name="post[SETTLE_DATE_B]" value="{$postdata.SETTLE_DATE_B}"/>
+	<input type="hidden" name="post[DKCO_MAP_ID]" value="{$postdata.DKCO_MAP_ID}"/>
+	<input type="hidden" name="post[DK_FLAG]" value="{$postdata.DK_FLAG}"/>
+	<input type="hidden" name="post[SHOP_NAME]" value="{$postdata.SHOP_NAME}"/>
+	<input type="hidden" name="post[SEA_TITLE]" value="{$postdata.SEA_TITLE}"/>
+	<input type="hidden" name="post[DK_ORDER_ID]" value="{$postdata.DK_ORDER_ID}"/>
+	<input type="hidden" name="post[BANKACCT_NO]" value="{$postdata.BANKACCT_NO}"/>
+	<input type="hidden" id="exportdata" value="{$exportdata}"/><!-- Excel导出 -->
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>　　归属：</label>
+					{:get_level_sel($postdata['BRANCH_MAP_ID'],'-1','plv[]',$postdata['PARTNER_MAP_ID'],5)}
+				</p>
+				<div class="clear"></div>				
+				<p>
+					<label>代扣公司：</label>
+					<select class="combox" name="post[DKCO_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="dk_list" id="vo">
+							<option value="{$key}" <if condition="($postdata['DKCO_MAP_ID'] eq $key) and ($postdata['DKCO_MAP_ID'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>代扣结果：</label>
+					<select class="combox" name="post[DK_FLAG]">
+						<option value="">请选择</option>
+						<volist name="dk_flag" id="vo">
+							<option value="{$key}" <if condition="($postdata['DK_FLAG'] eq $key) and ($postdata['DK_FLAG'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<span>
+						<label>代扣日期：</label>
+						<input class="input01 textInput date f_l readonly" type="text" value="{$postdata.SETTLE_DATE_A}" name="post[SETTLE_DATE_A]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+					<code class="code"> ~ </code>
+					<span>
+						<input class="input01 textInput date f_l readonly" type="text" value="{$postdata.SETTLE_DATE_B}" name="post[SETTLE_DATE_B]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+				</p>
+				<p>
+					<label>商户简称：</label>
+					<input class="input01 textInput f_l" type="text" value="{$postdata.SHOP_NAME}" name="post[SHOP_NAME]" maxlength="25">
+				</p>
+				<p>
+					<label>银行账号：</label>
+					<input class="input01 textInput f_l" type="text" value="{$postdata.BANKACCT_NO}" name="post[BANKACCT_NO]" maxlength="25">
+				</p>
+				<p class="newalt">
+					<label>　关键字：</label>
+					<input class="input01 textInput f_l" type="text" value="{$postdata.SEA_TITLE}" name="post[SEA_TITLE]" maxlength="25" alt="银行名称、备注">
+				</p>
+				<p>
+					<label>代扣订单ID：</label>
+					<input class="input01 textInput f_l" type="text" value="{$postdata.DK_ORDER_ID}" name="post[DK_ORDER_ID]" maxlength="25">
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="209">
+		<thead>
+			<tr>
+				<th width="7%" align='center'>日期</th>
+				<th width="6%" align='center'>批次</th>
+				<th width="8%" >商户名称</th>
+				<th width="8%" >商户简称</th>
+				<th width="7%" >归属</th>
+				<th width="7%" >银行账号</th>
+				<th width="9%" >开户行</th>
+				<th width="4%" align='right'>总笔数</th>
+				<th width="4%" align='right'>总金额</th>
+				<th width="4%" align='right'>手续费</th>
+				<th width="10%" >代扣公司</th>
+				<th width="11%" align='center'>代扣时间</th>
+				<th width="5%" align='center'>代扣结果</th>
+				<th width="10%" >备注</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.DK_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.SETTLE_DATE}</td>
+					<td>{$vo.JFB_DK_REF}</td>
+					<td>{:get_shop_data($vo['SHOP_NO'])[SHOP_NAME]}</td>
+					<td>{$vo.SHOP_NAME}</td>
+					<td>{$vo.BRANCH_MAP_ID|get_branch_name=###,$vo['PARTNER_MAP_ID']}</td>
+					<td>{$vo.BANKACCT_NO}</td>
+					<td>{$vo.BANK_NAME}</td>
+					<td>{$vo.TRANS_CNT}</td>
+					<td>{$vo.DK_AMT|setMoney=###,2,2}</td>
+					<td>{$vo.DK_FEE|setMoney=###,2,2}</td>
+					<td>{$vo.DKCO_MAP_ID|get_dkco_name=###}</td>
+					<td>{$vo.DK_DATE} {$vo.DK_TIME}</td>
+					<td>{$dk_flag[$vo[DK_FLAG]]}</td>
+					<td>{$vo.RES}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>	
+	<div class="panelBar">
+		<div class="pages"><span><a class="statis" href="javascript:;" note-type="getstatis">点击查看统计</a></span></div>
+		<div class="pagination" checkPage="1" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+	<script type="text/javascript">
+		var uploadify_onSelectError = function(file, errorCode, errorMsg) {
+	        var msgText = "上传失败\n";
+	        switch (errorCode) {
+	            case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
+	                //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+	                msgText += "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+	                msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+	                msgText += "文件大小为0";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+	                msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
+	                break;
+	            default:
+	                msgText += "错误代码：" + errorCode + "\n" + errorMsg;
+	        }
+	        alert(msgText);
+	    };
+		 
+		var uploadify_onUploadError = function(file, errorCode, errorMsg, errorString) {
+	        // 手工取消不弹出提示
+	        if (errorCode == SWFUpload.UPLOAD_ERROR.FILE_CANCELLED || errorCode == SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED) {
+	            return;
+	        }
+	        var msgText = "上传失败\n";
+	        switch (errorCode) {
+	            case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
+	                msgText += "HTTP 错误\n" + errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.MISSING_UPLOAD_URL:
+	                msgText += "上传文件丢失，请重新上传";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.IO_ERROR:
+	                msgText += "IO错误";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
+	                msgText += "安全性错误\n" + errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
+	                msgText += "每次最多上传 " + this.settings.uploadLimit + "个";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
+	                msgText += errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.SPECIFIED_FILE_ID_NOT_FOUND:
+	                msgText += "找不到指定文件，请重新操作";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
+	                msgText += "参数错误";
+	                break;
+	            default:
+	                msgText += "文件:" + file.name + "\n错误码:" + errorCode + "\n"
+	                        + errorMsg + "\n" + errorString;
+	        }
+	        alert(msgText);
+	    }
+		//文件上传
+		$('#EXCEL_qbinport').uploadify({
+			'height' 	    : '26px',
+            'width'         : '86px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD,
+				'type'  	: 1,
+				'action'  	: 'upload_qbls',
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    	//指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadComeFile/',    		  			//指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '&nbsp;&nbsp;钱宝导入',
+            'buttonClass' 	: 'ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'hideButton' 	: true,
+            'auto'	   		: true,
+            'multi'       	: false,
+            'fileTypeExts'  : '*.xls',
+            'fileSizeLimit' : '2MB',
+            'overrideEvents' : [ 'onDialogClose', 'onUploadError', 'onSelectError' ],
+            'onInit': function () {                        //隐藏进度条
+               $("#EXCEL_crisk-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data);
+				alert(resjson.msg);
+	        },
+	        'onUploadError' : uploadify_onUploadError,
+	        'onSelectError' : uploadify_onSelectError
+        });
+		
+		//页面加载执行
+		$(document).ready(function(){
+			var	navsnum     = $('.tabsPageHeader .navTab-tab .selected').index();
+			var tabscontent = $('.tabsPageContent .unitBox:eq('+navsnum+')');
+			//点击查看统计
+			tabscontent.find('a[note-type="getstatis"]').on('click',  function(){
+				tabscontent.find('.pages').html('<span><img class="loading" src="__PUBLIC__/home/images/loading.gif">统计中...</span>');
+				
+				var	exportdata  = tabscontent.find('#exportdata').val();
+				var url 	    = exportdata ? '__ACTION__' + exportdata + '&submit=__ACTNAME__&ajax=loading' : '__ACTION__?submit=__ACTNAME__&ajax=loading';
+				$.ajaxSettings.global = false;		//关闭框架loading	
+				$.getJSON(url, {}, function(_data) {
+					tabscontent.find('.pages').html('<span>共 '+ _data.count +' 条</span><span>　总金额 '+ _data.amt +' 元</span><span>　代扣手续费总额 '+ _data.fee +' 元</span>');
+					$.ajaxSettings.global = true;	//开启框架loading	
+				});
+			});
+		});
+	</script>
+</div>

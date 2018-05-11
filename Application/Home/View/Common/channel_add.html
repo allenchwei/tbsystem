@@ -1,0 +1,151 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<notempty name="info['CHANNEL_MAP_ID']">
+			<input type="hidden" name="post[CHANNEL_MAP_ID]" value="{$info.CHANNEL_MAP_ID}">
+		</notempty>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content30">
+				<p style="width:66.66%">
+					<label>渠道名称：</label>
+					<input type="text" value="{$info.CHANNEL_NAME}" name="post[CHANNEL_NAME]" class="required ws416" maxlength="26"/>
+				</p>
+				<p>
+					<label>渠道简称：</label>
+					<input type="text" value="{$info.CHANNEL_NAMEAB}" name="post[CHANNEL_NAMEAB]" class="required" maxlength="13"/>
+				</p>
+				<p style="width:66.66%">
+					<label>所在城市：</label>
+					{$info.CITY_NO|getcity_select=###,'post[CITY_NO]'}
+				</p>
+				<p>
+					<label>邮编：</label>
+					<input type="text" value="{$info.ZIP}" name="post[ZIP]" class="digits required" maxlength="6"/>
+				</p>
+				<p style="width:100%">
+					<label>&nbsp;</label>
+					<input type="text" value="{$info.ADDRESS}" name="post[ADDRESS]" class="required ws416" maxlength="30"/>
+				</p>
+				<p>
+					<label>联系人：</label>
+					<input type="text" value="{$info.MANAGER}" name="post[MANAGER]" class="required" maxlength="13"/>
+				</p>
+				<p style="width:66.66%">
+					<label>联系手机：</label>
+					<input type="text" value="{$info.MOBILE}" name="post[MOBILE]" class="required digits" maxlength="11"/>
+				</p>
+				<p>
+					<label>联系电话：</label>
+					<input type="text" value="{$info.TEL}" name="post[TEL]" maxlength="15"/>
+				</p>
+				<p>
+					<label>联系邮箱：</label>
+					<input type="text" value="{$info.EMAIL}" class="email_auto" name="post[EMAIL]" maxlength="40"/>
+				</p>
+				<p>
+					<label>状态：</label>
+					<select class="combox" name="post[CHANNEL_STATUS]">
+						<volist name="channel_status" id="vo">
+							<option value="{$key}" <if condition="$info['CHANNEL_STATUS'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:100%">
+					<label>结算周期：</label>
+					<input type="text" value="{$ccls_info.SETTLE_T}" name="post[SETTLE_T]" class="required" maxlength="2" /> &nbsp;天
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content30">
+				<p style="width:100%">
+					<label>代付通道：</label>
+					<p>
+					<volist name="host_list" id="vo">
+					<if condition="$vo['HOST_STATUS'] eq 0 and $vo['CHANNEL'] neq ''">
+					<label>{$vo.HOST_MAP_ID}</label><input type="checkbox" value="{$vo.HOST_MAP_ID}" <if condition="in_array($vo['HOST_MAP_ID'],$host_map_dflist)">checked</if> name="HOST_MAP_DFLIST[]"/>{$vo.HOST_NAME}<br/>
+					</if>
+					</volist>
+					</p>
+				</p>
+			</div>
+			<div class="content30">
+				<p style="width:100%">
+					<label>OEM配置信息</label>
+				</p>
+				<p style="width:100%">
+					<label>支付通道：</label>
+					<p>
+					<volist name="host_list" id="vo">
+					<if condition="$vo['HOST_STATUS'] eq 0 and $vo['CHANNEL'] neq ''">
+					<label>{$vo.HOST_MAP_ID}</label><input type="checkbox" value="{$vo.HOST_MAP_ID}" <if condition="in_array($vo['HOST_MAP_ID'],$host_map_list)">checked</if> name="HOST_MAP_LIST[]"/>{$vo.HOST_NAME}<br/>
+					</if>
+					</volist>
+					</p>
+				</p>
+				<p style="width:100%">
+					<label>递减扣率(万分比)：</label>
+					<input type="text" value="{$info.MINUS_FEE}" name="post[MINUS_FEE]" maxlength="5"/>
+				</p>
+			</div>
+			<div class="content30">
+				<p style="width:100%">
+					<label>下游配置信息</label>
+				</p>
+				<p>
+					<label>系统商户号：</label>
+					<input type="text" value="{$info.MCH_ID}" name="post[MCH_ID]" maxlength="15"/>
+				</p>
+				<p style="width:50%">
+					<label>系统密钥：</label>
+					<input type="text" value="{$info.KEYT}" name="post[KEYT]" class="ws26" maxlength="32"/>
+				</p>
+				<p>
+					<label>对应正常通道：</label>
+					<select class="combox" name="post[HOST_MAP_ID]">
+						<option value="0">请选择</option>
+						<volist name="host_list" id="vo">
+							<option value="{$vo.HOST_MAP_ID}" <if condition="$info['HOST_MAP_ID'] eq $vo[HOST_MAP_ID] and $info['HOST_MAP_ID'] neq ''">selected</if>>{$vo['HOST_NAME']}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:50%">
+					<label>对应快捷通道：</label>
+					<select class="combox" name="post[HOST_MAP_ID_KJ]">
+						<option value="0">请选择</option>
+						<volist name="host_list" id="vo">
+							<option value="{$vo.HOST_MAP_ID}" <if condition="$info['HOST_MAP_ID_KJ'] eq $vo[HOST_MAP_ID] and $info['HOST_MAP_ID_KJ'] neq ''">selected</if>>{$vo['HOST_NAME']}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>对应网关通道：</label>
+					<select class="combox" name="post[HOST_MAP_ID_WG]">
+						<option value="0">请选择</option>
+						<volist name="host_list" id="vo">
+							<option value="{$vo.HOST_MAP_ID}" <if condition="$info['HOST_MAP_ID_WG'] eq $vo[HOST_MAP_ID] and $info['HOST_MAP_ID_WG'] neq ''">selected</if>>{$vo['HOST_NAME']}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:50%">
+					<label>对应低扣通道：</label>
+					<select class="combox" name="post[HOST_MAP_ID_DK]">
+						<option value="0">请选择</option>
+						<volist name="host_list" id="vo">
+							<option value="{$vo.HOST_MAP_ID}" <if condition="$info['HOST_MAP_ID_DK'] eq $vo[HOST_MAP_ID] and $info['HOST_MAP_ID_DK'] neq ''">selected</if>>{$vo['HOST_NAME']}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:50%">
+					<label>代付手续费(每笔)：</label>
+					<input type="text" value="{$info.DF_FEE|setMoney=###,2,2}" name="post[DF_FEE]" maxlength="5"/>
+				</p>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>

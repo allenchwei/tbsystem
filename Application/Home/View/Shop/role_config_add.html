@@ -1,0 +1,82 @@
+<style>
+.er1 .error{left:125px}
+.er2 .error{left:255px}
+.er2 p{text-align:right;}
+.er2 p label{float:none;}
+.rate .kl span.error{left: 69px;}
+.rate .xz span.error{left:250px}
+.jies2 .xz span.error{left:280px}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.ID" value="0">
+			<input type="hidden" name="post[ID]" value="{$info.ID}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div>
+				<p style="width:100%;">
+					<label>等级：</label>
+					<input class="input01 textInput required" type="text" value="{$info.R_ID}" name="post[R_ID]">
+				</p>
+				<p style="width:100%;">
+					<label>渠道：</label>
+					<select name="post[CHANNEL_MAP_ID]">
+						<option value="0">请选择</option>
+						<volist name="channel_list" id="vo">
+						<option value="{$vo[CHANNEL_MAP_ID]}" <if condition="$info[CHANNEL_MAP_ID] eq $vo[CHANNEL_MAP_ID]">selected</if>>{$vo[CHANNEL_NAME]}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:100%;">
+					<label>角色名称：</label>
+					<input class="input01 textInput required" type="text" value="{$info.R_NAME}" name="post[R_NAME]">
+				</p>
+				<p style="width:100%;">
+					<label>角色申请费用：</label>
+					<input class="input01 textInput" type="text" value="{$info.R_APPLYAMT|setMoney=###,2,2}" name="post[R_APPLYAMT]">
+				</p>
+				<p style="width:100%;">
+					<label>返佣比例扣率线(万分比)：</label>
+					<input class="input01 textInput" type="text" value="{$info.R_FEE}" name="post[R_FEE]">
+				</p>
+				<p style="width:100%;">
+					<label>返佣固定费用：</label>
+					<input class="input01 textInput" type="text" value="{$info.R_AMT|setMoney=###,2,2}" name="post[R_AMT]">
+				</p>
+				<p style="width:100%;">
+					<label>返佣上级费用：</label>
+					<input class="input01 textInput" type="text" value="{$info.R_UPSAMT|setMoney=###,2,2}" name="post[R_UPSAMT]">
+				</p>
+				<p style="width:100%;">
+					<label>下级升级创业合伙人返佣固定费用：</label>
+					<input class="input01 textInput" type="text" value="{$info.R_RAMT|setMoney=###,2,2}" name="post[R_RAMT]">
+				</p>
+				<p style="width:100%;">
+					<label>返佣第二级费用：</label>
+					<input class="input01 textInput" type="text" value="{$info.R_UPSAMT_SEC|setMoney=###,2,2}" name="post[R_UPSAMT_SEC]">
+				</p>
+				<p style="width:100%;">
+					<label>返佣第三级费用：</label>
+					<input class="input01 textInput" type="text" value="{$info.R_UPSAMT_THR|setMoney=###,2,2}" name="post[R_UPSAMT_THR]">
+				</p>
+				<p style="width:100%;">
+					<label>级别说明：</label>
+					<textarea style="width:300px;height:100px;" name="post[RES]">{$info.RES}</textarea>
+				</p>
+				<p style="width:100%;">
+					<label>状态：</label>
+					<input type="radio" name="post[STATUS]" value="0" checked/>启用
+					<input type="radio" name="post[STATUS]" value="1"/>关闭
+				</p>
+				<div class="clear"></div>
+			</div>		
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>

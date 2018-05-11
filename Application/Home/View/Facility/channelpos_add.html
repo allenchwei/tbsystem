@@ -1,0 +1,166 @@
+<style>
+.err_offset_1 .error{left:155px;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="info.POS_BACK_ID" value="0">
+		<input type="hidden" name="post[submit]" value="channelpos_edit">
+		<input type="hidden" name="post[POS_BACK_ID]" value="{$info.POS_BACK_ID}">
+		<input type="hidden" name="post[POS_ID]" value="{$info.POS_ID}">
+	<else />
+		<input type="hidden" name="post[submit]" value="channelpos_add">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p style="width:50%">
+					<label style="width:140px;">POS机所属三方公司：</label>
+						<select class="combox" name="post[CHANNEL_MAP_ID]" node-type="chennel">
+							<volist name="channel_list" id="vo">
+								<option value="{$vo.CHANNEL_MAP_ID}" <eq name="info['CHANNEL_MAP_ID']" value="$vo['CHANNEL_MAP_ID']">selected</eq>>{$vo.CHANNEL_NAME}</option>
+							</volist>
+						</select>
+				</p>
+				<p style="width:50%">
+					<span class="show">下拉选择，如果不在下拉框内，参见底下注1</span>
+				</p>
+				<p class="err_offset_1" style="width:50%">
+					<label style="width:140px;">三方商户号：</label>
+					<input type="text" class="required digits ws20" name="post[SHOP_NO2]" value="{$info.SHOP_NO2}" maxlength="15"/>
+				</p>
+				<p style="width:50%">
+					<span class="show">15位数字，如果输入完后提示不存在，参见底下注3</span>
+				</p>
+				<p class="err_offset_1" style="width:50%">
+					<label style="width:140px;">平台商户号：</label>
+					<input type="text" class="required digits ws20" name="post[SHOP_NO1]" value="{$info.SHOP_NO1}" maxlength="15"/>
+				</p>
+				<p style="width:50%">
+					<span class="show">15位数字，如果输入完后提示不存在，参见底下注2</span>
+				</p>
+
+				<p class="err_offset_1">
+					<label style="width:140px;">终端号：</label>
+					<input type="text" class="required ws20" name="post[POS_NO]" value="{$info.POS_NO}" maxlength="8"/>
+				</p>
+				<!-- 银行卡扣率 -->
+<!-- 	<p style="width:100%;text-align:left;">
+		<label style="font-size:14px;width:100%;text-align:left;">银行卡扣率:</label>	
+		<input type="hidden" name="smdr[PAY_TYPE]" value="0">
+	</p> -->
+	<div class="clear"></div>
+	<div class="jies1">
+		<input type="hidden" name="smdr[PAY_TYPE]" value="0">
+		<p>
+			<label style="width:140px;">商户收单扣率：</label>	
+			<input type="text" style="width: 100px;" value="{$smdr_info['PER_FEE']|setMoney=###, '2', '2'}" date-type="PER_FEE" name="smdr[PER_FEE]" class="required doubles" min="0" max="100">　%
+		</p>
+		<p>
+			<label style="width:140px;">积分宝扣率：</label>	
+			<input type="text" style="width: 100px;" value="{$smdr_info['JFB_PER_FEE']|setMoney=###, '2', '2'}" date-type="JFB_PER_FEE" name="smdr[JFB_PER_FEE]" class="required doubles" min="0" max="100">　%
+		</p>
+	</div>
+	<div class="jies2">
+		<div class="content100" node-type="check">
+			<p class="err_offset_4">
+				<empty name="smdr_info['FIX_FEE']">
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="0" node-type="disable-checkbox" data-target="smdr[FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<input type="text" style="background:#eee" disabled="disabled" class="host_input ws10 doubles" name="smdr[FIX_FEE]" value="{$smdr_info['FIX_FEE']|setMoney=###, '2', '2'}" >　元/笔
+				<else />
+					<span><label style="width:100px;"><input type="checkbox" value="1" checked name="moneytop" node-type="disable-checkbox" data-target="smdr[FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">收单封顶金额：</label>
+					<input type="text" name="smdr[FIX_FEE]" value="{$smdr_info['FIX_FEE']|setMoney=###, '2', '2'}" class="host_input ws10 doubles">　元/笔
+				</empty>
+			</p>
+			<p class="err_offset_4">
+				<empty name="smdr_info['JFB_FIX_FEE']">
+					<span><label style="width:100px;"><input type="checkbox" name="moneytop" value="0" node-type="disable-checkbox" data-target="smdr[JFB_FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">积分宝封顶金额：</label>
+					<input type="text" style="background:#eee" disabled="disabled" class="host_input ws10 doubles" name="smdr[JFB_FIX_FEE]" value="{$smdr_info['JFB_FIX_FEE']|setMoney=###, '2', '2'}" >　元/笔
+				<else />
+					<span><label style="width:100px;"><input type="checkbox" value="1" checked name="moneytop" node-type="disable-checkbox" data-target="smdr[JFB_FIX_FEE]">封顶</label></span>
+					<label style="width:125px;">积分宝封顶金额：</label>
+					<input type="text" name="smdr[JFB_FIX_FEE]" value="{$smdr_info['JFB_FIX_FEE']|setMoney=###, '2', '2'}" class="host_input ws10 doubles">　元/笔
+				</empty>
+			</p>
+		</div>
+	</div>
+	<p class="ic_line"></p>
+
+				<p>
+					<label style="width:140px;">价格：</label>
+					<input type="text" class="ws20" name="post[PRICE]" value="{:setMoney($info['PRICE'],2,2)}" maxlength="15"/>
+				</p>
+				<p>
+					<label style="width:140px;">押金：</label>
+					<input type="text" class="ws20" name="post[DEPOSIT]" value="{:setMoney($info['DEPOSIT'],2,2)}" maxlength="15"/>
+				</p>
+				<p>
+					<label style="width:140px;">租金：</label>
+					<input type="text" class="ws20" name="post[RENTAL]" value="{:setMoney($info['RENTAL'],2,2)}" maxlength="15"/>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<p class="ic_line" style="margin-top:55px;"></p>
+			<div style="width:100%;color: red;" class="remark">
+				<p style="width:100%;">
+					<span>注1：总部需要先在【运营管理】-【公共管理】-【渠道管理（第三方）】，添加并审核通过。</span>	
+				</p>
+				<p style="width:100%;">
+					<span>注2：服务中心先在【运营管理】-【商户管理】-【商户管理】-【进件】（第三方渠道部分选择第三方公司，并输入商户编号）总部对该第三方商户进行审核，复核。</span>		
+				</p>
+				<p></p>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+	<script type="text/javascript">
+		//通过商户号自动获取商户名称
+		/*$('input[name="post[SHOP_NO]').on('blur',function(){
+			var shop_no = $(this).val();
+			$.ajax({
+			   type: "POST",
+			   url : "/index.php/Home/Public/ajaxgetshopname",
+			   data: "shop_no="+ shop_no,
+			   success: function(data){
+			   		var shop_name = data ? data.SHOP_NAME : '';
+			   		$('span[node-type="shop_name"]').html(shop_name ? shop_name : '商户不存在');
+			   		$('input[name="post[SHOP_NAME]"]').val(shop_name);
+			   }
+			});
+		})
+		//通过商户号自动获取通道商户名称
+		$('input[name="post[HSHOP_NO]').on('blur',function(){
+			var hshop_no = $(this).val();
+			$.ajax({
+			   type: "POST",
+			   url : "/index.php/Home/Public/ajaxgethshopname",
+			   data: "hshop_no="+ hshop_no,
+			   success: function(data){
+			   		var hshop_name = data ? data.HSHOP_NAME : '';
+			   		$('span[node-type="hshop_name"]').html(hshop_name ? hshop_name : '商户不存在');
+			   		$('input[name="post[HSHOP_NAME]"]').val(hshop_name);
+			   }
+			});
+		})*/
+		//勾选激活输入框
+		$('input[node-type="disable-checkbox"]').on('click',function(){
+			var param = $(this).attr('data-target');
+			var is_check = $(this).is(':checked');
+			if (is_check) {
+				$('input[name="'+ param +'"]').removeAttr("disabled").css({ background: "#fff" });
+			}else{
+				$('input[name="'+ param +'"]').attr("disabled","disabled").css({ background: "#eee" });
+			};
+		})
+		//现金要和积分宝扣率一样
+		/*$('input[name="smdr[mdr][1][JFB_PER_FEE]"]').on('keyup',function(){
+			$(input[name="smdr[mdr][0][JFB_PER_FEE]"]).val($(this).val());
+		})*/
+	</script>
+</div>

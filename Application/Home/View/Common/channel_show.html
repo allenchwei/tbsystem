@@ -1,0 +1,73 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content30">
+			<p style="width:66.66%">
+				<label>渠道名称：</label>
+				<span class="show">{$info.CHANNEL_NAME}</span>
+			</p>
+			<p>
+				<label>渠道简称：</label>
+				<span class="show">{$info.CHANNEL_NAMEAB}</span>
+			</p>
+			<p style="width:66.66%">
+				<label>所在城市：</label>
+				<span class="show">{$info.CITY_NO|getcity_name=###}{$info.ADDRESS}</span>
+			</p>
+			<p>
+				<label>邮编：</label>
+				<span class="show">{$info.ZIP}</span>
+			</p>
+			<p>
+				<label>联系人：</label>
+				<span class="show">{$info.MANAGER}</span>
+			</p>
+			<p style="width:66.66%">
+				<label>联系手机：</label>
+				<span class="show">{$info.MOBILE}</span>
+			</p>
+			<p>
+				<label>联系电话：</label>
+				<span class="show">{$info.TEL}</span>
+			</p>
+			<p>
+				<label>联系邮箱：</label>
+				<span class="show">{$info.EMAIL}</span>
+			</p>
+			<p>
+				<label>状态：</label>
+				<span class="show">{$channel_status[$info[CHANNEL_STATUS]]}</span>
+			</p>
+			<p style="width:100%">
+				<label>结算周期：</label>
+				<span class="show">{$ccls_info.SETTLE_T} &nbsp;天</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="content30">
+			<p style="width:100%">
+				============ 下游账户信息 ============ 
+			</p>
+			<p>
+				<label>T0可用余额：</label>
+				<span class="show">￥{$info.ACCOUNT_AMT_T0|setMoney=###,2,2}</span>
+			</p>
+			<p style="width:50%">
+				<label>T0已用余额：</label>
+				<span class="show">￥{$info.ACCOUNT_USED_AMT_T0|setMoney=###,2,2}</span>
+			</p>
+			<p>
+				<label>T1可用余额：</label>
+				<span class="show">￥{$info.ACCOUNT_AMT_T1|setMoney=###,2,2}</span>
+			</p>
+			<p style="width:50%">
+				<label>T1已用余额：</label>
+				<span class="show">￥{$info.ACCOUNT_USED_AMT_T1|setMoney=###,2,2}</span>
+			</p>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

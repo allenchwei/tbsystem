@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<!--<title><empty name="title">{$Think.config.seo_title}<else />{$title}</empty></title>-->
+	<title>大金融业务系统</title>
+	<link href="__PUBLIC__/home/css/common.css" rel="stylesheet" />
+	<link rel="shortcut icon" href="__PUBLIC__/logo/link.png" type=image/x-icon>
+	<!-- 默认js基础库 -->
+	<script type="text/javascript" src="__PUBLIC__/home/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/home/js/c.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/lhgdialog/lhgcore.lhgdialog.min.js?skin=iblue"></script>	
+	<empty name="keywords">
+		<meta name="keywords" content="{$Think.config.seo_keywords}">
+	<else />
+		<meta name="keywords" content="{$keywords}">
+	</empty>
+	<empty name="description">
+		<meta name="description" content="{$Think.config.seo_description}">
+	<else />
+		<meta name="description" content="{$description}">
+	</empty>
+</head>
+<body>

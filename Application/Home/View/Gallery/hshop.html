@@ -1,0 +1,85 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[HOST_MAP_ID]" value="{$postdata.HOST_MAP_ID}"/>
+	<input type="hidden" name="post[MCC_TYPE]" value="{$postdata.MCC_TYPE}"/>
+	<input type="hidden" name="post[MCC_CODE]" value="{$postdata.MCC_CODE}"/>
+	<input type="hidden" name="post[HSHOP_STATUS]" value="{$postdata.HSHOP_STATUS}"/>
+	<input type="hidden" name="post[HSHOP_NO]" value="{$postdata.HSHOP_NO}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>　　通道：</label>
+					<select class="combox" name="post[HOST_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="host_list" id="vo">
+							<option value="{$key}" <eq name="postdata['HOST_MAP_ID']" value="$key">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>　MCC类：</label>
+					{:getmcc_select($postdata['MCC_TYPE'],$postdata['MCC_CODE'],'post[MCC_TYPE]','post[MCC_CODE]')}
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>　　状态：</label>
+					<select class="combox" name="post[HSHOP_STATUS]">
+						<option value="">请选择</option>
+						<volist name="hshop_status" id="vo">
+							<option value="{$key}" <if condition="($postdata.HSHOP_STATUS eq $key) AND ($postdata.HSHOP_STATUS neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>　&nbsp;商户号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.HSHOP_NO}" name="post[HSHOP_NO]" maxlength="15">
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="175">
+		<thead>
+			<tr>
+				<th width="12%" align='center'>商户号</th>
+				<th width="20%">商户名称</th>
+				<th width="18%">所在城市</th>
+				<th width="10%" align='center'>MCC大类</th>
+				<th width="15%" align='center'>MCC码</th>
+				<th width="15%" align='center'>通道名称</th>
+				<th width="10%" align="center">状态</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.HSHOP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.HSHOP_NO}</td>
+					<td>{$vo.HSHOP_NAME}</td>
+					<td>{$vo.CITY_NAME}</td>
+					<td>{$mcc_type[$vo[MCC_TYPE]]}</td>
+					<td>{$vo.MCC_CODE|getmcc_name=###}</td>
+					<td>{$host_list[$vo[HOST_MAP_ID]]}</td>
+					<td>{$hshop_status[$vo[HSHOP_STATUS]]}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

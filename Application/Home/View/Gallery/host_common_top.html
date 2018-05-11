@@ -1,0 +1,60 @@
+	<div class="content30">
+		<p style="width:100%;"><label>| 基本信息<label></p>
+		<p style="width:66.66%;">
+			<label>名称：</label>
+			<span class="show">{$info.HOST_NAME}</span>
+		</p>
+		<p>
+			<label>协议到期：</label>
+			<span class="show">{$info.END_TIME}</span>
+		</p>
+		<p style="width:66.66%;">
+			<label>简称：</label>
+			<span class="show">{$info.HOST_NAMEAB}</span>
+		</p>
+		<p>
+			<label>邮编：</label>
+			<span class="show">{$info.ZIP}</span>
+		</p>
+		<p style="width:66.66%;">
+			<label>地址：</label>				
+			<span class="show">{$info.CITY_NO|getcity_name=###}{$info.ADDRESS}</span>
+		</p>
+		<p>
+			<label>分配收单号：</label>
+			<span class="show">{$info.HOST_ACQ_CODE}</span>
+		</p>
+		<p>
+			<label>联系人：</label>
+			<span class="show">{$info.MANAGER}</span>
+		</p>
+		<p>
+			<label>联系手机：</label>
+			<span class="show">{$info.MOBILE}</span>
+		</p>
+		<p>
+			<label>状态：</label>
+			<span class="show">{$host_status[$info[HOST_STATUS]]}</span>
+		</p>
+		<p>
+			<label>联系电话：</label>
+			<span class="show">{$info.TEL}</span>
+		</p>
+		<p>
+			<label>联系邮箱：</label>
+			<span class="show">{$info.EMAIL}</span>
+		</p>
+		<p>
+			<label>映射规则：</label>
+			<span class="show">{$key_type[$info[KEY_TYPE]]}</span>
+		</p>
+		<p style="width:100%;">
+			<label>支付渠道：</label>
+			<span class="show">
+				<volist name="channel_list" id="vo">
+					<if condition="($info[CHANNEL] eq $vo[id]) and ($info['CHANNEL'] neq '')">{$vo[name]}</if>
+				</volist>
+			</span>
+		</p>
+		<div class="clear"></div>
+	</div>

@@ -1,0 +1,170 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[SYSTEM_DATE_A]" value="{$postdata.SYSTEM_DATE_A}"/>
+	<input type="hidden" name="post[SYSTEM_DATE_B]" value="{$postdata.SYSTEM_DATE_B}"/>
+	<input type="hidden" name="post[bid]" value="{$postdata.bid}"/>
+	<input type="hidden" name="post[pid]" value="{$postdata.pid}"/>
+	<input type="hidden" id="exportdata" value="{$exportdata}"/><!-- Excel导出 -->
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">				
+				<p>
+					<span>
+						<label>统计周期：</label>
+						<input class="input01 textInput date f_l readonly" type="text" value="{$postdata.SYSTEM_DATE_A}" name="post[SYSTEM_DATE_A]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+					<code class="code"> ~ </code>
+					<span>
+						<input class="input01 textInput date f_l readonly" type="text" value="{$postdata.SYSTEM_DATE_B}" name="post[SYSTEM_DATE_B]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+					<span class="sta_day">
+						<a href="javascript:;" node-type="chosedate" data-flag="1">当日</a>
+						<a href="javascript:;" node-type="chosedate" data-flag="2">昨日</a>
+						<a href="javascript:;" node-type="chosedate" data-flag="3">本月</a>
+						<a href="javascript:;" node-type="chosedate" style="border:none;" data-flag="4">上月</a>
+					</span>
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>　　归属：</label>
+					{:get_level_sel($postdata['bid'],'-1','soplv[]',$postdata['pid'],5)}
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	<!-- 		<a href="javascript:;" onclick="$('#pagerForm').attr('action','/index.php/Home/Statis/staday_export/navTabId/Statis').submit();">
+<button class="ch-btn-skin ch-btn-small ch-icon-copy">导出Excel</button>
+</a> -->
+	</div>
+	<table class="table" width="100%" layoutH="148">
+		<thead>
+			<tr>
+				<th width="9%" align='center'>新增会员</th>
+				<th width="9%" align='center'>累计会员</th>
+				<th width="9%" align='right'>新增商家交易额</th>
+				<th width="9%" align='right'>累计商家交易额</th>
+				<th width="9%" align='center'>新增POS机</th>
+				<th width="9%" align='center'>累计POS机</th>
+				<th width="9%" align='center'>新增会员收益</th>
+				<th width="9%" align='center'>累计会员收益</th>
+				<th width="9%" align='right'>新增会员养老金</th>
+				<th width="9%" align='right'>累计会员养老金</th>
+			</tr>
+		</thead>
+		<tbody>
+			<notempty name="resurlt">
+				<tr target="sid_target" rel="{$vo.SYSTEM_REF}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$resurlt.add_vip_count|default='0'}</td>
+					<td>{$resurlt.vip_count|default='0'}</td>
+					<td>{$resurlt.add_shoptrance_count|setMoney=###,2,2}</td>
+					<td>{$resurlt.shoptrance_count|setMoney=###,2,2}</td>
+					<td>{$resurlt.add_pos_count|default='0'}</td>
+					<td>{$resurlt.pos_count|default='0'}</td>
+					<td>{$resurlt.add_vipincome_count|setMoney=###,2,2}</td>
+					<td>{$resurlt.vipincome_count|setMoney=###,2,2}</td>
+					<td>{$resurlt.add_vippension_count|setMoney=###,2,2}</td>
+					<td>{$resurlt.vippension_count|setMoney=###,2,2}</td>
+				</tr>
+			</notempty>
+		</tbody>
+	</table>
+	<!-- <div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div> -->
+</div>
+<script>
+$('a[node-type="chosedate"]').on('click', function(){
+	var date1 = '', date2 = '', thisobj = $(this), flag = $(this).attr('data-flag');
+	switch(flag){
+		case '1':
+			//当日
+			date1 = new Date().Format("yyyy-MM-dd");
+		break;
+		case '2':
+			//昨日
+			var myDate = new Date();
+			var yesterdaytime = myDate.getTime() - 24*60*60*1000;
+			date1 = new Date(parseInt(yesterdaytime)).Format("yyyy-MM-dd");
+		break;
+		case '3':
+			//本月
+			var myDate = new Date();
+		    var year  = myDate.getFullYear();
+		    var month = myDate.getMonth()+1;
+		    if (month<10){
+		        month = "0"+month;
+		    }
+		    date1 = year+"-"+month+"-"+"01";
+		    date2 = new Date().Format("yyyy-MM-dd");
+		break;
+		case '4':
+			//上月
+			var myDate = new Date();
+		    var year = myDate.getFullYear();
+		    var month = myDate.getMonth()+1;
+		    if (month<10){
+		        month = "0"+month;
+		    }
+		    var firstDay = year+"-"+month+"-"+"01";
+
+		    if ((month-1)<=0) {
+		    	year = year - 1;
+		    	month = 12;
+		    }else{
+		    	month = month - 1;
+		    };
+		    if (month<10){
+		        month = "0"+month;
+		    }
+		    date1 = year+"-"+month+"-"+"01";		//上月首日
+		    var time_end  = new Date(firstDay); 		//本月首日对象
+			var	time_str  = time_end.getTime() - 24*60*60*1000;
+			date2 = new Date(parseInt(time_str)).Format("yyyy-MM-dd");
+		break;
+	}
+	date2 = date2 ? date2 : date1;
+	$('input[name="post[SYSTEM_DATE_A]"]').val(date1);
+	$('input[name="post[SYSTEM_DATE_B]"]').val(date2);
+	//thisobj.css('background-color','#ccc').siblings().css('background-color','#fff');
+})
+// 对Date的扩展，将 Date 转化为指定格式的String   
+// 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，   
+// 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)   
+// 例子：   
+// (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423   
+// (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18   
+Date.prototype.Format = function(fmt)   
+{ //author: meizz   
+  var o = {   
+    "M+" : this.getMonth()+1,                 //月份   
+    "d+" : this.getDate(),                    //日   
+    "h+" : this.getHours(),                   //小时   
+    "m+" : this.getMinutes(),                 //分   
+    "s+" : this.getSeconds(),                 //秒   
+    "q+" : Math.floor((this.getMonth()+3)/3), //季度   
+    "S"  : this.getMilliseconds()             //毫秒   
+  };   
+  if(/(y+)/.test(fmt))   
+    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));   
+  for(var k in o)   
+    if(new RegExp("("+ k +")").test(fmt))   
+  fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));   
+  return fmt;   
+}
+</script>

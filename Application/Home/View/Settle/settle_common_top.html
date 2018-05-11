@@ -1,0 +1,125 @@
+	
+	<div class="jfbkuai jiesuandan">
+		<if condition="(__ACTNAME__ eq 'bbill_show') or (__ACTNAME__ eq 'bbill_check') or (__ACTNAME__ eq 'bbill_recheck') or (__ACTNAME__ eq 'bbill_affirm') or (__ACTNAME__ eq 'bbill_invo') or (__ACTNAME__ eq 'pbill_show') or (__ACTNAME__ eq 'pbill_check') or (__ACTNAME__ eq 'pbill_recheck') or (__ACTNAME__ eq 'pbill_affirm') or (__ACTNAME__ eq 'pbill_invo') or (__ACTNAME__ eq 'csbill_show') or (__ACTNAME__ eq 'csbill_check') or (__ACTNAME__ eq 'csbill_recheck') or (__ACTNAME__ eq 'csbill_affirm')">
+		<p class="l">
+			<label>结算金额：</label>
+			<span class="show">{$info.SETTLE_AMT|setMoney=###,2,2} 元</span>
+		</p>
+		<p class="c"></p>
+		<p class="r">
+			<label class="nbold">消费类：</label>
+			<span class="show">{$info.CON_CNT} 笔</span>
+			<span class="show">{$info.CON_AMT|setMoney=###,2,2} 元</span>
+		</p>
+		<p class="l"></p>
+		<p class="c"></p>
+		<p class="r">
+			<label class="nbold">退货类：</label>
+			<span class="show">{$info.REF_CNT} 笔</span>
+			<span class="show">{$info.REF_AMT|setMoney=###,2,2} 元</span>
+		</p>
+		<div class="clear"></div>	
+		<else/>
+		<p class="l">
+			<label>应 结：</label>
+			<span class="show">{$info.PT_SETTLE_AMT|setMoney=###,2,2} 元</span>
+		</p>
+		<p class="c"></p>
+		<p class="r">
+			<label class="nbold">消费类：</label>
+			<span class="show">{$info.PT_CON_CNT} 笔</span>
+			<span class="show">{$info.PT_CON_AMT|setMoney=###,2,2} 元</span>
+		</p>
+		<p class="l"></p>
+		<p class="c"></p>
+		<p class="r">
+			<label class="nbold">退货类：</label>
+			<span class="show">{$info.PT_REF_CNT} 笔</span>
+			<span class="show">{$info.PT_REF_AMT|setMoney=###,2,2} 元</span>
+		</p>
+		<p class="jfb_line"></p>		
+		
+		<p class="l">
+			<label>实 结：</label>
+			<span class="show">{$info['HT_SETTLE_AMT']+$info['HL_SETTLE_AMT']|setMoney=###,2,2} 元</span>
+		</p>
+		<p class="c">本清算日已结</p>
+		<p class="r">
+			<label class="nbold">消费类：</label>
+			<span class="show">{$info.HT_CON_CNT} 笔</span>
+			<span class="show">{$info.HT_CON_AMT|setMoney=###,2,2} 元</span>
+		</p>
+		<p class="l"></p>
+		<p class="c"></p>
+		<p class="r">
+			<label class="nbold">退货类：</label>
+			<span class="show">{$info.HT_REF_CNT} 笔</span>
+			<span class="show">{$info.HT_REF_AMT|setMoney=###,2,2} 元</span>
+		</p>	
+		<p class="l"></p>
+		<p class="c">前清算日补结</p>
+		<p class="r">
+			<label class="nbold">消费类：</label>
+			<span class="show">{$info.HL_CON_CNT} 笔</span>
+			<span class="show">{$info.HL_CON_AMT|setMoney=###,2,2} 元</span>
+		</p>
+		<p class="l"></p>
+		<p class="c"></p>
+		<p class="r">
+			<label class="nbold">退货类：</label>
+			<span class="show">{$info.HL_REF_CNT} 笔</span>
+			<span class="show">{$info.HL_REF_AMT|setMoney=###,2,2} 元</span>
+		</p>
+		<p class="jfb_line"></p>		
+		
+		<p class="l">
+			<label>未 结：</label>
+			<span class="show">{$info.ET_SETTLE_AMT} 元</span>
+		</p>
+		<p class="c">本清算日未结</p>
+		<p class="r">
+			<label class="nbold">消费类：</label>
+			<span class="show">{$info.ET_CON_CNT} 笔</span>
+			<span class="show">{$info.ET_CON_AMT|setMoney=###,2,2} 元</span>
+		</p>
+		<p class="l"></p>
+		<p class="c"></p>
+		<p class="r">
+			<label class="nbold">退货类：</label>
+			<span class="show">{$info.ET_REF_CNT} 笔</span>
+			<span class="show">{$info.ET_REF_AMT|setMoney=###,2,2} 元</span>
+		</p>
+		<div class="clear"></div>
+		</if>
+	</div>
+	<div class="content30">
+		<p>
+			<label>审核状态：</label>
+			<span>{$check_flag[$info[CHECK_FLAG]]}</span>
+		</p>
+		<p>
+			<label>划转日期：</label>
+			<span>{$info.ACCT_TIME}</span>
+		</p>
+		<p>
+			<label>划转状态：</label>
+			<span>{$acct_flag[$info[ACCT_FLAG]]}</span>
+		</p>
+		<div class="clear"></div>
+	</div>
+	<div class="content100">
+		<p>
+			<label>开户银行：</label>
+			<span>{$info.BANK_NAME}</span>
+		</p>
+		<p>
+			<label>收款账户：</label>
+			<span>{$info.BANKACCT_NAME}　（{$bankacct_flag[$info[BANKACCT_FLAG]]}）</span>
+		</p>
+		<p>
+			<label>收款账号：</label>
+			<span>{$info.BANKACCT_NO}</span>
+		</p>
+		<div class="clear"></div>
+	</div>
+	

@@ -1,0 +1,50 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>推广名称：</label>
+				<span class="show">{$info.MARKET_NAME}</span>
+			</p>
+			<p>
+				<label>充值返现起点：</label>
+				<span class="show">{$info.USER_RBLAMT|setMoney=###,2,2}</span>　元
+			</p>
+			<p>
+				<label>返现比例：</label>
+				<span class="show">{$info.USER_RBLPER}</span>　%
+			</p>
+			<p>
+				<label>生效日期：</label>
+				<span class="show">{$info.BEGIN_DATE}</span>　00：00：00
+			</p>
+			<p>
+				<label>失效日期：</label>
+				<span class="show">{$info.BEGIN_END}</span>　23：59：59
+			</p>
+			<p>
+				<label>状态：</label>
+				<span class="show">{$market_flag[$info[MARKET_FLAG]]}</span>
+			</p>
+			<p class="p_map">
+				<label>适用卡套餐：</label>
+				<span>
+					<volist name="info.CARD_P_MAP" key="k" id="vo">
+						<if condition="$vo eq 0">
+							<span><label class="delwidth">{$cprod_list[$k-1]['CARD_NAME']}</label></span>
+						</if>
+					</volist>
+				</span>					
+			</p>
+			<p>
+				<label>备注：</label>
+				<span class="show" style="width:480px;">{$info.MARKET_DESC}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

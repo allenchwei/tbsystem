@@ -1,0 +1,79 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[CARD_BATCH]" value="{$postdata.CARD_BATCH}"/>
+	<input type="hidden" name="post[bid]" value="{$postdata.bid}"/>
+	<input type="hidden" name="post[OUT_STATUS]" value="{$postdata.OUT_STATUS}"/>
+	<input type="hidden" id="exportdata" value="{$exportdata}"/><!-- Excel导出 -->
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>　分公司：</label>
+					<!-- <select class="combox" name="post[BRANCH_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="branchsel" id="vo">
+							<option value="{$vo[0]}" <if condition="$postdata['BRANCH_MAP_ID'] eq $vo['0']">selected</if>>{$vo['1']}</option>
+						</volist>
+					</select> -->
+					{:get_level_sel($postdata['bid'],'-1','mkplv[]',$postdata['pid'],0)}
+				</p>
+				<p>
+					<label>制卡状态：</label>
+					<select class="combox" name="post[OUT_STATUS]">
+						<option value="">请选择</option>
+						<option value="0" <eq name="postdata.OUT_STATUS" value="0">selected</eq>>已制卡</option>
+						<option value="1" <eq name="postdata.OUT_STATUS" value="1">selected</eq>>在途中</option>
+					</select>
+				</p>
+				<p>
+					<label>批次号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.CARD_BATCH}" name="post[CARD_BATCH]">
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="141">
+		<thead>
+			<tr>
+				<th width="10%" align='center'>制卡批次</th>
+				<th width="18%">分公司</th>
+				<th width="10%" align='center'>数量</th>
+				<th width="13%" align='center'>起始卡号</th>
+				<th width="13%" align='center'>结束卡号</th>
+				<th width="12%" align='center'>状态</th>
+				<th width="12%" align='center'>申请日期</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.CARD_BATCH}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.CARD_BATCH}</td>
+					<td>{$vo.BRANCH_MAP_ID|get_branch_name=###,$vo['PARTNER_MAP_ID']}</td>
+					<td>{$vo.CARD_NUM}</td>
+					<td>{$vo.CARD_BEGIN}</td>
+					<td>{$vo.CARD_END}</td>
+					<td>{:C('OUT_STATUS')[$vo['OUT_STATUS']]}</td>
+					<td>{$vo.OUT_DATE}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

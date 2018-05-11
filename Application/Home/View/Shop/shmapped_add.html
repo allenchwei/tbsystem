@@ -1,0 +1,54 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="info.ID" value="0">
+		<input type="hidden" name="post[submit]" value="shmapped_edit">
+		<input type="hidden" name="post[ID]" value="{$info.ID}">
+	<else />
+		<input type="hidden" name="post[submit]" value="shmapped_add">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>平台商户ID：</label>
+					<input type="text" class="required ws20" name="post[SHOP_MAP_ID]" value="{$info.SHOP_MAP_ID}" maxlength="15"/>
+				</p>
+				<p>
+					<label>通道：</label>
+					<select class="combox" name="post[HOST_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="hostsel" id="vo">
+							<option value="{$vo.HOST_MAP_ID}" <if condition="($info['HOST_MAP_ID'] eq $vo['HOST_MAP_ID']) and ($info['HOST_MAP_ID'] neq '')">selected</if>>{$vo.HOST_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>通道商户号：</label>
+					<input type="text" class="required ws20" name="post[SHOP_ID1]" value="{$info.SHOP_ID1}" maxlength="32"/>
+				</p>
+				<p>
+					<label>标识：</label>
+					<select class="combox" name="post[FLAG]">
+						<option value="">请选择</option>
+						<option value="0" <if condition="($info['FLAG'] eq 0) and ($info['FLAG'] neq '')">selected</if>>低扣</option>
+						<option value="1" <if condition="($info['FLAG'] eq 1) and ($info['FLAG'] neq '')">selected</if>>高扣</option>
+					</select>
+				</p>
+				<p>
+					<label>通道KEY：</label>
+					<input type="text" class="ws20" name="post[KEYT]" value="{$info.KEYT}" maxlength="32"/>
+				</p>
+				<p>
+					<label>扣率：</label>
+					<input type="text" class="ws20" name="post[afee]" value="{$info.afee}" maxlength="32"/>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

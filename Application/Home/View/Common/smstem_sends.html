@@ -1,0 +1,39 @@
+<style>.content100 p label{width:70px;}</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<input type="hidden" name="post[SMS_MODLE_ID]" value="{$info.SMS_MODLE_ID}">
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>发送至：</label>
+					<label class="delwidth"><input type="radio" name="post[flag]" value="1" checked>会员</label>	<!-- 4 -->
+					<label class="delwidth"><input type="radio" name="post[flag]" value="2" >合作伙伴</label>		<!-- 4 -->
+					<label class="delwidth"><input type="radio" name="post[flag]" value="3" >登录用户</label>		<!-- 4 -->
+					<label class="delwidth"><input type="radio" name="post[flag]" value="4" >分公司</label>			<!-- 1 -->
+					<label class="delwidth"><input type="radio" name="post[flag]" value="5" >商户</label>			<!-- 4 -->
+				</p>
+				<p class="delcombox">
+					<label>归属：</label>
+					{:get_level_sel('0','-1','plv[]',$info['PARTNER_MAP_ID'],5)}
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+	<script type="text/javascript">
+		//通过级别返回下拉级别
+		$('input[name="post[flag]"]').on('click',function(){
+			var val  = $(this).val()==4 ? 1 : 4;
+			var flag = val - 1;
+				$('select[name="plv[]"]').attr('maxlv',flag);
+				$('select.sellv').trigger("change");
+		});
+	</script>
+</div>

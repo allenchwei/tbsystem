@@ -1,0 +1,138 @@
+<style>
+.err_offset_1 .error{left:100px;}
+.err_offset_2 .error{left:125px;}
+.err_offset_3 .error{left:255px;}
+.err_offset_4 .error{left:230px;}
+.err_offset_5 .error{left:151px;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="shop_info.SHOP_MAP_ID" value="0">
+		<input type="hidden" name="srisk[submit]" value="srisk_edit">
+		<input type="hidden" name="srisk[SHOP_MAP_ID]" value="{$srisk_info.SHOP_MAP_ID}">
+	</gt>
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+	<!-- 商户基本信息 -->
+		<include file="shop_common_show" />
+			<div class="tabs">
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>风险级别</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">
+					<div class="pageFormContent">
+						<div class="content100">
+							<p>
+								<label>风险级别：</label>
+								<select class="combox" name="srisk[SHOP_GRADE]">
+									<volist name="shop_grade" id="vo">
+										<option value="{$key}" <if condition="($srisk_info['SHOP_GRADE'] eq $key)">selected</if>>{$vo}</option>
+									</volist>
+								</select>
+							</p>
+							<p>
+								<label>风险积数：</label>
+								<input type="text" name="srisk[SHOP_RISKBOUND]" value="{$srisk_info.SHOP_RISKBOUND}">
+							</p>
+						</div>
+						<div class="content50">
+							<p>
+								<label>手输比例：</label>	
+								<input type="text" value="{$srisk_info.POSMODE_PER}" date-type="POSMODE_PER" name="srisk[POSMODE_PER]" class="ws10">　%
+							</p>
+							<p class="p_fxjb">
+								<label>调单比例：</label>	
+								<input type="text" value="{$srisk_info.CBREQ_PER}" name="srisk[CBREQ_PER]" class="ws10">　%
+							</p>
+							<p>
+								<label>退货比例：</label>	
+								<input type="text" value="{$srisk_info.REFUND_PER}" name="srisk[REFUND_PER]" class="ws10">　%
+							</p>
+							<p class="p_fxjb">
+								<label>非营业时间比例：</label>	
+								<input type="text" value="{$srisk_info.BUSITIME_ABS}" name="srisk[BUSITIME_ABS]" class="ws10">　%
+							</p>
+							<p>
+								<label>退单比例：</label>	
+								<input type="text" value="{$srisk_info.CBBACK_PER}" name="srisk[CBBACK_PER]" class="ws10">　%
+							</p>
+							<p class="p_fxjb">
+								<label>查询交易比例：</label>	
+								<input type="text" value="{$srisk_info.BALANCE_PER}" name="srisk[BALANCE_PER]" class="ws10">　%
+							</p>
+							<p style="width:100%;">
+								<label>备注信息：</label>
+								<textarea style="width:600px;height:60px;" name="srisk[RES]">{$srisk_info.RES}</textarea>
+							</p>
+							<div class="clear"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<a href="javascript:;" class="anniu ch-btn-skin ch-btn-small ch-icon-ok" onclick="checkSubmit()">确 定</a>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+	<script type="text/javascript">
+		function checkSubmit(){
+			/*
+			* 获取交易方式、支付方式
+			**/
+			var tstr	 = '',
+				trans    = $('input[name="sauth[AUTH_TRANS_MAP]"]'),			
+			trans_list	 = trans.parent().find('input[type="checkbox"]');
+			//交易方式
+			$.each( trans_list, function(i, n){
+				var checked = $(this).attr('checked') ? 0 : 1;
+				tstr += checked;
+			});
+			trans.val(tstr);
+			$('form[name="form"]').submit();
+		}
+		//勾选激活输入框
+		$('input[node-type="disable-checkbox"]').on('click',function(){
+			var param = $(this).attr('data-target');
+			var is_check = $(this).is(':checked');
+			if (is_check) {
+				$('input[name="'+ param +'"]').removeAttr("disabled").css({ background: "#fff" });
+			}else{
+				$('input[name="'+ param +'"]').attr("disabled","disabled").css({ background: "#eee" });
+			};
+		})
+		//公户私户切换
+		$('input[node-type="bank_flag"]').on('click',function(){
+			switch($(this).val()){
+				case '0' :
+					$('.sbact1').show();
+					$('.sbact2').hide();
+				break;
+				case '1' :
+					$('.sbact1').hide();
+					$('.sbact2').show();
+				break;
+			}
+		})
+
+		//代扣公户私户切换
+		$('input[node-type="sdkb_flag"]').on('click',function(){
+			switch($(this).val()){
+				case '0' :
+					$('.sdkb1').show();
+					$('.sdkb2').hide();
+				break;
+				case '1' :
+					$('.sdkb1').hide();
+					$('.sdkb2').show();
+				break;
+			}
+		})
+	</script>
+</div>

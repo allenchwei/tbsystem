@@ -1,0 +1,39 @@
+<style>
+.cinfo_l{width:50%;float:left;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<input type="hidden" name="post[submit]" value="__ACTNAME__">
+	<input type="hidden" name="post[APPLY_MAP_ID]" value="{$info.APPLY_MAP_ID}">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<!-- <p>
+				<label>商户名称：</label>
+				<input type="text" value="{$info.APPLY_SHOPNAME}" class="required" name="post[APPLY_SHOPNAME]" maxlength="10"/>
+			</p>
+			<p>
+				<label>会员名称：</label>
+				<input type="text" value="{$info.APPLY_NAME}" class="required" name="post[APPLY_NAME]" maxlength="10"/>
+			</p> -->
+			<p>
+				<label>是否联系：</label>
+				<label class="delwidth">
+					<input type="radio" <eq name="info['APPLY_STATUS']" value="1">checked</eq> value="1" name="post[APPLY_STATUS]"> 是
+					<input type="radio" <eq name="info['APPLY_STATUS']" value="0">checked</eq> value="0" name="post[APPLY_STATUS]"> 否
+				</label>
+			</p>
+			<p>
+				<label>联系结果：</label>
+				<textarea class="required textInput" name="post[RES]" style="width:440px;height:150px;">{$info.RES}</textarea>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+		</div>
+	</div>
+	</form>
+</div>

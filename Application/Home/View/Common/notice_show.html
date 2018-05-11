@@ -1,0 +1,30 @@
+<div class="pageContent">
+	<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>归属：</label>
+				<span class="show">{$info.PARTNER_MAP_ID|get_level_name=###,$info['BRANCH_MAP_ID']}</span>
+			</p>
+			<p>
+				<label>有效日期：</label>
+				<span class="show">{$info.NOTICE_TIME}</span>
+				<code class="code"> ~ </code>
+				<span class="show">{$info.NOTICE_EXP}</span>
+			</p>
+			<p>
+				<label>公告标题：</label>
+				<span class="show">{$info.NOTICE_TITLE}</span>
+			</p>
+			<div>
+				<label>公告内容：</label>
+				<span class="show">{$info.NOTICE_DESC}</span>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

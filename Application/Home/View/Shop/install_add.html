@@ -1,0 +1,264 @@
+<style>
+/* 图片上传中的样式 */
+div.upimgbtndiv{width:100px;float:left; margin: 0 10px;}
+.uploadify-button{background-image: none;}
+.uploadify:hover .uploadify-button{background-image: none;background-color: #324e75;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="shop_info.SHOP_MAP_ID" value="0">
+		<input type="hidden" name="post[submit]" value="install_add">
+		<input type="hidden" name="post[SHOP_MAP_ID]" value="{$shop_info.SHOP_MAP_ID}">
+		<input type="hidden" name="post[SHOP_NO]" value="{$shop_info.SHOP_NO}">
+		<input type="hidden" name="post[BRANCH_MAP_ID]" value="{$shop_info.BRANCH_MAP_ID}">
+		<input type="hidden" name="post[PARTNER_MAP_ID]" value="{$shop_info.PARTNER_MAP_ID}">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content50">
+				<p>
+					<label>商户编号：</label>
+					<span class="show">{$shop_info.SHOP_NO}</span>
+				</p>
+				<p>
+					<label>商户名称：</label>
+					<span class="show">{$shop_info.SHOP_NAME}</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content100">
+				<p>
+					<label>商户归属：</label>
+					<span class="show">{$shop_info.PARTNER_MAP_ID|get_level_name=###,$shop_info['BRANCH_MAP_ID']}</span>
+				</p>
+				<p>
+					<label>商户地址：</label>
+					<span class="show">{$shop_info.CITY_NO|getcity_name=###} {$shop_info.ADDRESS}</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content50">
+				<p>
+					<label>联系手机：</label>
+					<span class="show">{$shop_info.MOBILE}</span>
+				</p>
+				<p>
+					<label>联系电话：</label>
+					<span class="show">{$shop_info.TEL}</span>
+				</p>
+				<div class="clear"></div>
+				<div class="p_img_2">
+					<label>安装协议：</label>
+					<input type="hidden" name="post[INSTALL_PHOTO]" value="{$scert_info.INSTALL_PHOTO}">
+					<div class="upimgbtndiv">
+						<a href="javascript:;" id='INSTALL' class="anniu ch-btn-skin ch-btn-small ch-icon-arrow-up">上 传</a>
+					</div>
+					<div class="tp_gb" node-type="INSTALL_1">
+						<img src="{$scert_info['INSTALL_PHOTO'][0]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic">
+						<a href="javascript:;" <empty name="scert_info['INSTALL_PHOTO'][0]">style="display:none;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="del_other_pic"></a>
+					</div>
+					<div class="tp_gb" node-type="INSTALL_2">
+						<img src="{$scert_info['INSTALL_PHOTO'][1]|default='../../../Public/home/images/gszp.png'}" width="65" height="50" node-type="pic">
+						<a href="javascript:;" <empty name="scert_info['INSTALL_PHOTO'][1]">style="display:none;"</empty>><img src="__PUBLIC__/home/images/tp_gb.png" width="18" height="18" node-type="del_other_pic"></a>
+					</div>
+				</div>
+				<p class="ic_line"></p>
+				<div class="add_dev maxcombox">
+					<p>
+						<label>申请机型1：</label>
+						{$shop_info.MODEL_ID|getmodel_select=###,'post[MODEL_MAP_ID][]','post[FACTORY_MAP_ID][]'}
+					</p>
+					<p>
+						<label>申请数量1：</label>
+						<input type="text" value="1" class="required digits" name="post[NUM][]" min='1' max='99' maxlength="2"/>　台
+					</p>
+				</div>
+				<p>
+					<label><a href="javascript:void(0)" node-type="add_dev" data-num='1'>添加申请机型</a></label>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+	<script type="text/javascript">
+		//删除图片
+		/*$('img[node-type="delpic"]').on('click',function(){
+			var param1 = $(this).closest('div.p_img_2'),
+				param2 = $(this).closest('div.tp_gb'),
+				target_name = $(this).attr('target_name');
+			param1.find('input[name="'+target_name+'"]').val('');
+			param2.find('img[node-type="pic"]').attr('src','../../../Public/home/images/gszp.png');
+			$(this).closest('a').hide();
+		})*/
+		//删除安装协议图片
+		$('img[node-type="del_other_pic"]').on('click',function(){
+			var param1 = $(this).closest('div.p_img_2'),
+				param2 = $(this).closest('div.tp_gb'),
+				target_name = $(this).attr('target_name');
+				param2.find('img[node-type="pic"]').attr('src','../../../Public/home/images/gszp.png');
+				$(this).closest('a').hide();
+			//param1.find('input[name="'+target_name+'"]').val('');
+		 	var img_arr = param1.find('img[node-type="pic"]');
+			//拼装图片路径字串
+ 			var img_url = '';
+ 			$.each(img_arr, function(i) {
+			     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+			     if(flag == '../../../Public/home/images/gszp.png'){
+			     	img_url+=',';
+			     }else{
+			     	img_url+=','+flag;
+			     }
+			});
+			console.log(img_url);
+			var img_path = img_url.substring(1);
+			param1.find('input[name="post[INSTALL_PHOTO]"]').val(img_path);
+		})
+		var uploadify_onSelectError = function(file, errorCode, errorMsg) {
+	        var msgText = "上传失败\n";
+	        switch (errorCode) {
+	            case SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED:
+	                //this.queueData.errorMsg = "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+	                msgText += "每次最多上传 " + this.settings.queueSizeLimit + "个文件";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT:
+	                msgText += "文件大小超过限制( " + this.settings.fileSizeLimit + " )";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE:
+	                msgText += "文件大小为0";
+	                break;
+	            case SWFUpload.QUEUE_ERROR.INVALID_FILETYPE:
+	                msgText += "文件格式不正确，仅限 " + this.settings.fileTypeExts;
+	                break;
+	            default:
+	                msgText += "错误代码：" + errorCode + "\n" + errorMsg;
+	        }
+	        alert(msgText);
+	    };
+		 
+		var uploadify_onUploadError = function(file, errorCode, errorMsg, errorString) {
+	        // 手工取消不弹出提示
+	        if (errorCode == SWFUpload.UPLOAD_ERROR.FILE_CANCELLED
+	                || errorCode == SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED) {
+	            return;
+	        }
+	        var msgText = "上传失败\n";
+	        switch (errorCode) {
+	            case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
+	                msgText += "HTTP 错误\n" + errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.MISSING_UPLOAD_URL:
+	                msgText += "上传文件丢失，请重新上传";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.IO_ERROR:
+	                msgText += "IO错误";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
+	                msgText += "安全性错误\n" + errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
+	                msgText += "每次最多上传 " + this.settings.uploadLimit + "个";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
+	                msgText += errorMsg;
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.SPECIFIED_FILE_ID_NOT_FOUND:
+	                msgText += "找不到指定文件，请重新操作";
+	                break;
+	            case SWFUpload.UPLOAD_ERROR.FILE_VALIDATION_FAILED:
+	                msgText += "参数错误";
+	                break;
+	            default:
+	                msgText += "文件:" + file.name + "\n错误码:" + errorCode + "\n"
+	                        + errorMsg + "\n" + errorString;
+	        }
+	        alert(msgText);
+	    }
+	    //其他
+  		$('#INSTALL').uploadify({
+			'height' 	    : '26px',
+            'width'         : '100px', 
+        	'formData'      : {
+        		'userid'    : SETTING.USER_ID,
+				'keyword'   : SETTING.KEYWORD
+			},
+            'swf'      		: '__PUBLIC__/dwz/uploadify/scripts/uploadify.swf',    //指定上传控件的主体文件
+            'uploader' 		: '__MODULE__/Public/uploadimg/',    				   //指定服务器端上传处理文件
+            //其他配置项
+            'buttonText' 	: '上传图片',
+            'buttonClass' 	: 'anniu ch-btn-skin ch-btn-small ch-icon-arrow-up uploadimage',
+            'hideButton' 	: true,
+            'auto'	   		: true,
+            'multi'       	: true,
+            'queueSizeLimit': 2,
+            'fileTypeExts'  : '*.jpg;*.jpeg;*.gif;*.png',
+            'fileSizeLimit' : '2MB',
+            'overrideEvents' : [ 'onDialogClose', 'onUploadError', 'onSelectError' ],
+            'onInit': function () {                        //隐藏进度条
+               $("#INSTALL-queue").hide();
+            },
+			'onUploadSuccess' : function(file, data, response) {
+		 		var resjson = $.parseJSON(data),
+		 			param = $('#INSTALL').closest('div.p_img_2');
+		 		var img_arr = param.find('img[node-type="pic"]'),
+		 			file_index = 0;
+				$.each(img_arr, function(i) {
+				     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+				     if(flag == '../../../Public/home/images/gszp.png'){
+				     	file_index = i;
+				     	return false; 					//跳出循环
+				     }
+				});
+		 		//file_index = file.index%2;
+		 		switch (file_index) {
+		 			case 0:
+			 			param.find('div[node-type="INSTALL_1"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="INSTALL_1"] a').show();
+		 			break;
+		 			case 1:
+		 				param.find('div[node-type="INSTALL_2"] img[node-type="pic"]').attr('src',resjson.result);
+			 			param.find('div[node-type="INSTALL_2"] a').show();
+		 			break;
+		 		};
+		 		//拼装图片路径字串
+	 			var img_url = '';
+	 			$.each(img_arr, function(i) {
+				     var flag = $(this).attr('src');       //这里的this指向每次遍历中Object的当前属性值
+				     if(flag == '../../../Public/home/images/gszp.png'){
+				     	img_url+=',';
+				     }else{
+				     	img_url+=','+flag;
+				     }
+				});
+				var img_path = img_url.substring(1);
+				param.find('input[name="post[INSTALL_PHOTO]"]').val(img_path);
+	        },
+	        'onUploadError' : uploadify_onUploadError,
+	        'onSelectError' : uploadify_onSelectError
+        });
+		//添加更多卡号输入框
+		$('a[node-type="add_dev"]').on('click',function(){
+			var addobj = $(this);
+			var inputnum = parseInt(addobj.attr('data-num'))+parseInt(1);
+			if (inputnum <= 10) {
+				$.ajax({
+				   type: "POST",
+				   url : "/index.php/Home/Public/ajaxgetmodelsel",
+				   data: "f_id=post[FACTORY_MAP_ID][]&m_id=post[MODEL_MAP_ID][]",
+				   success: function(data){
+				   	var addstr = '<div class="add_dev'+inputnum+' maxcombox"><p><label>申请机型'+ inputnum +'：</label>'+ data +'</p><p><label>申请数量'+ inputnum +'：</label><input type="text" value="1" class="required digits textInput" name="post[NUM][]" min=\'1\' max=\'99\' maxlength="2"/>　台</p></div>';
+				     addobj.closest('p').before(addstr);
+				     $('.add_dev'+inputnum).find('select').trigger("change").combox();
+				   }
+				});
+				addobj.attr('data-num',inputnum);
+			}else{
+				alert('最多只能添中10个');
+			}
+		})
+	</script>
+</div>

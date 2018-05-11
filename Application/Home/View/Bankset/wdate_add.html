@@ -1,0 +1,45 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.WDATE_ID" value="0">
+			<input type="hidden" name="post[WDATE_ID]" value="{$info.WDATE_ID}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>法定节假日：</label>
+					<gt name="info.WDATE_ID" value="0">
+						<input type="text" name="post[NOWORK_DATE]" value="{$info.NOWORK_DATE}" class="date required" readonly="true" minDate="{:Date('Y-m-d')}"/>
+						<a class="inputDateButton f_l" href="#">选择</a>
+					<else/>
+						<span>
+							<input type="text" name="post[NOWORK_DATE_A]" value="{$info.NOWORK_DATE_A}" class="date required" readonly="true" minDate="{:Date('Y-m-d')}"/>
+							<a class="inputDateButton f_l" href="#">选择</a>
+						</span>
+						<code class="code"> ~ </code>
+						<span>
+							<input type="text" name="post[NOWORK_DATE_B]" value="{$info.NOWORK_DATE_B}" class="date required" readonly="true" minDate="{:Date('Y-m-d')}"/>
+							<a class="inputDateButton f_l" href="#">选择</a>
+						</span>
+					</gt>
+				</p>
+				<p>
+					<label>顺延清算日：</label>
+					<input type="text" name="post[WORK_DATE]" value="{$info.WORK_DATE}" class="date required" readonly="true" minDate="{:Date('Y-m-d')}"/>
+					<a class="inputDateButton f_l" href="#">选择</a>
+				</p>
+				<p>
+					<label>备注：</label>
+					<textarea class="textInput required" style="width:440px;height:60px;" name="post[RES]" maxlength="60">{$info.RES}</textarea>
+				<p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

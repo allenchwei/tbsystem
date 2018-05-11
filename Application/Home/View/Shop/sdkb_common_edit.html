@@ -1,0 +1,107 @@
+<div class="pageFormContent">
+	<div class="content100" node-type="sdkb_box">
+		<p>
+			<label>代扣标志：</label>
+			<span>
+				<label style="text-align: left;"><input type="radio" node-type="sdkb_flag" value="0" name="sdkb[SHOP_BANK_FLAG]" <if condition="$sdkb_info['SHOP_BANK_FLAG'] eq 0">checked<elseif condition="$sdkb_info['SHOP_BANK_FLAG'] eq ''"/> checked </if>>对公帐号</label>
+				<label style="text-align: left;"><input type="radio" node-type="sdkb_flag" value="1" name="sdkb[SHOP_BANK_FLAG]" <eq name="sdkb_info.SHOP_BANK_FLAG" value="1">checked</eq>>对私帐号</label>
+			</span>	
+		</p>
+		<p>
+			<label>账户卡折标志：</label>
+			<span>
+				<label style="text-align: left;"><input type="radio" value="0" name="sdkb[SHOP_ACCT_FLAG]" <if condition="$sdkb_info['SHOP_ACCT_FLAG'] eq 0">checked<elseif condition="$sdkb_info['SHOP_ACCT_FLAG'] eq ''"/> checked </if>>卡</label>
+				<label style="text-align: left;"><input type="radio" value="1" name="sdkb[SHOP_ACCT_FLAG]" <eq name="sdkb_info.SHOP_ACCT_FLAG" value="1">checked</eq>>折</label>
+			</span>	
+		</p>
+		<div class="sdkb1" <if condition="($sdkb_info['SHOP_BANK_FLAG'] neq 0)">style="display:none;"<elseif condition="$sdkb_info['SHOP_BANK_FLAG'] eq ''"/> style="display:show;" </if>>
+			<p>
+				<label>户名：</label>
+				<input type="text" class="required ws23" name="sdkb[BANKACCT_NAME1]" value="{$sdkb_info.BANKACCT_NAME1}">
+			</p>
+			<p>
+				<label>账号：</label>
+				<input type="text" class="required digits ws23" name="sdkb[BANKACCT_NO1]" value="{$sdkb_info.BANKACCT_NO1}">
+			</p>
+			<p>
+				<label>开户行：</label>
+				<input type="text" value="{$sdkb_info.BANK_NAME1}" name="org3.BANK_NAME" class="required ws26">
+				<a class="btnLook" href="{:U('/Home/Public/getbankbid')}" width="700" height="427" tdialog="true" lookupGroup="org3">查找带回</a>	
+			</p>
+			<p>
+				<label>开户行联行号：</label>
+				<input type="text" value="{$sdkb_info.BANKACCT_BID1}" name="org3.BANKACCT_BID" class="required ws45">
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="sdkb2" <neq name="sdkb_info.SHOP_BANK_FLAG" value="1">style="display:none;"</neq>>
+			<p>
+				<label>户名：</label>
+				<input type="text" class="ws23" name="sdkb[BANKACCT_NAME2]" value="{$sdkb_info.BANKACCT_NAME2}">
+			</p>
+			<p>
+				<label>账号：</label>
+				<input type="text" class="ws23 digits" name="sdkb[BANKACCT_NO2]" value="{$sdkb_info.BANKACCT_NO2}">
+			</p>
+			<p>
+				<label>开户行：</label>
+				<input type="text" value="{$sdkb_info.BANK_NAME2}" name="org4.BANK_NAME" class="required ws26">
+				<a class="btnLook" href="{:U('/Home/Public/getbankbid')}" width="700" height="427" tdialog="true" lookupGroup="org4">查找带回</a>	
+			</p>
+			<p>
+				<label>开户行联行号：</label>
+				<input type="text" value="{$sdkb_info.BANKACCT_BID2}" name="org4.BANKACCT_BID" class="required ws45">
+			</p>
+			<div class="clear"></div>
+		</div>
+		<p>
+			<label>代扣公司：</label>
+			{:get_sdkb_sel('sdkb[DKCO_MAP_ID]',$sdkb_info['DKCO_MAP_ID'])}
+		</p>
+		<p>
+			<label>代扣证件类型：</label>
+			<select class="combox" name="sdkb[DK_IDNO_TYPE]">
+				<volist name="Think.config.DK_IDNO_TYPE" id="vo">
+					<option value="{$key}" <if condition="($sdkb_info['DK_IDNO_TYPE'] eq $key)">selected</if>>{$vo}</option>
+				</volist>
+			</select>
+		</p>
+		<p>
+			<label>代扣证件号码：</label>
+			<input class="required idcard textInput" maxlength="18" type="text" name="sdkb[DK_IDNO]" value="{$sdkb_info.DK_IDNO}">
+		</p>
+	</div>
+	<script type="text/javascript">
+		//公户私户切换
+		$('input[node-type="sdkb_flag"]').on('click',function(){
+			switch($(this).val()){
+				case '0' :
+					$('.sdkb1').show();
+					$('.sdkb2').hide();
+				break;
+				case '1' :
+					$('.sdkb1').hide();
+					$('.sdkb2').show();
+				break;
+			}
+			sdkb_required($(this).val());
+		})
+		function sdkb_required(bank_flag){
+			var bank_flag = bank_flag || 0;
+			var num = bank_flag == 0 ? 1 : 2;
+			$('div.sdkb1,div.sdkb2').find('.required').removeClass('required');
+			<!-- $('.sdkb'+num).find('input').addClass('required'); -->
+		}
+		sdkb_required({$sdkb_info['SHOP_BANK_FLAG']});
+
+		//通过代扣证件类型,修改代扣证件号码验证规则
+		$('select[name="sdkb[DK_IDNO_TYPE]"]').on('change',function(){
+			var type = $(this).val();
+			if (type != '0') {
+				$('input[name="sdkb[DK_IDNO]"]').removeClass('idcard');
+			}else{
+				$('input[name="sdkb[DK_IDNO]"]').addClass('idcard');
+			};
+		});
+	</script>
+</div>

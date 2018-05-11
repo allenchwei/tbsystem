@@ -1,0 +1,129 @@
+	<div class="content100">
+		<p class="maxcombox4">
+			<label>归属机构：</label>
+			<span class="show">{$info.PARTNER_MAP_ID|get_level_name=###,$info['BRANCH_MAP_ID']}</span>
+		</p>
+		<p class="ic_line"></p>
+		<div class="clear"></div>
+	</div>
+	<div class="cinfo_l">
+		<div class="content100">					
+			<p>
+				<label>会员姓名：</label>
+				<span class="show">{$info.VIP_NAME}</span>
+			</p>
+			<p>
+				<label>证件类型：</label>
+				<span class="show">{$vip_idnotype[$info[VIP_IDNOTYPE]]}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="cinfo_l">
+		<div class="content100">
+			<p class="p_img">
+				<label>实名认证：</label>
+				<img src="<empty name='info[ID_PHOTO][0]'>../../../Public/home/images/gszp.png<else/>{$info[ID_PHOTO][0]}</empty>" width="65" height="50">
+				<img src="<empty name='info[ID_PHOTO][1]'>../../../Public/home/images/gszp.png<else/>{$info[ID_PHOTO][1]}</empty>" width="65" height="50">
+			</p>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="content50">				
+		<p>
+			<label>证件号码：</label>
+			<span class="show">{$info.VIP_IDNO}</span>
+		</p>
+		<p>
+			<label>会员生日：</label>
+			<span class="show">{$info.VIP_BIRTHDAY}</span>
+		</p>
+		<p>
+			<label>手机号码：</label>
+			<span class="show">{$info.VIP_MOBILE}</span>
+		</p>
+		<p>
+			<label>会员性别：</label>
+			<span class="show">{$vip_sex[$info[VIP_SEX]]}</span>
+		</p>
+		<p style="width:100%">
+			<label>所在城市：</label>
+			{$info['VIP_CITY']|getcity_name=###}{$info.VIP_ADDRESS}
+		</p>
+		<p style="width:100%">
+			<label>会员邮箱：</label>
+			<span class="show">{$info.VIP_EMAIL}</span>
+		</p>
+		<div class="clear"></div>
+	</div>
+	<div class="content30">
+		<p class="ic_line"></p>
+		<p>
+			<label>账户可用余额：</label>
+			<span class="show">{$info.ACCT_VALBAL|setMoney=###,2,2} 元</span>
+		</p>					
+		<p>
+			<label>养老已投总额：</label>
+			<span class="show">{$info.ACCT_YLTBAL|setMoney=###,2,2} 元</span>
+		</p>
+		<p>
+			<label>意外已投总额：</label>
+			<span class="show">{$info.ACCT_YWTBAL|setMoney=###,2,2} 元</span>
+		</p>
+		<p>
+			<label>预免回收余额：</label>
+			<span class="show">{$info.ACCT_DIVBAL|setMoney=###,2,2} 元</span>
+		</p>
+		<p>
+			<label>养老可投金额：</label>
+			<span class="show">{$info.ACCT_YLVBAL|setMoney=###,2,2} 元</span>
+		</p>
+		<p>
+			<label>意外可投金额：</label>
+			<span class="show">{$info.ACCT_YWVBAL|setMoney=###,2,2} 元</span>
+		</p>			
+		<div class="clear"></div>
+	</div>
+	
+	<eq name="info[IS_BANG]" value="1">		
+		<div class="content100">
+			<p class="ic_line"></p>	
+			<p>
+				<label>绑实体卡：</label>
+				<span class="show">{$info.CARD_NO}</span>
+			</p>
+			<p>
+				<label>卡费：</label>
+				<span class="show">{$info.CARD_OPENFEE} 元</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	<else/>
+		<div class="content50">
+			<p class="ic_line"></p>	
+			<p>
+				<label>绑卡情况：</label>
+				<span class="show">未绑定实体卡</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</eq>
+
+	<eq name="info[VIP_DONATE]" value="1">
+		<div class="content50">
+			<p class="ic_line"></p>		
+			<p style="width:100%;">
+				<label>子母卡</label>
+			</p>
+			<p>
+				<label style="width:133px;">收益转赠母卡比例：</label>
+				<span class="show">{$info.VIP_DONATE_PER}</span>　%
+			</p>
+			<p>
+				<label>母卡卡号：</label>
+				<span class="show">{$info.CARD_NO_M}　{$info.VIP_ID_M}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+	</eq>

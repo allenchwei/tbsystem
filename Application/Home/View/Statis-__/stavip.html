@@ -1,0 +1,99 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[ORDER_TYPE]" value="{$postdata.ORDER_TYPE}"/>
+	<input type="hidden" name="post[SYSTEM_DATE_A]" value="{$postdata.SYSTEM_DATE_A}"/>
+	<input type="hidden" name="post[SYSTEM_DATE_B]" value="{$postdata.SYSTEM_DATE_B}"/>
+	<input type="hidden" name="post[VBRANCH_MAP_ID]" value="{$postdata.VBRANCH_MAP_ID}"/>
+	<input type="hidden" name="post[VPARTNER_MAP_ID]" value="{$postdata.VPARTNER_MAP_ID}"/>
+	<input type="hidden" id="exportdata" value="{$exportdata}"/><!-- Excel导出 -->
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">				
+				<p>
+					<label>计量维度：</label>
+					<label><input type="radio" value="1" name="post[ORDER_TYPE]" <if condition="($postdata['ORDER_TYPE'] eq 1) or ($postdata['ORDER_TYPE'] eq '')">checked</if>>总交易金额</label>
+					<label><input type="radio" value="2" name="post[ORDER_TYPE]" <if condition="($postdata['ORDER_TYPE'] eq 2)">checked</if>>总交易笔数</label>
+				</p>
+				<div class="clear"></div>
+				<p>
+					<span>
+						<label>统计周期：</label>
+						<input class="input01 textInput date f_l readonly" type="text" value="{$postdata.SYSTEM_DATE_A}" name="post[SYSTEM_DATE_A]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+					<code class="code"> ~ </code>
+					<span>
+						<input class="input01 textInput date f_l readonly" type="text" value="{$postdata.SYSTEM_DATE_B}" name="post[SYSTEM_DATE_B]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+					<span class="sta_day">
+						<a href="javascript:;" note-type="seltime" begin="{$timedata.jintian_b}" end="{$timedata.jintian_n}">当日</a>
+						<a href="javascript:;" note-type="seltime" begin="{$timedata.zuotian_b}" end="{$timedata.zuotian_n}">昨日</a>
+						<a href="javascript:;" note-type="seltime" begin="{$timedata.benyue_b}" end="{$timedata.benyue_n}">本月</a>
+						<a href="javascript:;" style="border:none;" note-type="seltime" begin="{$timedata.shangyue_b}" end="{$timedata.shangyue_n}">上月</a>
+					</span>
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>　　归属：</label>
+					<span note-type="guishu">
+					{:get_level_sel($postdata['VBRANCH_MAP_ID'],'-1','plv[]',$postdata['VPARTNER_MAP_ID'],5)}
+					</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="182">
+		<thead>
+			<tr>
+				<th width="8%" align='center'>序号</th>
+				<th width="15%" align='left'>公司名称</th>
+				<th width="25%">归属</th>
+				<th width="18%" align='center'>会员卡号</th>
+				<th width="10%" align='center'>会员名称</th>
+				<th width="10%" align='center'>交易笔数</th>
+				<th width="14%" align='right'>交易金额</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.SYSTEM_REF}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$key+1}</td>
+					<td>{$vo.VBRANCH_MAP_ID|get_branch_name=###}</td>
+					<td>{$vo.VBRANCH_MAP_ID|get_branch_name=###,$vo['VPARTNER_MAP_ID']}</td>
+					<td>{$vo.VIP_CARDNO|setCard_no=###}</td>
+					<td>{$vo.VIP_ID|getvip_name=###}</td>
+					<td>{$vo.CNT}</td>
+					<td>{$vo.AMT|setMoney=###,2,2}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<script type="text/javascript">		
+		//页面加载执行
+		$(document).ready(function(){
+			var	navsnum     = $('.tabsPageHeader .navTab-tab .selected').index();
+			var tabscontent = $('.tabsPageContent .unitBox:eq('+navsnum+')');
+			//日期选择
+			tabscontent.find('a[note-type="seltime"]').on('click',  function(){
+				var begin = $(this).attr('begin'),end = $(this).attr('end');
+				tabscontent.find('input[name="post[SYSTEM_DATE_A]"]').val(begin);
+				tabscontent.find('input[name="post[SYSTEM_DATE_B]"]').val(end);
+			});
+		});
+	</script>
+</div>

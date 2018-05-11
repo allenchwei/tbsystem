@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="apple-mobile-web-app-title" content=""/>
+	<meta name="apple-touch-fullscreen" content="YES"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<meta name="HandheldFriendly" content="true"/>
+	<meta http-equiv="x-rim-auto-match" content="none"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href=""/>
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href=""/>
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href=""/>
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href=""/>
+	<link rel="stylesheet" href="__PUBLIC__/home/css/vipcode.css" />
+	<script type="text/javascript" src="__PUBLIC__/home/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/home/js/c.js"></script>
+</head>
+<body>
+	<div class="main">
+		<div class="header">
+			积分宝账户激活
+		</div>
+		<div class="content">
+			<div class="input">
+				<p>{$info.BRANCH_NAME}</p>
+				<p>{$info.PARTNER_NAME}</p>
+			</div>
+			<div class="input">
+				<input type="text" value="" date-type="VIP_MOBILE" _placeholder="会员手机号" maxlength="11">
+			</div>
+			<div class="input">
+				<input type="text" value="" date-type="SMS_CODE" _placeholder="短信校验码" maxlength="6" class="f_l">
+				<button class="f_r" data-action-type="getNum" sms_id="" card_flag="">获取验证码</button>
+				<div class="clear"></div>
+			</div>
+			<div class="input">
+				<input type="text" value="" date-type="VIP_NAME" _placeholder="会员名称 <eq name='checkpart' value='1'>(选填)</eq>" maxlength="10">
+			</div>
+			<div class="input">
+				<input type="text" value="" date-type="VIP_IDNO" _placeholder="绑定身份证 (选填)" maxlength="18">
+			</div>
+			<div class="input">
+				<input type="text" value="" date-type="CARD_NO" _placeholder="绑定卡号 <eq name='checkpart' value='1'>(选填)</eq>" maxlength="19">
+			</div>
+			<div class="input">
+				<input type="text" value="" date-type="CARD_CHECK" _placeholder="卡号校验码 <eq name='checkpart' value='1'>(选填)</eq>" maxlength="6" class="f_l">
+				<div class="bz" note-type="kataocan">-</div>
+				<div class="clear"></div>
+			</div>
+			<div class="input">
+				<button class="button" data-action-type="addVipcode">激 活</button>
+			</div>
+			<div style="height:250px;">　</div>
+		</div>
+		<script type="text/javascript">
+			//倒计时
+			function fun_timedown(time){
+				var dunm = $('button[data-action-type="getNum"]');
+				dunm.attr("disabled",true).html('倒计时 '+time+' 秒');
+				time = time-1;
+				if(time >= 0){
+					setTimeout("fun_timedown("+ time +")",1000);
+				}else{
+					dunm.removeAttr("disabled").html('重新获取');		
+				}
+			}
+			var SETTING = {
+				'BRANCH_MAP_ID'  : '{$info.BRANCH_MAP_ID}',
+				'PARTNER_MAP_ID' : '{$info.PARTNER_MAP_ID}',
+				'keyword' 		 : '<?php echo md5(md5(date('Ymd').'jfb'));?>',
+				'checkpart' 	 : '<?php echo $checkpart;?>'
+			}
+		</script>
+		<script type="text/javascript" src="__PUBLIC__/home/js/vipcode.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/home/js/jquery.placeholder.js"></script>
+	</div>
+</body>
+</html>

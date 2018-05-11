@@ -1,0 +1,56 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<notempty name="info['CHR_ID']">
+			<input type="hidden" name="post[CHR_ID]" value="{$info.CHR_ID}">
+		</notempty>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content30">
+				<p style="width:100%">
+					<label>渠道名称：</label>
+					<select class="combox" name="post[CHANNEL_MAP_ID]">
+						<option value="0">请选择</option>
+						<volist name="channel_list" id="vo">
+							<option value="{$vo.CHANNEL_MAP_ID}" <if condition="$info['CHANNEL_MAP_ID'] eq $vo[CHANNEL_MAP_ID] and $info['CHANNEL_MAP_ID'] neq ''">selected</if>>{$vo['CHANNEL_NAME']}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:100%">
+					<label>通道名称：</label>
+					<select class="combox" name="post[HOST_MAP_ID]">
+						<option value="0">请选择</option>
+						<volist name="host_list" id="vo">
+							<option value="{$vo.HOST_MAP_ID}" <if condition="$info['HOST_MAP_ID'] eq $vo[HOST_MAP_ID] and $info['HOST_MAP_ID'] neq ''">selected</if>>{$vo['HOST_NAME']}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:100%">
+					<label>会员等级：</label>
+					<select class="combox" name="post[SHOP_GRADE]">
+						<option value="1" <if condition="$info['SHOP_GRADE'] eq 1">selected</if>>普通会员</option>
+						<option value="2" <if condition="$info['SHOP_GRADE'] eq 2">selected</if>>VIP会员</option>
+					</select>
+				</p>
+				<p style="width:100%">
+					<label>扣率(万分比)：</label>
+					<input type="text" value="{$info.PER_FEE|setMoney=###, '2', '2'}" name="post[PER_FEE]" maxlength="5"/>%
+				</p>
+				<p style="width:100%">
+					<label>状态：</label>
+					<select class="combox" name="post[CHANNEL_STATUS]">
+						<volist name="channel_status" id="vo">
+							<option value="{$key}" <if condition="$info['CHANNEL_STATUS'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>

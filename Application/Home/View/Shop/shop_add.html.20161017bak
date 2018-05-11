@@ -1,0 +1,243 @@
+<style>
+.err_offset_1 .error{left:100px;}
+.err_offset_2 .error{left:125px;}
+.err_offset_3 .error{left:255px;}
+.err_offset_4 .error{left:230px;}
+.err_offset_4_4 .error{left:548px;}
+.err_offset_5 .error{left:151px;}
+.err_offset_5_1 .error{left:115px;}
+.err_offset_5_2 .error{left:501px;}
+.err_offset_6 .error{left:180px;}
+.err_offset_6_1 .error{left:55px;}
+.other p label{width:110px;}
+.other p code{width:55px;display: inline-block;}
+/* 图片上传中的样式 */
+div.upimgbtndiv{width:100px;float:left; margin: 0 10px;}
+.uploadify-button{background-image: none;}
+.uploadify:hover .uploadify-button{background-image: none;background-color: #324e75;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="shop_info.SHOP_MAP_ID" value="0">
+		<input type="hidden" name="shop[submit]" value="shop_edit">
+		<input type="hidden" name="shop[SHOP_MAP_ID]" value="{$shop_info.SHOP_MAP_ID}">
+	<else />
+		<input type="hidden" name="shop[submit]" value="shop_add">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p><label style="font-size:16px;">| 基本信息<label></p>
+				<div class="clear"></div>
+			</div>
+			<div class="content25">
+				<p style="width:35%;">
+					<label>商户名称：</label>
+					<input type="text" name="shop[SHOP_NAME]" value="{$shop_info.SHOP_NAME}" class="required ws23" maxlength="26"/>
+				</p>
+				<p style="width:20%;">
+					<label>简称：</label>
+					<input type="text" name="shop[SHOP_NAMEABCN]" value="{$shop_info.SHOP_NAMEABCN}" class="required ws13" maxlength="13"/>
+				</p>
+				<p class="maxcombox err_offset_5_2" style="width:75%;">
+					<label>商户地址：</label>
+					{$shop_info[CITY_NO]|getcity_select=###,'shop[CITY_NO]'}
+					<input type="text" class="required" name="shop[ADDRESS]" value="{$shop_info.ADDRESS}" style="width:200px;"/>
+					<span class="error" for="shop[ADDRESS]" style="left: 501px; display: none;">必填字段</span>
+					<input type="text" class="required digits wid87" name="shop[ZIP]" value="{$shop_info.ZIP}" maxlength="6"/>
+					<span class="error" for="shop[ZIP]" style="left: 707px; display: none;">必填字段</span>
+				</p>
+				<p class="err_offect_1">
+					<label>联系手机：</label>
+					<input type="text" class="required digits ws40" name="shop[MOBILE]" value="{$shop_info.MOBILE}" maxlength="11" title="只能输入整数"/>
+				</p>
+				<p style="width:75%;" class="maxcombox">
+					<label>商户归属：</label>
+					{:get_level_sel('','-1','plv[]','',2)}
+				</p>
+				<p>
+					<label>联系电话：</label>
+					<input type="text" class="required digits ws40" name="shop[TEL]" value="{$shop_info.TEL}" maxlength="15"/>
+				</p>
+				<p style="width:75%;" class="maxcombox">
+					<label>推荐个创：</label>
+					<span class="show pr_box" <empty name="shop_info['PARTNER_MAP_ID_R']">style="display:none;"</empty>>
+						{:get_level_sel('','all','plv_r[]',$shop_info['PARTNER_MAP_ID_R'],3)}
+					</span>
+						<span class="show">
+						<label style="text-align:left;width:60px;"><input type="checkbox" <notempty name="shop_info['PARTNER_MAP_ID_R']">checked</notempty> name="shop[is_pr]" value="1" node-type="isshow" data-target="pr_box"> 是/否</label>
+					</span>
+				</p>
+				<p class="err_offect_1">
+					<label>邮箱地址：</label>
+					<input type="text" class="email_auto ws40" name="shop[EMAIL]" value="{$shop_info.EMAIL}" title="请输入正确的邮箱格式"/>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content25">
+				<p style="width:35%;" class="maxcombox">
+					<label>商户类型：</label>
+					<select class="combox" name="shop[SHOP_LEVEL]" node-type="shoplv">
+						<volist name="Think.config.SHOP_LEVEL" id="vo">
+							<option value="{$key}" <if condition="$shop_info['SHOP_LEVEL'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:40%;" class="maxcombox">
+					<span node-type="getgpsel" style="display:none;">
+						<label>归属集团：</label>
+						{:get_level_sel('','-1','glv[]','','1','0', '/index.php/Home/Public/ajaxgetshop_p')}
+					</span>
+				</p>
+				<div class="clear"></div>
+				<p style="width:35%;" class="maxcombox">
+					<label>MCC类：</label>
+					{:getmcc_select($shop_info['MCC_TYPE'],$shop_info['MCC_CODE'],'shop[MCC_TYPE]','shop[MCC_CODE]')}<span class="notice">&nbsp;*</span>
+				</p>
+				<p style="width:40%;">
+					<label>营业时间：</label>
+					<input type="text" readonly="true" name="shop[SHOP_OPENTIME]" value="09:00:00" class="date wid65" datefmt="HH:mm:ss" />
+					<code class="code"> ~ </code>
+					<input type="text" readonly="true" name="shop[SHOP_CLOSETIME]" value="21:00:00" class="date wid65" datefmt="HH:mm:ss" />
+				</p>
+				<div class="clear"></div>
+				<p class="maxcombox">
+					<label>第三方渠道：</label>
+					<select class="combox" name="shop[CHANNEL_MAP_ID]" node-type="chennel">
+						<volist name="channel_list" id="vo">
+							<option value="{$vo.CHANNEL_MAP_ID}" <eq name="shop_info['CHANNEL_MAP_ID']" value="$vo.CHANNEL_MAP_ID">selected</eq>>{$vo.CHANNEL_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<!-- <p style="width:40%;" class="maxcombox">
+					<span node-type="getchennel">
+						<label>自定义商户编号：</label>
+						<input type="text" class="digits ws40" name="shop[SHOP_NO]" value="{$shop_info.SHOP_NO}" maxlength="15"/>
+					</span>
+				</p> -->
+				<p style="width:100%;" class="remark">
+					<label>备注：</label>
+					<span>商户类型：一般选【普通商户】。如果为加盟商户总店选【集团主商户】；如果为加盟商户分店选【集团子商户】。</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+				
+			<div class="tabs">
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>证照信息</span></a></li>
+							<li><a href="javascript:;"><span>权限开通</span></a></li>
+							<li><a href="javascript:;"><span>扣率信息</span></a></li>
+							<li><a href="javascript:;"><span>银行账户</span></a></li>
+							<li><a href="javascript:;"><span>代扣账户</span></a></li>
+							<li><a href="javascript:;"><span>其他设置</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">
+					<!-- 商户证照信息 -->
+					<include file="scert_common_edit" />
+
+					<!-- 商户权限开通 -->
+					<include file="sauth_common_edit" />
+				
+					<!-- 商户扣率信息 -->
+					<include file="smdr_common_add" />
+
+					<!-- 商户银行账户 -->
+					<include file="sbact_common_edit" />
+
+					<!-- 代扣账户 -->
+					<include file="sdkb_common_edit" />
+
+					<!-- 商户其他配置信息 -->
+					<include file="scfg_common_edit" />
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<a href="javascript:;" class="anniu ch-btn-skin ch-btn-small ch-icon-ok" onclick="checkSubmit()">确 定</a>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+	<script type="text/javascript">
+		//通过user_no获得用户名
+		$('input[node-type="getusername"]').on('blur',function(){
+			var user_no = $(this).val(),
+				target  = $(this).attr('data-target');
+			$.ajax({
+			   type: "POST",
+			   url: "__MODULE__/Public/getusername",
+			   data: "user_no="+user_no,
+			   success: function(data){
+			   		if (data.state != 0) {
+			   			$("input[name='"+ target +"']").val('');
+			   		}else{
+						$("input[name='"+ target +"']").val(data.data.USER_NAME);
+			   		}
+			   }
+			});
+		})
+		//通过选择商户类别显示/隐藏集团公司下拉
+		$('input[name="shop[SHOP_LEVEL]"]').on('click',function(){
+			var slv = $(this).val();
+			if (slv == '3') {
+				$('p[node-type="getspsel"]').show();
+			}else{
+				$('p[node-type="getspsel"]').hide();
+			}
+		})
+
+		//通过地区自动获取邮编
+		$('select[name="shop[CITY_NO]').on('change',function(){
+			var city_code = $(this).val();
+			$.ajax({
+			   type: "POST",
+			   url : "/index.php/Home/Public/ajaxgetcode",
+			   data: "city_no="+ city_code,
+			   success: function(data){
+			   		if(!data) return;
+			   		$('input[name="shop[ZIP]"]').val(data.CITY_ZIP_CODE);
+			   }
+			});
+		})
+		//通过选择商户类别显示/隐藏集团公司下拉
+		$('select[node-type="shoplv"]').on('change',function(){
+			var glv = $(this).val();
+			if (glv == '3') {
+				$('span[node-type="getgpsel"]').show();
+			}else{
+				$('span[node-type="getgpsel"]').hide();
+			}
+		})
+		//通过选择第三方渠道显示/隐藏可修改的商户号
+		$('select[node-type="chennel"]').on('change',function(){
+			var chennel_id = $(this).val();
+			if (chennel_id != '100002') {
+				$('span[node-type="getchennel"]').show();
+			}else{
+				$('span[node-type="getchennel"]').hide();
+			}
+		})
+		//勾选显示隐藏
+		$('input[node-type="isshow"]').on('click',function(){
+			var param = $(this).attr('data-target');
+			var is_check = $(this).is(':checked');
+			if (is_check) {
+				$('span.'+ param).show();
+			}else{
+				$('span.'+ param).hide();
+			};
+		})
+		$(".email_auto").mailAutoComplete({
+			boxClass: "out_box", //外部box样式
+			listClass: "list_box", //默认的列表样式
+			focusClass: "focus_box", //列表选样式中
+			markCalss: "mark_box", //高亮样式
+			autoClass: false,
+			textHint: true //提示文字自动隐藏
+		});
+	</script>
+</div>

@@ -1,0 +1,24 @@
+	<div class="pageFormContent">
+		<div class="rate">
+			<div class="lb"><b>行业类别</b></div>
+			<div class="kl"><b>扣率（百分比）</b></div>
+			<div class="fd"><b>是否封顶</b></div>
+			<div class="clear"></div>
+		</div>
+		<div class="rate">
+			<div class="lb"><b>行业类别</b></div>
+			<div class="kl"><b>扣率（百分比）</b></div>
+			<div class="fd"><b>是否封顶</b></div>
+			<div class="clear"></div>
+		</div>
+		<input type="hidden" value="" name="post[HMDR_DATA]"/>
+		<volist name="hmdr_list" id="vo">
+			<div class="rate">
+				<div class="lb">{$mcc_type[$vo[MCC_TYPE]]}</div>
+				<div class="kl">{$vo.PER_FEE|setMoney=###,2,2}　%</div>
+				<div class="fd"><gt name="vo.FIX_FEE" value="0"><label>封　顶　</label>{$vo.FIX_FEE|setMoney=###,2,2}　元<else />不封顶</gt></div>
+				<div class="clear"></div>
+			</div>
+		</volist>
+		<div class="clear"></div>
+	</div>

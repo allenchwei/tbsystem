@@ -1,0 +1,76 @@
+<div class="pageFormContent">
+	<div class="content100">
+		<if condition="$sbact_info['SHOP_BANK_FLAG'] eq 0">
+			<p>
+				<label>结算标志：</label>
+				<span class="show">{$bank_flag_redio[$sbact_info['SHOP_BANK_FLAG']]}</span>
+			</p>
+			<p>
+				<label>户名：</label>
+				<span class="show">{$sbact_info.BANKACCT_NAME1}</span>
+			</p>
+			<p>
+				<label>账号：</label>
+				<span class="show">{$sbact_info.BANKACCT_NO1}</span>
+			</p>
+			<p>
+				<label>开户行：</label>
+				<span class="show">{$sbact_info.BANK_NAME1}</span>
+			</p>
+			<p>
+				<label>开户行联行号：</label>
+				<span class="show">{$sbact_info.BANKACCT_BID1}</span>
+			</p>
+			<p>
+				<label>银行预留手机号：</label>
+				<span class="show">{$sbact_info.BANK_MOBILE1}</span>
+			</p>
+			<if condition="$home['CHANNEL_MAP_ID'] eq 0">
+			<p>
+				<label>是否亿美鉴权：</label>
+				<span class="show"><php>echo ($sbact_info[IS_AUTH1]==1)?'否':'是';</php></span>
+			</p>
+			</if>
+		<else />
+			<p>
+				<label>结算标志：</label>
+				<span class="show">{$bank_flag_redio[$sbact_info['SHOP_BANK_FLAG']]}</span>
+			</p>
+			<p>
+				<label>户名：</label>
+				<span class="show">{$sbact_info.BANKACCT_NAME2}</span>
+			</p>
+			<p>
+				<label>账号：</label>
+				<span class="show">{$sbact_info.BANKACCT_NO2}</span>
+			</p>
+			<p>
+				<label>开户行：</label>
+				<span class="show">{$sbact_info.BANK_NAME2}</span>
+			</p>
+			<p>
+				<label>开户行联行号：</label>
+				<span class="show">{$sbact_info.BANKACCT_BID2}</span>
+			</p>
+			<p>
+				<label>银行预留手机号：</label>
+				<span class="show">{$sbact_info.BANK_MOBILE2}</span>
+			</p>
+			<if condition="$home['CHANNEL_MAP_ID'] eq 0">
+			<p>
+				<label>是否亿美鉴权：</label>
+				<span class="show"><php>echo ($sbact_info[IS_AUTH2]==1)?'否':'是';</php></span>
+			</p>
+			</if>
+		</if>
+		<if condition="(__ACTNAME__ eq 'sbact_check') or (__ACTNAME__ eq 'sbact_recheck') or (__ACTNAME__ eq 'shop_check') or (__ACTNAME__ eq 'shop_recheck')">
+			<p class="ic_line"></p>
+			<p>
+				<label>审阅标志：</label>
+				<span class="show"><label style="text-align:left;"><input type="checkbox" name="is_pass" value="1" node-type="check_flag">已审阅</label></span>
+			</p>
+			<div class="clear"></div>
+		</if>
+		<div class="clear"></div>
+	</div>
+</div>

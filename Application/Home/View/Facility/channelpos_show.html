@@ -1,0 +1,97 @@
+<style>
+.pageFormContent label{width:110px;}
+.pageFormContent .content50 label{width:125px;}
+</style>
+<div class="pageContent">
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content30 pos">
+				<p>
+					<label>商户名称：</label>
+					<span class="show">{$shop_info.SHOP_NAME}</span>
+				</p>
+				<p style="width:66.66%;">
+					<label>平台商户编号：</label>
+					<span class="show">{$shop_info.SHOP_NO1}</span>
+				</p>
+				
+			</div>
+			<div class="content100">
+				<p>
+					<label>商户归属：</label>
+					<span class="show">{$shop_info.PARTNER_MAP_ID|get_level_name=###,$shop_info['BRANCH_MAP_ID']}</span>
+				</p>
+			</div>
+			<div class="content30 pos">
+				<p>
+					<label>终端号：</label>
+					<span class="show">{$pos_info.POS_NO}</span>
+				</p>
+				<p>
+					<label>POS型号：</label>
+					<span class="show">{$pos_info.MODEL_NAME}</span>
+				</p>
+				<p>
+					<label>POS序列号：</label>
+					<span class="show">{$pos_info.DEVICE_SN}</span>
+				</p>
+				<p class="ic_line"></p>
+				<p>
+					<label>POS批次号：</label>
+					<span class="show">{$pos_info.POS_BATCH}</span>
+				</p>
+				<p>
+					<label>流水号：</label>
+					<span class="show">{$pos_info.POS_TRACE}</span>
+				</p>
+				<p>
+					<label>交易超时时间：</label>
+					<span class="show">{$pos_info.POS_TIMEOUT}　秒</span>
+				</p>
+				<p style="width:100%;">
+					<label>通讯参数索引：</label>
+					<span class="show">{$comm_data.COM_NAME}</span>
+				</p>
+				<p>
+					<label>手工输入卡号：</label>
+					<span class="show">{:C('POS_MAN_MODE')[$pos_info['POS_MAN_MODE']]}</span>
+				</p>
+				<p>
+					<label>IC公钥更新标志：</label>
+					<span class="show">{:C('POS_PBOCKEYFLAG')[$pos_info['POS_PBOCKEYFLAG']]}</span>
+				</p>
+				<p>
+					<label>程序更新标志：</label>
+					<span class="show">{:C('POS_PROGFLAG')[$pos_info['POS_PROGFLAG']]}</span>
+				</p>
+				<p>
+					<label>参数更新标志：</label>
+					<span class="show">{:C('POS_PARAFLAG')[$pos_info['POS_PARAFLAG']]}</span>
+				</p>
+				<p>
+					<label>IC参数更新标志：</label>
+					<span class="show">{:C('POS_PBOCPARAFLAG')[$pos_info['POS_PBOCPARAFLAG']]}</span>
+				</p>
+				<p>
+					<label>IC黑名单更新标志：</label>
+					<span class="show">{:C('POS_HMDFLAG')[$pos_info['POS_HMDFLAG']]}</span>
+				</p>
+				<p class="ic_line"></p>
+				<div class="clear"></div>
+			</div>
+			<div class="content50">
+				<p>
+					<label>终端程序当前版本号：</label>
+					<span class="show">{$pos_info.POS_CURPROGVER}</span>
+				</p>
+				<p>
+					<label>终端程序最新版本号：</label>
+					<span class="show">{$pos_info.POS_NEWPROGVER}</span>
+				</p>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+			</div>
+		</div>
+</div>

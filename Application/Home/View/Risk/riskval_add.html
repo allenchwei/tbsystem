@@ -1,0 +1,76 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<input type="hidden" name="post[submit]" value="__ACTNAME__">
+	<gt name="info.VAL_ID" value="0">		
+		<input type="hidden" name="post[VAL_ID]" value="{$info.VAL_ID}">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>规则名称：</label>
+					<select class="combox" name="post[RULE_ID]">
+						<volist name="riskrule_list" id="vo">
+							<option value="{$vo.RULE_ID}" <eq name="info['RULE_ID']" value="$vo.RULE_ID">selected</eq>>{$vo.RULE_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>适用商户等级：</label>
+					<select class="combox" name="post[SHOP_GRADE]">
+						<volist name="shop_grade" id="vo">
+							<option value="{$key}" <eq name="info['SHOP_GRADE']" value="$key">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>适用商户分类：</label>
+					{:getmcc_select($info['MCC_TYPE'],$info['MCC_CODE'],'post[MCC_TYPE]','post[MCC_CODE]')}
+				</p>
+				<p class="ic_line"></p>
+				<p>
+					<label>风控周期：</label>
+					<select class="combox" name="post[RISK_T]">
+						<volist name="risk_t" id="vo">
+							<option value="{$key}" <eq name="info['RISK_T']" value="$key">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>风控动作：</label>
+					<select class="combox" name="post[RISK_ACTIVE]">
+						<volist name="risk_active" id="vo">
+							<option value="{$key}" <eq name="info['RISK_ACTIVE']" value="$key">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>规则状态：</label>
+					<select class="combox" name="post[RISK_STATUS]">
+						<volist name="risk_status" id="vo">
+							<option value="{$key}" <eq name="info['RISK_STATUS']" value="$key">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>风控阀值：</label>
+					<input type="text" value="{$info.RISK_TARGET}" class="digits required" name="post[RISK_TARGET]" maxlength="10"/>　% | 元 | 笔	
+				</p>
+				<p>
+					<label>风控累计积数：</label>
+					<input type="text" value="{$info.ACTIVE_BOUND}" class="digits required" name="post[ACTIVE_BOUND]" maxlength="4"/>
+				</p>
+				<p>
+					<label>备注：</label>
+					<textarea style="width:600px;height:80px;" name="post[RISK_REMARK]">{$info.RISK_REMARK}</textarea>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

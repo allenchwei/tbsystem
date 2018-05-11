@@ -1,0 +1,43 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<notempty name="info['ID']">
+			<input type="hidden" name="post[ID]" value="{$info.ID}">
+		</notempty>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>平台商户ID：</label>
+					<input type="text" value="{$info.SHOP_MAP_ID}" name="post[SHOP_MAP_ID]" class="required"/>
+				</p>
+				<p>
+					<label>下游商户号：</label>
+					<input type="text" value="{$info.MCH_ID}" name="post[MCH_ID]" class="required" style="width:42%"/>
+				</p>
+				<p>
+					<label>下游密钥：</label>
+					<input type="text" value="{$info.KEY}" name="post[KEY]" class="required" style="width:42%"/>
+				</p>
+				<p>
+					<label>下游扣率：</label>
+					<select class="combox" name="post[FLAG]">
+						<option value>请选择</option>
+						<volist name="downmch_flag" id="vo">
+							<option value="{$key}" <if condition="$info['FLAG'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>通道ID：</label>
+					<input type="text" value="{$info.PIECE_ID}" name="post[PIECE_ID]" class="required" maxlength="13"/>
+				</p>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>

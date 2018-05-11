@@ -1,0 +1,59 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<input type="hidden" name="post[submit]" value="__ACTNAME__">
+	<gt name="info.PLEVEL_MAP_ID" value="0">		
+		<input type="hidden" name="post[PLEVEL_MAP_ID]" value="{$info.PLEVEL_MAP_ID}">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>等级级别：</label>
+					<span class="show">{$info.PLEVEL_LEVEL}</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content50">
+				<p>
+					<label>等级名称：</label>
+					<span class="show">{$plevel_name[$info[PLEVEL_LEVEL]]}</span>
+				</p>
+				<p>
+					<label>发票提醒金额：</label>
+					<input type="text" value="{$info.REMINDER_AMT|setMoney=###,6,2}" class="doubles required" name="post[REMINDER_AMT]" maxlength="9"/>　万元
+				</p>
+				<p class="ic_line"></p>
+				<p>
+					<label>应收加盟费：</label>
+					<input type="text" value="{$info.JOIN_FEE|setMoney=###,6,2}" class="doubles required" name="post[JOIN_FEE]" maxlength="9"/>　万元
+				</p>
+				<p>
+					<label>应收保证金：</label>
+					<input type="text" value="{$info.FUND_AMT|setMoney=###,6,2}" class="doubles required" name="post[FUND_AMT]" maxlength="9"/>　万元
+				</p>
+				<p>
+					<label>最低加盟费：</label>
+					<input type="text" value="{$info.JOINFEE_BEGIN|setMoney=###,6,2}" class="doubles required" name="post[JOINFEE_BEGIN]" maxlength="9"/>　万元
+				</p>
+				<p>
+					<label>最低保证金：</label>
+					<input type="text" value="{$info.FUND_BEGIN|setMoney=###,6,2}" class="doubles required" name="post[FUND_BEGIN]" maxlength="9"/>　万元
+				</p>
+				<p>
+					<label>最高加盟费：</label>
+					<input type="text" value="{$info.JOINFEE_END|setMoney=###,6,2}" class="doubles required" name="post[JOINFEE_END]" maxlength="9"/>　万元
+				</p>
+				<p>
+					<label>最高保证金：</label>
+					<input type="text" value="{$info.FUND_END|setMoney=###,6,2}" class="doubles required" name="post[FUND_END]" maxlength="9"/>　万元
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

@@ -1,0 +1,76 @@
+<?php
+//**********************
+//current Settings development, online
+//**********************
+if($_SERVER['HTTP_HOST'] == 'demo.shoudan.com'){
+	$HOST = 'development';
+}else if($_SERVER['HTTP_HOST'] == 'shoudan.xingdata.com'){
+	$HOST = 'zhexing';
+}else{
+	$HOST = 'online';
+}
+define('CON_ENVIRONMENT', $HOST);
+
+switch (CON_ENVIRONMENT){
+	case "development":	
+		//本地测试
+		define('DB_DSN', 		'mysql://root:@localhost:3306/pai_db_jfb#utf8');
+		define('DB_PREFIX',		'a_');
+		define('C_URL', 		'http://demo.shoudan.com');
+		
+		define('DB_DSN_GLA', 	'mysql://root:@localhost:3306/gla_db_jfb#utf8');
+		define('DB_PREFIX_GLA',	'k_');
+		
+		define('DB_DSN_PAM', 	'mysql://root:@localhost:3306/pam_db_jfb#utf8');
+		define('DB_PREFIX_PAM',	'm_');
+		
+		define('DB_DSN_TRA', 	'mysql://root:@localhost:3306/tra_db_jfb#utf8');
+		define('DB_PREFIX_TRA',	't_');
+
+		//会员数据同步测试地址
+		define('VIP_PUSH_URL', 'http://shop.jfb315.cn/');
+		define('SHOP_SYN_URL', 'http://jiesuanif.jfb315.cn:8056/');
+		//define('VIP_PUSH_URL', 'http://115.238.80.150:8086/');	//http://shop.jfb315.cn/
+	break;
+	case "zhexing":
+		//浙星测试
+		define('DB_DSN', 		'mysql://root:abf793280f@localhost:3306/pai_db_jfb#utf8');
+		define('DB_PREFIX',		'a_');
+		define('C_URL', 		'http://shoudan.xingdata.com');
+		
+		define('DB_DSN_GLA', 	'mysql://root:abf793280f@localhost:3306/gla_db_jfb#utf8');
+		define('DB_PREFIX_GLA',	'k_');
+		
+		define('DB_DSN_PAM', 	'mysql://root:abf793280f@localhost:3306/pam_db_jfb#utf8');
+		define('DB_PREFIX_PAM',	'm_');
+		
+		define('DB_DSN_TRA', 	'mysql://root:abf793280f@localhost:3306/tra_db_jfb#utf8');
+		define('DB_PREFIX_TRA',	't_');
+
+		//会员数据同步测试地址
+		define('VIP_PUSH_URL', 'http://shop.jfb315.cn/');
+		define('SHOP_SYN_URL', 'http://jiesuanif.jfb315.cn:8056/');
+		//define('VIP_PUSH_URL', 'http://115.238.80.150:8086/');	//http://shop.jfb315.cn/
+	break;		
+	case "online":
+		//线上
+		define('DB_DSN', 		'mysql://jfb:jfb12344321@192.168.30.152:3306/pai_db_jfb#utf8');		//192.168.30.152,192.168.30.153
+		define('DB_PREFIX',		'a_');
+		define('C_URL', 		'http://manage.jfb315.cn');
+		
+		define('DB_DSN_GLA', 	'mysql://jfb:jfb12344321@192.168.30.150:3306/gla_db_jfb#utf8');		//192.168.30.150,192.168.30.151
+		define('DB_PREFIX_GLA',	'k_');
+		
+		define('DB_DSN_PAM', 	'mysql://jfb:jfb12344321@192.168.30.141:3306/pam_db_jfb#utf8');		//192.168.30.141,192.168.30.142
+		define('DB_PREFIX_PAM',	'm_');
+		
+		define('DB_DSN_TRA', 	'mysql://jfb:jfb12344321@192.168.30.154:3306/tra_db_jfb#utf8');		//192.168.30.154,192.168.30.155
+		define('DB_PREFIX_TRA',	't_');
+
+		//会员数据同步测试地址
+		define('VIP_PUSH_URL', 'http://shop.jfb315.cn/');
+		define('SHOP_SYN_URL', 'http://jiesuanif.jfb315.cn:8056/');
+		//define('VIP_PUSH_URL', 'http://115.238.80.150:8086/');	//http://shop.jfb315.cn/
+	break;		
+}
+?>

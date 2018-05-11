@@ -1,0 +1,63 @@
+<style>.content100 p label{width:120px;}</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.SMS_MODLE_ID" value="0">
+			<input type="hidden" name="post[SMS_MODLE_ID]" value="{$info.SMS_MODLE_ID}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>短信模板适用类型：</label>
+					<select class="combox" name="post[SMS_MODEL_TYPE]">
+						<volist name="sms_model_type" id="vo">
+							<option value="{$key}" <if condition="$info['SMS_MODEL_TYPE'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>短信模板适用城市：</label>
+					<eq name="info[SMS_MODEL_CITY]" value="000000">
+						{$info.SMS_MODEL_CITY_|getcity_select=###,'post[SMS_MODEL_CITY]'} <!-- SMS_MODEL_CITY_ 该变量不存在 gzy -->
+					<else/>
+						{$info.SMS_MODEL_CITY|getcity_select=###,'post[SMS_MODEL_CITY]'}
+					</eq>
+					<label><input type="checkbox" name="post[FLAG]" value="1" <eq name="info['SMS_MODEL_CITY']" value="000000">checked</eq>>默认所有城市</label>
+				</p>
+				<p>
+					<label>标志：</label>
+					<select class="combox" name="post[SMS_MODLE_STATUS]">
+						<volist name="sms_model_status" id="vo">
+							<option value="{$key}" <if condition="$info['SMS_MODLE_STATUS'] eq $key">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>模板：</label>
+					<textarea class="required textInput" style="width:440px;height:150px;" name="post[SMS_MODEL]">{$info.SMS_MODEL}</textarea>
+				</p>
+				<p>
+					<label>注意：</label>
+					<span class="show" style="width:567px">
+						<span>{vip_cardno} 会员卡号　</span>
+						<span>{vip_cardno_tail} 会员卡号尾号　</span>
+						<span>{datetime} 时间　</span>
+						<span>{shop_name} 商户名称　</span>
+						<span>{purchase_amt} 消费金额　</span>
+						<span>{yl_amt} 养老金额　</span>
+						<span>{dk_bankacct_no_tail} 商户代扣账户尾号　</span>
+						<span>{dk_yl_amt} 代扣养老金额　</span>
+						<span>{check_code} 验证码　</span>
+					</span>
+				</p>				
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+</div>

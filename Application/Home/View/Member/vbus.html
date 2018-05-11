@@ -1,0 +1,157 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[BRANCH_MAP_ID]" value="{$postdata.BRANCH_MAP_ID}"/>
+	<input type="hidden" name="post[PARTNER_MAP_ID]" value="{$postdata.PARTNER_MAP_ID}"/>
+	<input type="hidden" name="post[VIP_CARD_FLAG]" value="{$postdata.VIP_CARD_FLAG}"/>
+	<input type="hidden" name="post[VIP_IDNO]" value="{$postdata.VIP_IDNO}"/>
+	<input type="hidden" name="post[VIP_MOBILE]" value="{$postdata.VIP_MOBILE}"/>
+	<input type="hidden" name="post[VIP_NAME]" value="{$postdata.VIP_NAME}"/>
+	<input type="hidden" name="post[VIP_AUTH_FLAG]" value="{$postdata.VIP_AUTH_FLAG}"/>
+	<input type="hidden" name="post[VIP_DONATE]" value="{$postdata.VIP_DONATE}"/>
+	<input type="hidden" name="post[CARD_NO]" value="{$postdata.CARD_NO}"/>
+	<input type="hidden" name="post[ACCT_DIVBAL]" value="{$postdata.ACCT_DIVBAL}"/>
+	<input type="hidden" name="post[CREATE_TIME_A]" value="{$postdata.CREATE_TIME_A}"/>
+	<input type="hidden" name="post[CREATE_TIME_B]" value="{$postdata.CREATE_TIME_B}"/>
+	<input type="hidden" id="exportdata" value="{$exportdata}"/><!-- Excel导出 -->
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p class="maxcombox4">
+					<label>会员归属：</label>
+					{:get_level_sel($postdata['BRANCH_MAP_ID'],'-1','plv[]',$postdata['PARTNER_MAP_ID'],5)}
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>　卡套餐：</label>
+					<select class="combox" name="post[VIP_CARD_FLAG]">
+						<option value="">请选择</option>
+						<volist name="vip_card_flag" id="vo">
+							<option value="{$key}" <if condition="($postdata['VIP_CARD_FLAG'] eq $key) and ($postdata['VIP_CARD_FLAG'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>会员身份证：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.VIP_IDNO}" name="post[VIP_IDNO]" maxlength="20">
+				</p>
+				<p>
+					<label>会员手机：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.VIP_MOBILE}" name="post[VIP_MOBILE]" maxlength="11">
+				</p>
+				<p>
+					<label>　实名认证：</label>
+					<select class="combox" name="post[VIP_AUTH_FLAG]">
+						<option value="">请选择</option>
+						<volist name="vip_auth_flag" id="vo">
+							<option value="{$key}" <if condition="($postdata['VIP_AUTH_FLAG'] eq $key) and ($postdata['VIP_AUTH_FLAG'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>　子母卡：</label>
+					<select class="combox" name="post[VIP_DONATE]">
+						<option value="">请选择</option>
+						<volist name="vip_donate" id="vo">
+							<option value="{$key}" <if condition="($postdata['VIP_DONATE'] eq $key) and ($postdata['VIP_DONATE'] neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>　会员卡号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.CARD_NO}" name="post[CARD_NO]" maxlength="19">
+				</p>
+				<p>
+					<label>会员名称：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.VIP_NAME}" name="post[VIP_NAME]" maxlength="20">
+				</p>
+				<p>
+					<label>预免卡卡费：</label>
+					<select class="combox" name="post[ACCT_DIVBAL]">
+						<option value="">请选择</option>
+						<option value="0" <if condition="($postdata['ACCT_DIVBAL'] eq 0) and ($postdata['ACCT_DIVBAL'] neq '')">selected</if>>已回收</option>
+						<option value="1" <if condition="($postdata['ACCT_DIVBAL'] eq 1) and ($postdata['ACCT_DIVBAL'] neq '')">selected</if>>未回收</option>
+					</select>
+				</p>
+				<p>
+					<label>创建日期：</label>
+					<span>
+						<input class="input01 textInput date f_l" type="text" value="{$postdata.CREATE_TIME_A}" name="post[CREATE_TIME_A]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+					<code class="code"> ~ </code>
+					<span>
+						<input class="input01 textInput date f_l" type="text" value="{$postdata.CREATE_TIME_B}" name="post[CREATE_TIME_B]" readonly="true">
+						<a class="inputDateButton f_l" href="#">选择</a>
+					</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="243">
+		<thead>
+			<tr>
+				<th width="27%">归属</th>
+				<th width="9%" align='center'>卡套餐</th>
+				<th width="9%" align='center'>会员姓名</th>
+				<th width="9%" align='center'>会员手机</th>
+				<th width="8%" align='center'>状态</th>
+				<th width="8%" align='center'>实名认证</th>
+				<th width="8%" align='center'>子母卡</th>
+				<th width="8%" align='center'>预免回收余额</th>
+				<th width="14%" align='center'>创建日期</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.VIP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.BRANCH_MAP_ID|get_branch_name=###,$vo['PARTNER_MAP_ID']}</td>
+					<td>{$vip_card_flag[$vo[VIP_CARD_FLAG]]}</td>
+					<td>{$vo.VIP_NAME}</td>
+					<td>{$vo.VIP_MOBILE}</td>
+					<td>{$vip_status[$vo[VIP_STATUS]]}</td>
+					<td>{$vip_auth_flag[$vo[VIP_AUTH_FLAG]]}</td>
+					<td>{$vip_donate[$vo[VIP_DONATE]]}</td>
+					<td>{$vo.ACCT_DIVBAL|setMoney=###,2,2}</td>
+					<td>{$vo.CREATE_TIME}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span><a class="statis" href="javascript:;" note-type="getstatis">点击查看统计</a></span></div>
+		<div class="pagination" checkPage="1" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+	<script type="text/javascript">		
+		//页面加载执行
+		$(document).ready(function(){
+			var	navsnum     = $('.tabsPageHeader .navTab-tab .selected').index();
+			var tabscontent = $('.tabsPageContent .unitBox:eq('+navsnum+')');
+			//点击查看统计
+			tabscontent.find('a[note-type="getstatis"]').on('click',  function(){
+				tabscontent.find('.pages').html('<span><img class="loading" src="__PUBLIC__/home/images/loading.gif">统计中...</span>');
+				
+				var	exportdata  = tabscontent.find('#exportdata').val();
+				var url 	    = exportdata ? '__ACTION__' + exportdata + '&submit=__ACTNAME__&ajax=loading' : '__ACTION__?submit=__ACTNAME__&ajax=loading';
+				$.ajaxSettings.global = false;		//关闭框架loading	
+				$.getJSON(url, {}, function(_data) {
+					tabscontent.find('.pages').html('<span>共 '+ _data.count +' 条</span>');
+					$.ajaxSettings.global = true;	//开启框架loading	
+				});
+			});
+		});
+	</script>
+</div>

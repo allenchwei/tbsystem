@@ -1,0 +1,93 @@
+<form id="pagerForm" method="post" action="__ACTION__">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[CITY_S_CODE]" value="{$postdata.CITY_S_CODE}"/>
+	<input type="hidden" name="post[ISSUE_CODE]" value="{$postdata.ISSUE_CODE}"/>
+	<input type="hidden" name="post[BANK_BNAME]" value="{$postdata.BANK_BNAME}"/>
+	<input type="hidden" name="post[BANK_BID]" value="{$postdata.BANK_BID}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__" onsubmit="return dialogSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>　所在省：</label>
+					<select class="combox" name="post[CITY_S_CODE]">
+						<option value="">请选择</option>
+						<volist name="citylist" id="vo">
+							<option value="{$vo.PROVINCE_CODE}" <if condition="$postdata['CITY_S_CODE'] eq $vo['PROVINCE_CODE']">selected</if>>{$vo.PROVINCE_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>开户银行：</label>
+					<select class="combox" name="post[ISSUE_CODE]">
+						<option value="">请选择</option>
+						<volist name="banklist" id="vo">
+							<option value="{$vo.ISSUE_CODE}" <if condition="$postdata['ISSUE_CODE'] eq $vo['ISSUE_CODE']">selected</if>>{$vo.BANK_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>银行名称：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.BANK_BNAME}" name="post[BANK_BNAME]" maxlength="40">
+				</p>
+				<p>
+					<label>银行行号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.BANK_BID}" name="post[BANK_BID]" maxlength="12">
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<table class="table" width="100%" layoutH="141">
+		<thead>
+			<tr>
+				<th orderfield="BANK_NAME" width="60%">银行名称</th>
+				<th orderfield="BANK_BID" width="25%" align='center'>银行行号</th>
+				<th width="15%" align='center'>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.BRANCH_MAP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.BANK_BNAME}</td>
+					<td>{$vo.BANK_BID}</td>
+					<td><a href="javascript:$.bringBack({BANK_NAME:'{$vo.BANK_BNAME}', BANKACCT_BID:'{$vo.BANK_BID}'});changebank('{$vo.BANK_BNAME}')" data-bankname="{$vo.BANK_BNAME}" id="changebank"><font color="red">选择</font></a></td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="dialog" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>
+<script type="text/javascript">
+	function changebank(bankname){
+		var flag = $('div.tabsHeader:first').find('li');
+		if(flag.eq(4).attr('class') == 'selected'){
+			var this_obj = $('select[name="sdkb[DKCO_MAP_ID]"]');	//当前select对象
+			var this_obj = $('select[name="sdkb[DKCO_MAP_ID]"]');	//当前select对象
+			var obj_id = this_obj.closest('div.select').attr('id');	//当前select外框 div id
+
+			if (bankname.indexOf('邮政') != -1) {
+				$('a[name="sdkb[DKCO_MAP_ID]"]').attr('value','1').html(this_obj.find('option[value="1"]').text());
+				this_obj.val(1);
+				$('#op_'+obj_id).find('li a').removeClass('selected');
+				$('#op_'+obj_id).find('li a[value="1"]').addClass('selected');
+			}else{
+				$('a[name="sdkb[DKCO_MAP_ID]"]').attr('value','2').html(this_obj.find('option[value="2"]').text());
+				this_obj.val(2);
+				$('#op_'+obj_id).find('li a').removeClass('selected');
+				$('#op_'+obj_id).find('li a[value="2"]').addClass('selected');
+			};
+		}
+	};
+</script>

@@ -1,0 +1,73 @@
+<style type="text/css">
+	.pageFormContent label{width: 100px;}
+	.err_offset_5_1 .error{left:115px;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="POST" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="shop_info.SHOP_MAP_ID" value="0">
+		<input type="hidden" name="post[submit]" value="diy_add">
+		<input type="hidden" name="post[SHOP_MAP_ID]" value="{$shop_info.SHOP_MAP_ID}">
+		<input type="hidden" name="post[SMODEL_ID]" value="{$sposreq_info.SMODEL_ID}">
+		<input type="hidden" name="post[SHOP_NO]" value="{$shop_info.SHOP_NO}">
+		<input type="hidden" name="post[PARTNER_MAP_ID]" value="{$shop_info.PARTNER_MAP_ID}">
+		<input type="hidden" name="post[BRANCH_MAP_ID]" value="{$shop_info.BRANCH_MAP_ID}">
+		<input type="hidden" name="post[DEVICE_ADDRESS]" value="{$shop_info.CITY_NO|getcity_name=###} {$shop_info.ADDRESS}">
+		<input type="hidden" name="post[FACTORY_MAP_ID]" value="{$sposreq_info.FACTORY_MAP_ID}">
+		<input type="hidden" name="post[MODEL_MAP_ID]" value="{$sposreq_info.MODEL_MAP_ID}">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content50">
+				<p>
+					<label>商户编号：</label>
+					<span class="show">{$shop_info.SHOP_NO}</span>
+				</p>
+				<p>
+					<label>商户名称：</label>
+					<span class="show">{$shop_info.SHOP_NAME}</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content100">
+				<p>
+					<label>商户归属：</label>
+					<span class="show">{$shop_info.PARTNER_MAP_ID|get_level_name=###,$shop_info['BRANCH_MAP_ID']}</span>
+				</p>
+				<p>
+					<label>设备机型：</label>
+					<span class="show">{$sposreq_info.MODEL_MAP_ID|getmodel_name=###}  <font color="red">{$sposreq_info.NUM}</font> 台</span>
+				</p>
+				<p>
+					<label>商户地址：</label>
+					<span class="show">{$shop_info.CITY_NO|getcity_name=###} {$shop_info.ADDRESS}</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="content50 err_offset_5_1">
+				<p>
+					<label>联系电话：</label>
+					<span class="show">{$shop_info.TEL}</span>
+				</p>
+				<p class="ic_line"></p>
+
+				<for start="0" end="$sposreq_info.NUM">
+					<p>
+						<label>{$i+1}.设备序列号：</label>
+						<input type="text" class="required ws23" node-type="dev[DEVICE_SN]" data-target="dev[{$i}][POS_NO]" value="" name="dev[{$i}][DEVICE_SN]" maxlength="20"/>
+					</p>
+					<p>
+						<label>终端号：</label>
+						<span class="show" node-type="dev[{$i}][POS_NO]">{:setStrzero(($pos_no+$i+1),8)}</span>
+						<input type='hidden' name="dev[{$i}][POS_NO]" value='{:setStrzero(($pos_no+$i+1),8)}'>
+					</p>
+				</for>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>

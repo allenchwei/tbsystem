@@ -1,0 +1,85 @@
+<div class="pageFormContent">
+	<div class="content100">
+		<p>
+			<label>合同编号：</label>
+			<span class="show">{$pcert_info.AGREEMENT_NO}</span>
+		</p>
+		<p>
+			<label>注册地址：</label>
+			<span class="show">{$pcert_info.REG_ADDR}</span>
+		</p>
+		<p class="p_img">
+			<label>营业执照号码：</label>
+			<span class="show">{$pcert_info.REG_ID}</span>
+			<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$pcert_info.REGID_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page1">
+				<img src="{$pcert_info.REGID_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+			</a>
+		</p>
+		<p class="p_img">
+			<label>组织机构代码：</label>
+			<span class="show">{$pcert_info.ORG_ID}</span>
+			<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$pcert_info.ORGID_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page2">
+				<img src="{$pcert_info.ORGID_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+			</a>
+		</p>
+		<p class="p_img">
+			<label>税务登记证：</label>
+			<span class="show">{$pcert_info.TAX_ID}</span>
+			<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$pcert_info.TAXID_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page3">
+				<img src="{$pcert_info.TAXID_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+			</a>
+		</p>
+		<p class="p_img">
+			<label>法人姓名：</label>
+			<span class="show">{$pcert_info.LP_NAME}</span>
+		</p>
+		<p>
+			<label>身份证号码：</label>
+			<span class="show">{$pcert_info.LP_ID}</span>
+			<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$pcert_info.LP_D_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page4">
+				<img src="{$pcert_info.LP_D_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+			</a>
+			<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$pcert_info.LP_R_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+				<img src="{$pcert_info.LP_R_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+			</a>
+		</p>
+		<p class="p_img">
+			<label>开户许可证：</label>
+			<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$pcert_info.BANK_PHOTO|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+				<img src="{$pcert_info.BANK_PHOTO|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+			</a>
+		</p>
+		<p class="p_img">
+			<label>其他：</label>
+			<span class="show">
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$pcert_info['OTHER'][0]|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$pcert_info['OTHER'][0]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$pcert_info['OTHER'][1]|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$pcert_info['OTHER'][1]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$pcert_info['OTHER'][2]|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$pcert_info['OTHER'][2]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$pcert_info['OTHER'][3]|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$pcert_info['OTHER'][3]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+
+				<a href="__MODULE__/Public/image_show/navTabId/__CONNAME__?img_url={$pcert_info['OTHER'][4]|urlencode=###}" width="{$Think.config.tk_max_w}" height="{$Think.config.tk_max_h}" target="dialog" mask="true" rel="dlg_page5">
+					<img src="{$pcert_info['OTHER'][4]|default='../../../Public/home/images/gszp.png'}" width="65" height="50">
+				</a>
+			</span>
+		</p>
+		<if condition="(__ACTNAME__ eq 'pcert_check') or (__ACTNAME__ eq 'pcert_recheck') or (__ACTNAME__ eq 'partner_check') or (__ACTNAME__ eq 'partner_recheck')">
+			<p>
+				<label>审阅标志：</label>
+				<span class="show"><label style="text-align:left;"><input type="checkbox" name="is_pass" value="1" node-type="check_flag">是否已审阅</label></span>
+			</p>
+		</if>
+		
+		<div class="clear"></div>
+	</div>
+</div>

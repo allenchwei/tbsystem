@@ -1,0 +1,93 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="sposmapped"/>
+	<input type="hidden" name="post[HOST_MAP_ID]" value="{$postdata.HOST_MAP_ID}"/>
+	<input type="hidden" name="post[SHOP_NO]" value="{$postdata.SHOP_NO}"/>
+	<input type="hidden" name="post[POS_NO]" value="{$postdata.POS_NO}"/>
+	<input type="hidden" name="post[HSHOP_NO]" value="{$postdata.HSHOP_NO}"/>
+	<input type="hidden" name="post[HPOS_NO]" value="{$postdata.HPOS_NO}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="{:U('/Home/Shop/sposmapped')}" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="sposmapped">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>平台商户号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.SHOP_NO}" name="post[SHOP_NO]">
+				</p>
+				<p>
+					<label>平台商户终端号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.POS_NO}" name="post[POS_NO]">
+				</p>
+				<p>
+					<label>通道名称：</label>
+					<select class="combox" name="post[HOST_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="hostsel" id="vo">
+							<option value="{$vo.HOST_MAP_ID}" <if condition="($postdata.HOST_MAP_ID eq $vo['HOST_MAP_ID']) and ($postdata.HOST_MAP_ID neq '')">selected</if>>{$vo.HOST_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>通道商户号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.HSHOP_NO}" name="post[HSHOP_NO]">
+				</p>
+				<p>
+					<label>　　通道终端号：</label>
+					<input class="input01 textInput" type="text" value="{$postdata.HPOS_NO}" name="post[HPOS_NO]">
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		<a href="/index.php/Home/Shop/sposmapped_add/navTabId/Shop" width="550" height="380" target="dialog" mask="true">
+		<button class="ch-btn-skin ch-btn-small ch-icon-plus">POS映射</button>
+		</a>
+		<a href="/index.php/Home/Shop/sposmapped_edit/navTabId/Shop?id={sid_target}" width="550" height="380" target="dialog" mask="true" warn="请选择需要修改的记录">
+		<button class="ch-btn-skin ch-btn-small ch-icon-pencil">修 改</button>
+		</a>
+		<a href="/index.php/Home/Shop/sposmapped_del/navTabId/Shop?id={sid_target}" width="550" height="380" target="ajaxTodo" warn="请选择需要删除的记录" title="您确定要删除这条记录吗">
+		<button class="ch-btn-skin ch-btn-small ch-icon-trash">删 除</button>
+		</a>
+	</div>
+	<table class="table" width="100%" layoutH="175">
+		<thead>
+			<tr>
+				<th width="14%" align='center'>平台商户号</th>
+				<th width="10%" align='center'>平台商户POS</th>
+				<th width="14%" align='center'>平台商户名称</th>
+				<th width="16%" align='center'>通道商户号</th>
+				<th width="10%" align='center'>通道POS</th>
+				<th width="16%" align='center'>通道商户名称</th>
+				<th width="10%" align='center'>通道ID</th>
+				<th width="10%" align='center'>通道名称</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.POSPPP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.SHOP_NO}</td>
+					<td>{$vo.POS_NO}</td>
+					<td>{$vo.SHOP_NAME}</td>
+					<td>{$vo.HSHOP_NO}</td>
+					<td>{$vo.HPOS_NO}</td>
+					<td>{$vo.HSHOP_NAME}</td>
+					<td>{$vo.HOST_MAP_ID}</td>
+					<td>{$vo.HOST_NAME}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

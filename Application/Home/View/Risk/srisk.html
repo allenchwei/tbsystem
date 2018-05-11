@@ -1,0 +1,69 @@
+<form id="pagerForm" method="post" action="">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="post[submit]" value="__ACTNAME__"/>
+	<input type="hidden" name="post[SHOP_GRADE]" value="{$postdata.SHOP_GRADE}"/>
+	<input type="hidden" name="post[SHOP_NO]" value="{$postdata.SHOP_NO}"/>
+</form>
+<div class="pageHeader">
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" onsubmit="return navTabSearch(this);">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<div class="searchBar">
+			<div class="header">
+				<p>
+					<label>　　商户归属：</label>
+					{:get_level_sel($postdata['BRANCH_MAP_ID'],'-1','plv[]',$postdata['PARTNER_MAP_ID'],5)}
+				</p>
+				<div class="clear"></div>
+				<p>
+					<label>商户风险等级：</label>
+					<select class="combox" name="post[SHOP_GRADE]">
+						<option value="">所有</option>
+						<volist name="shop_grade" id="vo">
+							<option value="{$key}" <eq name="postdata['SHOP_GRADE']" value="$key">selected</eq>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p>
+					<label>商户编号：</label>
+					<input class="input01 textInput" type="text" name="post[SHOP_NO]" value="{$postdata.SHOP_NO}">
+				</p>
+				<div class="clear"></div>
+			</div>
+			<div class="hbtn">
+				<button class="ch-btn-skin ch-btn-small ch-icon-search">查 询</button>
+				<a rel="__CONNAME__" target="navTab" href="__ACTION__" res_title="false"><button class="ch-btn-skin ch-btn-small ch-icon-refresh">重 置</button></a>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar selbutton">
+		{:getaction_select(__CONNAME__,__ACTNAME__)}
+	</div>
+	<table class="table" width="100%" layoutH="175">
+		<thead>
+			<tr>
+				<th width="15%" align='center'>商户编号</th>
+				<th width="25%">商户名称</th>
+				<th width="15%">风险等级</th>
+				<th width="10%">风险累积数</th>
+				<th width="35%">备注</th>
+			</tr>
+		</thead>
+		<tbody>
+			<volist name='list' key="k" id='vo'>
+				<tr target="sid_target" rel="{$vo.SHOP_MAP_ID}" class="<if condition='$k%2 eq 1'>bg</if>">
+					<td>{$vo.SHOP_NO}</td>
+					<td>{$vo.SHOP_NAME}</td>
+					<td>{$shop_grade[$vo[SHOP_GRADE]]}</td>
+					<td>{$vo.SHOP_RISKBOUND}</td>
+					<td title="{$vo.RES}">{$vo.RES}</td>
+				</tr>
+			</volist>
+		</tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages"><span>共 {$totalCount|default="0"} 条</span></div>
+		<div class="pagination" targetType="navTab" totalCount="{$totalCount}" numPerPage="{$numPerPage}" pageNumShown="10" currentPage="{$currentPage}"></div>
+	</div>
+</div>

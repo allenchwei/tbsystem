@@ -1,0 +1,86 @@
+<style>
+.grid .gridScroller{height: 250px;margin-bottom: 10px;overflow: auto;}
+</style>
+<div class="pageContent">
+	<div class="pageFormContent dkls_show" layoutH="{$Think.config.tk_max_add_lay}">
+		<div class="content100">
+			<p>
+				<label>商户名称：</label>
+				<span class="show">{$info.SHOP_NAME}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<div class="content50">
+			<p>
+				<label>代扣日期：</label>
+				<span class="show">{$info.DK_DATE}</span>
+			</p>
+			<p>
+				<label>批次号：</label>
+				<span class="show">{$info.JFB_DK_REF}</span>
+			</p>
+			<p>
+				<label>代扣笔数：</label>
+				<span class="show">{$info.TRANS_CNT} 笔</span>
+			</p>
+			<div class="clear"></div>
+			<p>
+				<label>代扣金额：</label>
+				<span class="show"><font color="red">{$info.DK_AMT|setMoney=###,2,2} 元</font></span>
+			</p>
+			<p>
+				<label>手续费：</label>
+				<span class="show">{$info.DK_FEE|setMoney=###,2,2} 元</span>
+			</p>
+			<p>
+				<label>代扣公司：</label>
+				<span class="show">{$info.DKCO_MAP_ID|get_dkco_name=###}</span>
+			</p>
+			<p>
+				<label>代扣结果：</label>
+				<span class="show">{$dk_flag[$info[DK_FLAG]]}</span>
+			</p>
+			<p>
+				<label>备注：</label>
+				<span class="show">{$info.RES}</span>
+			</p>
+			<div class="clear"></div>
+		</div>
+		<h2>代扣明细表</h2>
+		<div class="dkls_table" style="width:844px;">
+			<table class="table" width="100%">
+				<thead>
+					<tr>
+						<th width="10%" align='center'>交易类型</th>
+						<th width="10%" align='center'>会员名称</th>
+						<th width="17%" align='center'>会员卡号</th>
+						<th width="10%" align='right'>交易金额</th>
+						<th width="8%" align='center'>结果</th>
+						<th width="10%" align='center'>平台分润</th>
+						<th width="10%" align='center'>个人分润</th>
+						<th width="15%" align='center'>时间</th>
+					</tr>
+				</thead>
+				<tbody>
+					<volist name='dklist' key="k" id='vo'>
+						<tr target="sid_target" rel="{$vo.SYSTEM_REF}" class="<if condition='$k%2 eq 1'>bg</if>">
+							<td>{$vo.TRANS_NAME}</td>
+							<td>{$vo.VIP_ID|getvip_name=###}</td>
+							<td>{$vo.VIP_CARDNO}</td>
+							<td>{$vo.TRANS_AMT|setMoney=###,2,2}</td>
+							<td>{$trace_status[$vo[TRACE_STATUS]]}</td>
+							<td>{$vo.PLAT_FEE|setMoney=###,2,2}</td>
+							<td>{$vo.CON_FEE|setMoney=###,2,2}</td>
+							<td>{$vo.SYSTEM_DATE}</td>
+						</tr>
+					</volist>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="formBar">
+		<div class="f_r">
+			<button class="ch-btn-skin ch-btn-small ch-icon-remove close">关 闭</button>
+		</div>
+	</div>
+</div>

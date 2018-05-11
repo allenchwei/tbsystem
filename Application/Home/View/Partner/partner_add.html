@@ -1,0 +1,230 @@
+<style>
+.err_offset_1 .error{left:115px;}
+.err_offset_2 .error{left:125px;}
+.err_offset_3 .error{left:255px;}
+.err_offset_3_1 .error{left:0px;}
+.err_offset_4 .error{left:110px;}
+.err_offset_4_1 .error{left:175px;}
+.err_offset_4_2 .error{left:523px;}
+.err_offset_4_3 .error{left:120px;}
+.err_offset_4_4 .error{left:548px;}
+.pageFormContent .label_100 label{width:100px;}
+.pageFormContent .label_30 label{width:100px;}
+div.upimgbtndiv{width:100px;float:left; margin: 0 10px;}
+.uploadify-button{background-image: none;background-color: #324e75;}
+.uploadify:hover .uploadify-button{background-image: none;background-color: #324e75;}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="partner[submit]" value="__ACTNAME__">
+		<div class="pageFormContent err_offset_1" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content25">
+				<p class="label_100" style="width:50%;">
+					<label>合作伙伴名称：</label>
+					<input type="text" name="partner[PARTNER_NAME]" value="{$partner_info.PARTNER_NAME}" class="required ws23" maxlength="26"/>
+					<span class="remark">（营业执照名称）</span>
+				</p>
+				<p class="label_100">
+					<label>简称：</label>
+					<input type="text" name="partner[PARTNER_NAMEAB]" value="{$partner_info.PARTNER_NAMEAB}" class="required" maxlength="13"/>
+				</p>
+				<p class="label_30">
+					<label>协议到期：</label>
+					<input type="text" readonly="true" minDate="{:date('Y-m-d')}" name="partner[END_TIME]" value="{$partner_info.END_TIME}" class="date ws15" datefmt="yyyy-MM-dd" />
+					<a class="inputDateButton" href="javascript:;">选择</a>
+				</p>
+			</div>
+			<div class="content25">
+				<p class="label_100 maxcombox" style="width:75%;">
+					<label>所在地址：</label>
+					{$partner_info[CITY_NO]|getcity_select=###,'partner[CITY_NO]'}
+					<input type="text" class="required" name="partner[ADDRESS]" value="{$partner_info.ADDRESS}" style="width:200px;"/>
+					<span class="error" for="partner[ADDRESS]" style="left: 505px; display: none;">必填字段</span>
+					<input type="text" class="required digits ws10" name="partner[ZIP]" value="{$partner_info.ZIP}" maxlength="6"/>
+					<span class="error" for="partner[ZIP]" style="left: 711px; display: none;">必填字段</span>
+				</p>
+				<p class="label_100">
+					<label>联系人员：</label>
+					<input type="text" class="required ws15" name="partner[MANAGER]" value="{$partner_info.MANAGER}" maxlength="10"/>
+				</p>
+				<p class="label_100 maxcombox">
+					<label>合作伙伴级别：</label>
+					<select class="combox" name="partner[PARTNER_LEVEL]" node-type="partnerlv">
+						<volist name="Think.config.PLEVEL_NAME" id="vo">
+							<if condition="$home['USER_LEVEL'] eq $key">
+								<option value="{$key}" >{$vo}</option>
+							</if>
+						</volist>
+					</select>
+				</p>
+				
+				<p class="label_100 maxcombox" style="width:50%;">
+					<eq name="home['USER_LEVEL']" value="3">
+						<span node-type="getrolesel">
+							<label style="width: 85px">角色：</label>
+							<select class="combox" name="partner[PARTNER_LEVEL1]">
+								<volist name="Think.config.PLEVEL_ROLE_NAME" id="vo">
+									<option value="{$key}" <if condition="$partner_info.PARTNER_LEVEL eq $key">selected</if>>{$vo}</option>
+								</volist>
+							</select>
+						</span>
+					</eq>
+				</p>
+				<p class="err_offect_1 label_30">
+					<label>联系手机：</label>
+					<input type="text" class="required digits ws15" name="partner[MOBILE]" value="{$partner_info.MOBILE}" maxlength="11" title="只能输入整数"/>
+				</p>
+				<div class="label_100 maxcombox levelsel" style="width:75%;padding:5px 0;">
+					<label>归属上级：</label>
+					<div class="selbox" node-type="partnerlv2">
+						{:get_level_sel($partner_info['BRANCH_MAP_ID'],-1,'plv[]',$partner_info['PARTNER_MAP_ID'],$home['USER_LEVEL']-1)}
+					</div>
+				</div>
+				<p class="label_30">
+					<label>联系电话：</label>
+					<input type="text" class="digits ws15" name="partner[TEL]" value="{$partner_info.TEL}" maxlength="15"/>
+				</p>
+				<p class="label_100 maxcombox">
+					<label>合作伙伴类别：</label>
+					<select class="combox" name="partner[PARTNER_G_FLAG]">
+						<volist name="partner_g_f" id="vo">
+							<option value="{$key}" <if condition="($partner_info.PARTNER_G_FLAG eq $key) and ($partner_info.PARTNER_G_FLAG neq '')">selected</if>>{$vo}</option>
+						</volist>
+					</select>
+				</p>
+				<p class="label_100 maxcombox" style="width:50%;">
+					<span node-type="getgpsel" style="display:none;"><label style="width: 85px">归属集团公司：</label>{:get_level_sel($Think.session.HOME.BRANCH_MAP_ID,'-1','glv[]',$Think.session.HOME.PARTNER_MAP_ID,'1','', '/index.php/Home/Public/ajaxgetcompany')}</span>
+				</p>
+				<p class="err_offect_1 label_30">
+					<label>联系邮箱：</label>
+					<input type="text" class="ws15 email_auto" name="partner[EMAIL]" value="{$partner_info.EMAIL}" title="请输入正确的邮件格式"/>
+				</p>
+				<p class="label_100 maxcombox">
+					<label>养老险承保公司：</label>
+					<select class="combox" name="partner[SECURITY_MAP_ID1]">
+						<volist name="security_data[1]" id="vo">
+							<option value="{$vo.SECURITY_MAP_ID}" <if condition="$partner_info['SECURITY_MAP_ID1'] eq $vo['SECURITY_MAP_ID']">selected</if>>{$vo.SECURITY_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p class="label_100 maxcombox">
+					<label>意外险承保公司：</label>
+					<select class="combox" name="partner[SECURITY_MAP_ID2]">
+						<volist name="security_data[0]" id="vo">
+							<option value="{$vo.SECURITY_MAP_ID}" <if condition="$partner_info['SECURITY_MAP_ID2'] eq $vo['SECURITY_MAP_ID']">selected</if>>{$vo.SECURITY_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<div class="clear"></div>
+			</div>		
+			<div class="tabs">
+				<div class="tabsHeader">
+					<div class="tabsHeaderContent">
+						<ul>
+							<li><a href="javascript:;"><span>证照信息</span></a></li>
+							<!-- <li><a href="javascript:;"><span>权限开通</span></a></li> -->
+							<li><a href="javascript:;"><span>结算方式</span></a></li>
+							<li><a href="javascript:;"><span>银行账户</span></a></li>
+							<li><a href="javascript:;"><span>其他设置</span></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="tabsContent">
+					<!-- 证照信息 -->
+					<include file="pcert_common_edit"/>
+	
+					<!-- 结算方式 -->
+					<!-- <div class="pageFormContent">
+						<div class="jies1">
+							<div class="content100 err_offset_2">
+								<p>
+									<label>结算周期：</label>
+									<span>
+										<label><input type="radio" class="settle_t" value="1" name="pcls[SETTLE_T_UNIT]" <eq name="pcls_info.SETTLE_T_UNIT" value="1">checked</eq>>日结</label>
+										<label><input type="radio" class="settle_t" value="2" name="pcls[SETTLE_T_UNIT]" <if condition="$pcls_info['SETTLE_T_UNIT'] eq 2">checked<elseif condition="$pcls_info['SETTLE_T_UNIT'] eq ''"/> checked </if>>月结</label>
+									</span>	
+								</p>
+								<div class="clear"></div>
+							</div>
+						</div>
+						<div class="jies2">
+							<div class="content100 err_offset_3">
+								<p class="err_offset_3_1">
+									<span class="t_flag">T+</span><input type="text" value="{$pcls_info.SETTLE_T|default=1}" name="pcls[SETTLE_T]" class="required digits host_input digits ws10">　<span class="settle_t_unit">天</span>
+								</p>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div> -->
+					<include file="pcls_common_edit"/>
+					<!-- 合作伙伴银行账户 -->
+					<include file="pbact_common_edit"/>
+					<!-- 合作伙伴其他配置 -->
+					<include file="pcfg_common_edit"/>
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<a href="javascript:;" class="anniu ch-btn-skin ch-btn-small ch-icon-ok" onclick="checkSubmit()">确 定</a>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+	<script type="text/javascript">
+		function checkSubmit(){
+			$('form[name="form"]').submit();		
+		}
+		//通过选择合作伙伴类别显示/隐藏集团公司下拉
+		$('select[name="partner[PARTNER_G_FLAG]"]').on('change',function(){
+			var glv = $(this).val();
+			if (glv == '3') {
+				$('span[node-type="getgpsel"]').show();
+			}else{
+				$('span[node-type="getgpsel"]').hide();
+			}
+		})
+		//通过地区自动获取邮编
+		$('select[name="partner[CITY_NO]').on('change',function(){
+			var city_code = $(this).val();
+			if(!!city_code){
+				$.ajax({
+				   type: "POST",
+				   url : "/index.php/Home/Public/ajaxgetcode",
+				   data: "city_no="+ city_code,
+				   success: function(data){
+						if(!data) return;
+						$('input[name="partner[ZIP]"]').val(data.CITY_ZIP_CODE);
+				   }
+				});
+			}
+		})
+		//通过选择合作伙伴级别显示/隐藏级别角色
+		$('select[name="partner[PARTNER_LEVEL]"]').on('change',function(){
+			var plv = $(this).val();
+			if (plv == '3') {
+				$('span[node-type="getrolesel"]').show();
+			}else{
+				$('span[node-type="getrolesel"]').hide();
+			}
+		})
+		//通过级别返回下拉级别
+		$('select[node-type="partnerlv"]').on('change',function(){
+			var flag = $(this).val()-1;
+			if(flag == 0){
+				var param = $('select[name="plv[]"]').closest('div.combox');
+		   		param.nextAll('div.combox').remove();
+			}
+			$('select[name="plv[]"]').attr('maxlv',flag);
+			$('select[name="plv[]"]').trigger("change");
+		});
+		$(".email_auto").mailAutoComplete({
+			boxClass: "out_box", //外部box样式
+			listClass: "list_box", //默认的列表样式
+			focusClass: "focus_box", //列表选样式中
+			markCalss: "mark_box", //高亮样式
+			autoClass: false,
+			textHint: true //提示文字自动隐藏
+		});
+	</script>
+</div>

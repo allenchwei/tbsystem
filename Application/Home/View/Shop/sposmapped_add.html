@@ -1,0 +1,96 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+	<gt name="info.POSPPP_ID" value="0">
+		<input type="hidden" name="post[submit]" value="sposmapped_edit">
+		<input type="hidden" name="post[POSPPP_ID]" value="{$info.POSPPP_ID}">
+	<else />
+		<input type="hidden" name="post[submit]" value="sposmapped_add">
+	</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p style="width:50%">
+					<label>平台商户号：</label>
+					<input type="text" class="required ws20" name="post[SHOP_NO]" value="{$info.SHOP_NO}" maxlength="15"/>
+				</p>
+				<p style="width:50%">
+					<!-- 平台商户名称 -->
+					<span class="show" node-type="shop_name">{$info.SHOP_NAME}</span>
+					<input type="hidden" name="post[SHOP_NAME]" value="{$info.SHOP_NAME}"/>
+				</p>
+				<p>
+					<label>终端号：</label>
+					<input type="text" class="required ws20" name="post[POS_NO]" value="{$info.POS_NO}" maxlength="8"/>
+				</p>
+				<p class="ic_line"></p>
+				<p>
+					<label>通道：</label>
+					<select class="combox" name="post[HOST_MAP_ID]">
+						<option value="">请选择</option>
+						<volist name="hostsel" id="vo">
+							<option value="{$vo.HOST_MAP_ID}" <if condition="($info['HOST_MAP_ID'] eq $vo['HOST_MAP_ID']) and ($info['HOST_MAP_ID'] neq '')">selected</if>>{$vo.HOST_NAME}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:50%">
+					<label>通道商户号：</label>
+					<input type="text" class="required ws20" name="post[HSHOP_NO]" value="{$info.HSHOP_NO}" maxlength="15"/>
+				</p>
+				<p style="width:50%">
+					<!-- 通道商户名称 -->
+					<span class="show" node-type="hshop_name">{$info.HSHOP_NAME}</span>
+					<input type="hidden" name="post[HSHOP_NAME]" value="{$info.HSHOP_NAME}"/>
+				</p>
+				<p>
+					<label>通道POS：</label>
+					<input type="text" class="required ws20" name="post[HPOS_NO]" value="{$info.HPOS_NO}" maxlength="8"/>
+				</p>
+				<p class="remark" style="height:14px;">
+					<label>备注：</label>
+					<span>1，通道商户号：【通道POS管理】画面输入的【商户编号】。</span>
+				</p>
+				<p class="remark" style="height:14px;">
+					<label>　</label>
+					<span>2，通道POS：【通道POS管理】画面输入的【POS编号】。</span>
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+	<script>
+		//通过商户号自动获取商户名称
+		$('input[name="post[SHOP_NO]').on('blur',function(){
+			var shop_no = $(this).val();
+			$.ajax({
+			   type: "POST",
+			   url : "/index.php/Home/Public/ajaxgetshopname",
+			   data: "shop_no="+ shop_no,
+			   success: function(data){
+			   		var shop_name = data ? data.SHOP_NAME : '';
+			   		$('span[node-type="shop_name"]').html(shop_name ? shop_name : '商户不存在');
+			   		$('input[name="post[SHOP_NAME]"]').val(shop_name);
+			   }
+			});
+		})
+		//通过商户号自动获取通道商户名称
+		$('input[name="post[HSHOP_NO]').on('blur',function(){
+			var hshop_no = $(this).val();
+			$.ajax({
+			   type: "POST",
+			   url : "/index.php/Home/Public/ajaxgethshopname",
+			   data: "hshop_no="+ hshop_no,
+			   success: function(data){
+			   		var hshop_name = data ? data.HSHOP_NAME : '';
+			   		$('span[node-type="hshop_name"]').html(hshop_name ? hshop_name : '商户不存在');
+			   		$('input[name="post[HSHOP_NAME]"]').val(hshop_name);
+			   }
+			});
+		})
+		
+	</script>
+</div>

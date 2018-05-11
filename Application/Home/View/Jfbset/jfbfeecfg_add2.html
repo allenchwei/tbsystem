@@ -1,0 +1,69 @@
+<style>span.error{left: 160px;}</style>
+<div class="pageContent">	
+	<form method="post" action="__ACTION__/navTabId/__CONNAME__" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.CFG_ID" value="0">
+			<input type="hidden" name="post[CFG_ID]" value="{$info.CFG_ID}">
+			<input type="hidden" name="post[CFG_FLAG]" value="{$info.CFG_FLAG}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p>
+					<label>分润名目：</label>
+					<span class="show">{$cfg_flag[$info[CFG_FLAG]]}</span>
+				</p>
+				<p class="ic_line"></p>
+			</div>
+			<div class="content50 jifb">
+				<p>
+					<label>会员卡费金额：</label>
+					<input type="text" name="post[CARD_OPENFEE]" value="{$info.CARD_OPENFEE|setMoney=###,2,2}" class="number required ws10" maxlength="5"/>　元
+				</p>
+				<if condition="$info.CFG_FLAG eq 3">
+					<p>
+						<label>回收分期比例：</label>
+						<input type="text" name="post[DIV_PER]" value="{$info.DIV_PER|setMoney=###,2,2}" class="number required ws10" maxlength="5"/>　%
+					</p>
+				</if>
+				<p class="ic_line"></p>
+			</div>
+			<div class="content50 jifb">
+				<p></p>
+				<p>
+					<label>总部收益比例：</label>
+					<input type="text" name="post[BRANCH_FEE1]" value="{$info.BRANCH_FEE1|setMoney=###,2,2}" class="doubles required ws10" maxlength="5"/>　元
+				</p>
+				<p></p>
+				<p>
+					<label>省分公司收益比例：</label>
+					<input type="text" name="post[ISS_BRANCH_FEE2]" value="{$info.ISS_BRANCH_FEE2|setMoney=###,2,2}" class="doubles required ws10" maxlength="5"/>　元
+				</p>
+				<p>
+					<label>优先公共交通意外险：</label>
+					<input type="text" name="post[TRAFICC_FEE]" value="{$info.TRAFICC_FEE|setMoney=###,2,2}" class="doubles required ws10" maxlength="5"/>　元
+				</p>
+				<p>
+					<label>地市子公司收益比例：</label>
+					<input type="text" name="post[ISS_PARTNER_FEE1]" value="{$info.ISS_PARTNER_FEE1|setMoney=###,2,2}" class="doubles required ws10" maxlength="5"/>　元
+				</p>
+				<p></p>
+				<p>
+					<label>区县服务中心收益比例：</label>
+					<input type="text" name="post[ISS_PARTNER_FEE2]" value="{$info.ISS_PARTNER_FEE2|setMoney=###,2,2}" class="doubles required ws10" maxlength="5"/>　元
+				</p>
+				<p></p>
+				<p>
+					<label>创业合伙人收益比例：</label>
+					<input type="text" name="post[ISS_PARTNER_FEE3]" value="{$info.ISS_PARTNER_FEE3|setMoney=###,2,2}" class="doubles required ws10" maxlength="5"/>　元
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>

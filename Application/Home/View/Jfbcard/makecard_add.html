@@ -1,0 +1,85 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="makecard[submit]" value="__ACTNAME__">
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="jfbmake">
+				<div class="title"><font color="red" node-type="company_name">{$homedata['BRANCH_MAP_ID']|get_branch_name=###}</font>　制卡申请单</div>
+				<div class="jname">
+					<a>申请日期：{:Date('Y-m-d')}</a>
+					<a class="f_r">制卡批次：{$last_card_batch+1}</a>
+					<div class="clear"></div>
+				</div>
+				<div class="jfbkuai">
+					<div class="content50">
+						<p class="jfb_sel">
+							<label>申请公司</label>
+							{:get_level_sel($postdata['bid'],'-1','makepid[]',$postdata['pid'],0,1)}
+						</p>
+						<p>
+							
+						</p>
+						<p class="jfb_input" style="width:100%;">
+							<label>制卡数量</label>
+							<input type="text" name="makecard[CARD_NUM]" value="1" min='1' max='10000' maxlength="5"/>　张
+							<font color="red">（一批最多10000张）</font>
+						</p>
+						<p class="jfb_line"></p>
+						<p>起始卡号：9566　8830　<span node-type="startnum">{$last_card_sn}</span></p>
+						<p>结束卡号：9566　8830　<span node-type="endnum">{$last_card_sn1}</span></p>
+						<input type="hidden" name="makecard[CARD_BEGIN]" value="95668830{$beginnum}">
+						<input type="hidden" name="makecard[CARD_END]" value="95668830{$endnum}">
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="bzhu">
+					备注<input type="text" name="makecard[RES]" value="" maxlength="30"/>
+					操作人：{$Think.session.HOME.USER_NAME}
+				</div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>	
+	<script type="text/javascript">
+		//选择分公司改变头标题
+		$('select[name="makepid[]"]').on('change',function(){
+			var company_name = $(this).find('option:selected').text();
+			$('font[node-type="company_name"]').html(company_name);
+		})
+		//补0
+		function PrefixInteger(num, length) {  
+			return (Array(length).join('0') + num).slice(-length);  
+		}
+		//去空格
+		function Trim(str,is_global)
+        {
+            var result;
+            result = str.replace(/(^\s+)|(\s+$)/g,"");
+            if(is_global.toLowerCase()=="g")
+            {
+                result = result.replace(/\s/g,"");
+             }
+            return result;
+		}
+		$('input[name="makecard[CARD_NUM]"]').on('keyup',function(){
+			var confignum= "95668830",		//默认固定卡号前8位
+				inputnum = $(this).val(),	//输入制卡数量
+				startnum = Trim($('span[node-type="startnum"]').text(),'g');	//起始卡号
+				if (!inputnum) {inputnum = 1};
+			var endnum = parseInt(inputnum) + parseInt(startnum - 1);			//结束卡号
+
+			var numstr = PrefixInteger(endnum,8);
+			str1=numstr.substring(0,4);
+			str2=numstr.substring(4,8);
+			var res = str1+'　'+str2;
+			$('span[node-type="endnum"]').text(res);
+			$('input[name="makecard[CARD_BEGIN]"]').val(confignum + startnum);
+			$('input[name="makecard[CARD_END]"]').val(confignum + numstr);
+		})
+		//每4位空格分隔
+	</script>
+</div>

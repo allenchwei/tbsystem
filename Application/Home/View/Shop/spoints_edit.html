@@ -1,0 +1,27 @@
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<input type="hidden" name="post[SHOP_MAP_ID]" value="{$scfg_info.SHOP_MAP_ID}">
+		<!-- <p style="width: 100%">
+			<label>运营分润是否特殊：</label>
+			<span class="shop_s"><label><input type="radio" checked name="post[RAKE_FLAG]" value="0" <eq name="scfg_info[RAKE_FLAG]" value="0">checked</eq> node-type="other_flag">否</label></span>
+			<span class="shop_s"><label style="width:50px;"><input type="radio" name="post[RAKE_FLAG]" value="1" <eq name="scfg_info[RAKE_FLAG]" value="1">checked</eq> node-type="other_flag">是</label></span>
+			<span style="color:#999;">(会员与平台分润比例;正常分配比例 50%:50%)</span>
+		</p> -->
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content100">
+				<p class="p_11 err_offset_6">
+					<label>积分兑换比例：</label>
+					<code>100元 = </code><input type="text" name="post[BOUND_RATE]" value="{$scfg_info.BOUND_RATE|default='50'}" class="required doubles ws10" min="0" maxlength="5">　积分
+				</p>
+				<div class="clear"></div>
+			</div>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>

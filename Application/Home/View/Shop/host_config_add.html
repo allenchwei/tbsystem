@@ -1,0 +1,166 @@
+<style>
+.er1 .error{left:125px}
+.er2 .error{left:255px}
+.er2 p{text-align:right;}
+.er2 p label{float:none;}
+.rate .kl span.error{left: 69px;}
+.rate .xz span.error{left:250px}
+.jies2 .xz span.error{left:280px}
+</style>
+<div class="pageContent">
+	<form action="__ACTION__/navTabId/__CONNAME__" method="post" name="form" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<input type="hidden" name="post[submit]" value="__ACTNAME__">
+		<gt name="info.ID" value="0">
+			<input type="hidden" name="post[ID]" value="{$info.ID}">
+		</gt>
+		<div class="pageFormContent" layoutH="{$Think.config.tk_max_add_lay}">
+			<div class="content30">
+				<p style="width:100%;">
+					<label>类型：</label>
+					<select name="post[TYPE]" onchange="getsel()">
+						<option value="0">请选择</option>
+						<volist name="config_list" id="vo">
+						<option value="{$vo[id]}" <if condition="$info[TYPE] eq $vo[id]">selected</if>>{$vo[name]}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:100%;" class="stype">
+					<label>子类型：</label>
+				</p>
+				<p style="width:100%;">
+					<label>支付路由：</label>
+					<select name="post[HOST_MAP_ID]">
+						<volist name="host_list" id="vo">
+						<option value="{$vo[HOST_MAP_ID]}" <if condition="$info[HOST_MAP_ID] eq $vo[HOST_MAP_ID]">selected</if>>{$vo[HOST_NAME]}</option>
+						</volist>
+					</select>
+				</p>
+				<p style="width:100%;">
+					<label>状态：</label>
+					<input type="radio" name="post[STATUS]" value="0" checked/>启用
+					<input type="radio" name="post[STATUS]" value="1"/>关闭
+				</p>
+				<div class="clear"></div>
+			</div>		
+		</div>
+		<div class="rate" style="display:none">
+			<volist name="rate_list" id="vo">
+			<option value="{$vo[FEE]}" <if condition="$info[STYPE] eq $vo[FEE]">selected</if>>{$vo[FEE]}</option>
+			</volist>
+		</div>
+		<div class="formBar">
+			<div class="f_r">
+				<button class="ch-btn-skin ch-btn-small ch-icon-ok">确 定</button>
+				<button class="ch-btn-skin ch-btn-small ch-icon-remove close">取 消</button>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+$(document).ready(function(){
+	var type = $('select[name="post[TYPE]"]').val();
+	if(type != 0){
+		getsel();
+		<!-- if(type == 3){ -->
+			<!-- getssel(type); -->
+		<!-- } -->
+	}
+});
+function getsel(){
+	var type = $('select[name="post[TYPE]"]').val();
+	var html = '<label>子类型：</label>';
+	switch(type){
+		case '1':
+			html += '<select name="post[STYPE]">'+
+					'	<option value="1" <if condition="$info[STYPE] eq 1">selected</if>>每日</option>'+
+					'	<option value="2" <if condition="$info[STYPE] eq 2">selected</if>>每周</option>'+
+					'	<option value="3" <if condition="$info[STYPE] eq 3">selected</if>>每月</option>'+
+					'</select>';
+			html += '<input class="input01 textInput" value="{$info.VAL}" type="number" name="post[VAL]"/>笔';
+		break;
+		case '2':
+			html += '<select name="post[STYPE]">'+
+					'	<option value="4" <if condition="$info[STYPE] eq 4">selected</if>>每笔</option>'+
+					'	<option value="1" <if condition="$info[STYPE] eq 1">selected</if>>每日</option>'+
+					'	<option value="2" <if condition="$info[STYPE] eq 2">selected</if>>每周</option>'+
+					'	<option value="3" <if condition="$info[STYPE] eq 3">selected</if>>每月</option>'+
+					'</select>';
+			html += '<input class="input01 textInput" value="{$info.VAL}" type="number" name="post[VAL]"/>元';
+		break;
+		case '3':
+			html += '<select name="post[STYPE]" onchange="getssel(\''+type+'\')">'+
+					'	<option value="1" <if condition="$info[STYPE] eq 1">selected</if>>每日</option>'+
+			//		'	<option value="2" <if condition="$info[STYPE] eq 2">selected</if>>每周</option>'+
+			//		'	<option value="3" <if condition="$info[STYPE] eq 3">selected</if>>每月</option>'+
+					'</select>';
+			var val = '{$info[VAL]}';
+			var valArr = ['01:00-05:00','05:00-08:00','08:00-13:00','13:00-18:00','18:00-24:00'];
+			html += '<select name="post[VAL]">';
+			for(var i=0;i<5;i++){
+				if(val == valArr[i]){
+					html += '<option selected value="'+valArr[i]+'">'+valArr[i]+'</option>';
+				}else{
+					html += '<option value="'+valArr[i]+'">'+valArr[i]+'</option>';
+				}
+			}
+			html += '</select>';
+		break;
+		case '4':
+			html += '<select name="post[STYPE]">';
+			html += $('.rate').html();
+			html += '</select>';
+		break;
+		case '5':
+			html += '<select name="post[STYPE]">'+
+					'	<option value="1" <if condition="$info[STYPE] eq 1">selected</if>>医疗</option>'+
+					'	<option value="2" <if condition="$info[STYPE] eq 2">selected</if>>餐饮</option>'+
+					'	<option value="3" <if condition="$info[STYPE] eq 3">selected</if>>生活服务</option>'+
+					'	<option value="4" <if condition="$info[STYPE] eq 4">selected</if>>购物</option>'+
+					'	<option value="5" <if condition="$info[STYPE] eq 5">selected</if>>旅游出行</option>'+
+					'	<option value="6" <if condition="$info[STYPE] eq 6">selected</if>>休闲娱乐</option>'+
+					'	<option value="7" <if condition="$info[STYPE] eq 7">selected</if>>汽车服务</option>'+
+					'	<option value="8" <if condition="$info[STYPE] eq 8">selected</if>>其他</option>'+
+					'</select>';
+		break;
+		case '6':
+			html += '<input name="post[STYPE]" value="1" type="hidden"/>T+<input value="{$info.VAL}" type="number" name="post[VAL]"/>';
+		break;
+	}
+	$('.stype').html(html);
+}
+function getssel(type){
+	var stype = '';
+	var html = '';
+	switch(type){
+		case '3':
+			stype = $('select[name="post[STYPE]"]').val();
+			$('select[name="post[VAL]"]').remove();
+			$('span.val').remove();
+			if(stype == 1){
+				html += '<select name="post[VAL]">'+
+						'	<option value="01:00-05:00">01:00-05:00</option>'+
+						'	<option value="05:00-08:00">05:00-08:00</option>'+
+						'	<option value="08:00-13:00">08:00-13:00</option>'+
+						'	<option value="13:00-18:00">13:00-18:00</option>'+
+						'	<option value="18:00-24:00">18:00-24:00</option>'+
+						'</select>';
+			}else if(stype == 2){
+				html += '<span class="val"><input type="checkbox" name="post[VAL]" value="1"/>周一'+
+						'<input type="checkbox" name="post[VAL]" value="2"/>周二'+
+						'<input type="checkbox" name="post[VAL]" value="3"/>周三'+
+						'<input type="checkbox" name="post[VAL]" value="4"/>周四'+
+						'<input type="checkbox" name="post[VAL]" value="5"/>周五'+
+						'<input type="checkbox" name="post[VAL]" value="6"/>周六'+
+						'<input type="checkbox" name="post[VAL]" value="0"/>周日</span>';
+			}else{
+				html += '<select name="post[VAL]">';
+				for(var i=1;i<=31;i++){
+					html +=	'<option value="'+i+'号">'+i+'号</option>';
+				}
+				html += '</select>';
+			}
+			$('select[name="post[STYPE]"]').after(html);
+		break;
+	}
+}
+</script>
